@@ -1,8 +1,33 @@
 # Pra Tim-14 Quick Look
+## Assignment
+### PRA Tim-14 Solution
+- Navbar.ascx | **Luka**
+#### Author Forms
+- StartPage.aspx | **Adelisa**
+- Register.aspx | **Adelisa**
+- Login.aspx | **Adelisa**
+- HomePage.aspx | **Adelisa**
+- ProfilePage.aspx | **Adelisa**
+- Table.aspx | **Dino**
+    - QuizList.ascx | **Dino**
+    - LogList.ascx | **Dino**
+    - SingleLog.ascx | **Dino**
+- QuizCreation.aspx | **Luka**
+#### Attendee forms
+- GameStartPage.aspx | **Marko**
+    - CodeEntry.ascx | **Marko**
+    - UserNameEntry.ascx | **Marko**
+- WaitingRoom.aspx | **Marko**
+- WaitingForResults.aspx | **Fran**
+- Results.aspx | **Fran**
+- EndOfQuiz.aspx | **Fran**
+- QuizQuestion.aspx | **Fran**
+#### Database
+- Creating Tables | **Luka**
+- Creating Procedures | **Luka**
+
 ## Status
 ### PRA Tim-14 Solution
-- [ ] Code
-- [ ] Style
 - Navbar.ascx | **User Control** 
 - [ ] Code
 - [ ] Style
