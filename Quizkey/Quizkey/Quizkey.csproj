@@ -68,13 +68,46 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="LogList.ascx" />
+    <Content Include="QuizList.ascx" />
+    <Content Include="Readme-dino.txt" />
+    <Content Include="SingleLog.ascx" />
+    <Content Include="Table.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="LogList.ascx.cs">
+      <DependentUpon>LogList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LogList.ascx.designer.cs">
+      <DependentUpon>LogList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuizList.ascx.cs">
+      <DependentUpon>QuizList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QuizList.ascx.designer.cs">
+      <DependentUpon>QuizList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SingleLog.ascx.cs">
+      <DependentUpon>SingleLog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SingleLog.ascx.designer.cs">
+      <DependentUpon>SingleLog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Table.aspx.cs">
+      <DependentUpon>Table.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Table.aspx.designer.cs">
+      <DependentUpon>Table.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
