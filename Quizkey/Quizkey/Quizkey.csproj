@@ -67,14 +67,47 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CodeEntry.ascx" />
+    <Content Include="GameStartPage.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Readme-marko.txt" />
+    <Content Include="UserNameEntry.ascx" />
+    <Content Include="WaitingRoom.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeEntry.ascx.cs">
+      <DependentUpon>CodeEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CodeEntry.ascx.designer.cs">
+      <DependentUpon>CodeEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="GameStartPage.aspx.cs">
+      <DependentUpon>GameStartPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GameStartPage.aspx.designer.cs">
+      <DependentUpon>GameStartPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserNameEntry.ascx.cs">
+      <DependentUpon>UserNameEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserNameEntry.ascx.designer.cs">
+      <DependentUpon>UserNameEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WaitingRoom.aspx.cs">
+      <DependentUpon>WaitingRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WaitingRoom.aspx.designer.cs">
+      <DependentUpon>WaitingRoom.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
