@@ -1,20 +1,35 @@
-import os
+from os import remove
+
 
 def generateVariables(table):
-
     store = []
     for row in table:
         store.append(f'@{row} {table[row]}')
     store[0] += " OUTPUT"
-    return ",\n\t".join(store)
+    local = ",\n\t".join(store)
+    local = local.replace(",,", ",")
+    local = local.removesuffix(",")
+    return local
 
-def generateRowHeaders(table, prefix = ""):
-    return prefix +f',\n\t{prefix}'.join(table.keys()) 
+
+def generateRowHeaders(table, prefix="", skipID=True):
+    keys = list(table.keys())
+    if skipID == True:
+        for key in keys:
+            if key.strip().startswith("ID"):
+                keys.remove(key)
+    return prefix + f',\n\t{prefix}'.join(keys)
+
 
 def getColumnID(table):
     for row in table:
         if row.strip().startswith("ID"):
             return row.strip()
+
+def removecomma(word):
+    word.removeprefix(",")
+    word.removesuffix(",")
+    return word
 
 sqlfile = open("database.sql")
 
@@ -33,8 +48,8 @@ for line in sqlfile.readlines():
     if inTable:
         if text.startswith("constraint"):
             continue
-        variableName = line[0]
-        variableType = line[1]
+        variableName = removecomma(line[0])
+        variableType = removecomma(line[1])
         if (tableName not in variables):
             variables[tableName] = {}
         variables[tableName][variableName] = variableType
@@ -49,7 +64,7 @@ CREATE PROCEDURE proc_create_{}
 	{}
 AS
 BEGIN
-INSERT INTO Customer  (
+INSERT INTO {}  (
     {})
     VALUES (
     {})
@@ -58,7 +73,14 @@ SET @{} = SCOPE_IDENTITY()
 END"""
 
 for table in variables:
-    print(50*"-" + f'proc_create_{table}' +  50*"-")
+    print(50*"-" + f'proc_create_{table}' + 50*"-")
     print(output.format(
-        table, table, table, generateVariables(variables[table]), generateRowHeaders(variables[table]), generateRowHeaders(variables[table], "@"), getColumnID(variables[table])
+        table,
+        table,
+        table,
+        generateVariables(variables[table]),
+        table,
+        generateRowHeaders(variables[table], skipID=True),
+        generateRowHeaders(variables[table], "@", True),
+        getColumnID(variables[table])
     ))
