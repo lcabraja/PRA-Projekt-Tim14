@@ -208,6 +208,7 @@ def crud_delete(table):
         getColumnID(variables[table])
     ))
 
+print("USE Quizkey\nGO")
 for table in variables:
     prettyprintdividors("create", table)
     crud_create(table)

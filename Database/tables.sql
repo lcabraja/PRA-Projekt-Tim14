@@ -1,16 +1,17 @@
-IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'Quizkey')
-	BEGIN
-		CREATE DATABASE Quizkey
-	END
-ELSE
-
+IF OBJECT_ID('Quizkey') IS NOT NULL
+BEGIN
+    USE master
+    DROP DATABASE Quizkey
+END
+GO
+CREATE DATABASE Quizkey
+GO
 -- Creating tables
-	
 USE Quizkey
 GO
 IF OBJECT_ID('Author') IS NOT NULL
 BEGIN
-        DROP TABLE Author
+	DROP TABLE Author
 END
 CREATE TABLE Author (
 	IDAuthor int identity(1,1),
@@ -22,17 +23,18 @@ CREATE TABLE Author (
 GO
 IF OBJECT_ID('Quiz') IS NOT NULL
 BEGIN
-        DROP TABLE Quiz
+	DROP TABLE Quiz
 END
 CREATE TABLE Quiz (
 	IDQuiz int identity(1,1),
+	AuthorID int not null,
 	QuizName varchar(256) not null
 	constraint pk_IDQuiz primary key clustered (IDQuiz)
 )
 GO
 IF OBJECT_ID('QuizQuestion') IS NOT NULL
 BEGIN
-        DROP TABLE QuizQuestion
+	DROP TABLE QuizQuestion
 END
 CREATE TABLE QuizQuestion (
 	IDQuizQuestion int identity(1,1),
@@ -47,7 +49,7 @@ CREATE TABLE QuizQuestion (
 GO
 IF OBJECT_ID('QuizAnswer') IS NOT NULL
 BEGIN
-        DROP TABLE QuizAnswer
+	DROP TABLE QuizAnswer
 END
 CREATE TABLE QuizAnswer (
 	IDQuizAnswer int identity(1,1),
@@ -60,7 +62,7 @@ CREATE TABLE QuizAnswer (
 GO
 IF OBJECT_ID('QuizSession') IS NOT NULL
 BEGIN
-        DROP TABLE QuizSession
+	DROP TABLE QuizSession
 END
 CREATE TABLE QuizSession (
 	IDQuizSession int identity(1,1),
@@ -73,7 +75,7 @@ CREATE TABLE QuizSession (
 GO
 IF OBJECT_ID('Attendee') IS NOT NULL
 BEGIN
-        DROP TABLE Attendee
+	DROP TABLE Attendee
 END
 CREATE TABLE Attendee (
 	IDAttendee int identity(1,1),
@@ -85,7 +87,7 @@ CREATE TABLE Attendee (
 GO
 IF OBJECT_ID('LogItem') IS NOT NULL
 BEGIN
-        DROP TABLE LogItem
+	DROP TABLE LogItem
 END
 CREATE TABLE LogItem (
 	IDLogItem int identity(1,1),
@@ -100,3 +102,16 @@ CREATE TABLE LogItem (
 	constraint fk_LogItem_Attendee foreign key (AttendeeID) references Attendee(IDAttendee),
 	constraint pk_IDLogItem primary key clustered (IDLogItem)
 )
+GO
+IF OBJECT_ID('RecentQuiz') IS NOT NULL
+BEGIN
+	DROP TABLE RecentQuiz
+END
+CREATE TABLE RecentQuiz (
+	IDRecentQuiz int identity(1,1),
+	QuizID int not null,
+	LastEvent datetimeoffset not null
+	constraint fk_RecentQuiz_Quiz foreign key (QuizID) references Quiz(IDQuiz),
+	constraint pk_IDRecentQuiz primary key clustered (IDRecentQuiz)
+)
+GO

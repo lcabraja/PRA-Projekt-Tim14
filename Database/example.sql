@@ -1,3 +1,4 @@
+USE Quizkey
 --------------------------------------------------------examples--------------------------------------------------------
 --Author
 DECLARE @IDAuthor int
@@ -5,7 +6,7 @@ EXEC proc_create_Author @IDAuthor OUT, "lcabraja", "12345678", "luka@cabraja.eu"
 SELECT * FROM Author WHERE IDAuthor = @IDAuthor
 --Quiz
 DECLARE @IDQuiz int
-EXEC proc_create_Quiz @IDQuiz, "Have you been outside?"
+EXEC proc_create_Quiz @IDQuiz OUT, @IDAuthor, "Have you been outside?"
 SELECT * FROM Quiz WHERE IDQuiz = @IDQuiz
 --QuizQuestion
 DECLARE @IDQuizQuestion int
@@ -31,3 +32,9 @@ SELECT * FROM Attendee WHERE IDAttendee = @IDAttendee
 DECLARE @IDLogItem int
 EXEC proc_create_LogItem @IDLogItem OUT, @IDQuizSession, @IDQuizQuestion, @IDQuizAnswer1, @IDAttendee, 1000
 SELECT * FROM LogItem WHERE IDLogItem = @IDLogItem
+--RecentQuiz
+DECLARE @IDRecentQuiz int
+DECLARE @LastEvent datetimeoffset
+SELECT @LastEvent = SYSDATETIMEOFFSET()
+EXEC proc_create_RecentQuiz @IDRecentQuiz OUT, @IDQuiz, @LastEvent
+SELECT * FROM RecentQuiz WHERE IDRecentQuiz = @IDRecentQuiz
