@@ -8,7 +8,6 @@ using System.Web;
 
 namespace Quizkey.Models
 {
-    //return (int)SqlHelper.ExecuteScalar(cs, "proc_create_Author", "Username", "password", "Email"); //returns id of newly created row
     public static class Repo
     {
         private static string cs = ConfigurationManager.ConnectionStrings["cloud"].ConnectionString;
