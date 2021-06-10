@@ -12,7 +12,7 @@ namespace Quizkey
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Repo.GetAuthor("aa").ForEach(x => Response.Write($"{x.Email} ## {x.Username} ## {x.PasswordHash} @ {x.IDAuthor}<br />"));
+            Repo.GetMultipleAuthor().ForEach(x => Response.Write(x.ToString() + "<br />"));
         }
     }
 }

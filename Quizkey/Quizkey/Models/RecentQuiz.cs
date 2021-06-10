@@ -11,6 +11,9 @@ namespace Quizkey.Models
         public int IDRecentQuiz { get; set; }
         public int QuizID { get; set; }
         public DateTimeOffset LastEvent { get; set; }
+        public override string ToString() =>
+                $"IDRecentQuiz: {IDRecentQuiz}, QuizID: {QuizID}, LastEvent: {LastEvent}";
+
         // override object.Equals
         public override bool Equals(object obj)
         {

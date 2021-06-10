@@ -11,6 +11,9 @@ namespace Quizkey.Models
         public int IDAttendee { get; set; }
         public string Username { get; set; }
         public int SessionID { get; set; }
+        public override string ToString() =>
+                $"IDAttendee: {IDAttendee}, Username: {Username}, SessionID: {SessionID}";
+
 
         // override object.Equals
         public override bool Equals(object obj)

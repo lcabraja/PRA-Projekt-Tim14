@@ -12,6 +12,9 @@ namespace Quizkey.Models
         public int QuizQuestionID { get; set; }
         public string AnswerText { get; set; }
         public string QuestionOrder { get; set; }
+        public override string ToString() =>
+                $"IDQuizAnswer: {IDQuizAnswer}, QuizQuestionID: {QuizQuestionID}, AnswerText: {AnswerText}, QuestionOrder: {QuestionOrder}";
+
         // override object.Equals
         public override bool Equals(object obj)
         {

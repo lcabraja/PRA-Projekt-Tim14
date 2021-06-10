@@ -12,6 +12,9 @@ namespace Quizkey.Models
         public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string Email { get; set; }
+        public override string ToString() =>
+                $"IDAuthor: {IDAuthor}, Username: {Username}, PasswordHash: {PasswordHash}, Email: {Email}";
+
         // override object.Equals
         public override bool Equals(object obj)
         {

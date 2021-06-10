@@ -13,15 +13,8 @@ def prettyprintdividors(table):
 def generateProps(table):
     store = []
     for row in table:
-        vartype = ""
-        if table[row] == "int":
-            vartype = "int"
-        elif table[row].startswith("datetime"):
-            vartype = "DateTime"
-        else:
-            vartype = "string"
-        store.append(f'public {vartype} {row} {{ get; set; }}')
-    return "\n        ".join(store)
+        store.append(f'{row}: {{{row}}}')
+    return ", ".join(store)
 
 def getColumnID(table):
     for row in table:
@@ -96,4 +89,4 @@ for table in variables:
 #    print(f'''\
 #if ({table.lower()}Cache.Contains(new {table} {{ {getColumnID(variables[table])} = {getColumnID(variables[table])} }}))
 #    return {table.lower()}Cache.Find(x => x.{getColumnID(variables[table])} == {getColumnID(variables[table])});''')
-    print(f'{table.lower()}Cache = collection;')
+    print(f'\npublic override string ToString() =>\n\t\t$"{generateProps(variables[table])}";\n')
