@@ -1,0 +1,166 @@
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+:root {
+  --sveBlue: #00a0e3;
+  --dark-blue: #00202e;
+  --trans-black: rgba(0, 0, 0, 0.35);
+
+  --black: #1d1d1f;
+}
+
+/*
+========================================================================== */
+/*desktop*/
+/* ========================================================================== */
+/*NAVIGATION BAR*/
+.navbar-custom {
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--black);
+}
+.logo {
+  height: 55px;
+  width: auto;
+  margin-left: 10vw;
+}
+.nav-links {
+  position: absolute;
+  right: 10%;
+  display: flex;
+  justify-content: space-around;
+  width: 25%;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.nav-links li {
+  text-align: center;
+  list-style: none;
+  padding: 20px;
+}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-weight: bold;
+  white-space: nowrap;
+  font-size: 1rem;
+  transition: all 0.1s ease;
+}
+.nav-links a:hover {
+  color: var(--sveBlue);
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+.burger {
+  display: none;
+  /* makes your curser into a pointer */
+  cursor: pointer;
+}
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 3px;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 1024px) {
+  body {
+    /*hides x overflow/navbar*/
+    overflow-x: hidden;
+  }
+
+  /*NAVIHATION BAR SETTING WHEN IN MOBILE VIEW*/
+  .nav-links {
+    position: absolute;
+    right: 0;
+    height: auto;
+    top: 80px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 255px;
+    transform: translateX(150%);
+    transition: transform 0.4s ease-in;
+    background-color: var(--black);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.35);
+  }
+  .nav-links li {
+    opacity: 0;
+  }
+  .burger {
+    display: block;
+    position: absolute;
+    right: 10%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    /*hides x overflow/navbar*/
+    overflow-x: hidden;
+  }
+
+  /*NAVIHATION BAR SETTING WHEN IN MOBILE VIEW*/
+  .nav-links {
+    position: absolute;
+    right: 0;
+    height: auto;
+    top: 80px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 180px;
+    transform: translateX(150%);
+    transition: transform 0.4s ease-in;
+    background-color: var(--black);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.35);
+  }
+  .nav-links li {
+    opacity: 0;
+  }
+  .burger {
+    display: block;
+    position: absolute;
+    right: 10%;
+  }
+  .logo {
+    height: 42px;
+  }
+}
+
+/*animation for burger toogle*/
+/* ========================================================================== */
+.toggle .line1 {
+  transform: rotate(-45deg) translate(-12px, -4px);
+}
+.toggle .line2 {
+  opacity: 0;
+}
+.toggle .line3 {
+  transform: rotate(45deg) translate(-12px, 4px);
+}
+.nav-active {
+  transform: translateX(0%);
+}
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+/* ========================================================================== */
