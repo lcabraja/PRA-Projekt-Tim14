@@ -1,4 +1,4 @@
-def prettyprintdividors(crud, table):
+def prettyprintdividors(table):
     tmp = f'{table}'
     left = 60 - round((len(tmp) / 2))
     right = 60 - round((len(tmp) / 2))
@@ -7,17 +7,14 @@ def prettyprintdividors(crud, table):
     round(left)
     print("//" + left*"-" + tmp + right*"-")
 
-def generateProps(table):
+#{table.lower()}.{getColumnID(table)}, {table.lower()}.Username, {table.lower()}.PasswordHash, {table.lower()}.Email
+def generateProps(title, table, skip):
+    lower = title.lower()
     store = []
     for row in table:
-        vartype = ""
-        if table[row] == "int":
-            vartype = "int"
-        elif table[row].startswith("datetime"):
-            vartype = "DateTime"
-        else:
-            vartype = "string"
-        store.append(f'{vartype} {row}')
+        if skip and row.startswith("ID"):
+            continue
+        store.append(f'{lower}.{row}')
     return ", ".join(store)
 
 def getColumnID(table):
@@ -53,64 +50,37 @@ for line in sqlfile.readlines():
             variables[tableName] = {}
         variables[tableName][variableName] = variableType
 
-repoGetOne = """\
-public static List<{}> Get{}(int {})
-    {
-        List<{}> collection = new List<{}>();
-        DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_{}}", {}, {}, {}, {}, {});
-        foreach (DataRow row in ds.Tables[0].Rows)
-        {
-            collection.Add(Get{}FromDataRow(row));
-        }
-        return collection;
-    }
-"""
-
-repoGetOne = """\
-public static List<{}> Get{}(int {})
-    {
-        List<{}> collection = new List<{}>();
-        DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_{}}", {});
-        foreach (DataRow row in ds.Tables[0].Rows)
-        {
-            collection.Add(Get{}FromDataRow(row));
-        }
-        return collection;
-    }
-"""
-
-repoGetMultiple = """\
-public static List<{}> GetMultiple{}()
-    {
-        List<{}> collection = new List<{}>();
-        DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_{}}");
-        foreach (DataRow row in ds.Tables[0].Rows)
-        {
-            collection.Add(Get{}FromDataRow(row));
-        }
-        return collection;
-    }
-"""
-
-repoGetMultiple = """\
-public static List<{}> GetMultiple{}()
-    {
-        List<{}> collection = new List<{}>();
-        DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_{}}");
-        foreach (DataRow row in ds.Tables[0].Rows)
-        {
-            collection.Add(Get{}FromDataRow(row));
-        }
-        return collection;
-    }
-"""
-
-def model(table):
-    print(model.format(
-        table,
-        generateProps(variables[table])
-    ))
-
 for table in variables:
     prettyprintdividors(table)
-    model(table)
+    print(f'''
+public static int Create{table}({table} {table.lower()}) =>
+    (int)SqlHelper.ExecuteScalar(cs, "proc_create_{table}", {generateProps(table, variables[table], True)});
+
+public static {table} Get{table}(int {getColumnID(table)})
+{{
+    List<{table}> collection = new List<{table}>();
+    DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_{table}", {getColumnID(table)});
+    return Get{table}FromDataRow(ds.Tables[0].Rows[0]);
+}}
+
+public static List<{table}> GetMultiple{table}()
+{{
+    List<{table}> collection = new List<{table}>();
+    DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_{table}");
+    foreach (DataRow row in ds.Tables[0].Rows)
+    {{
+        collection.Add(Get{table}FromDataRow(row));
+    }}
+    return collection;
+}}
+
+public static void Update{table}({table} {table.lower()})
+{{
+    SqlHelper.ExecuteDataset(cs, "proc_update_{table}", {generateProps(table, variables[table], False)});
+}}
+
+public static void Delete{table}(int {getColumnID(table)})
+{{
+    SqlHelper.ExecuteDataset(cs, "proc_delete_{table}", {getColumnID(table)});
+}}
+''')

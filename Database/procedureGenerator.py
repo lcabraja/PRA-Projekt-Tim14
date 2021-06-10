@@ -18,8 +18,9 @@ def generateUpdateString(table):
 def generateVariables(table):
     store = []
     for row in table:
+        if row.startswith("ID"):
+            continue
         store.append(f'@{row} {table[row]}')
-    store[0] += " OUTPUT"
     local = ",\n    ".join(store)
     local = local.replace(",,", ",")
     local = local.removesuffix(",")
@@ -96,7 +97,7 @@ BEGIN
 INSERT INTO {}
     VALUES ({})
  
-SET @{} = SCOPE_IDENTITY()
+SELECT SCOPE_IDENTITY() AS {}
 END
 GO"""
 

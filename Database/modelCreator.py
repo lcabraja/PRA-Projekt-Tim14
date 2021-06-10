@@ -1,4 +1,6 @@
-def prettyprintdividors(crud, table):
+import os
+
+def prettyprintdividors(table):
     tmp = f'{table}'
     left = 60 - round((len(tmp) / 2))
     right = 60 - round((len(tmp) / 2))
@@ -6,6 +8,7 @@ def prettyprintdividors(crud, table):
         right += 1
     round(left)
     print("//" + left*"-" + tmp + right*"-")
+    return("//" + left*"-" + tmp + right*"-")
 
 def generateProps(table):
     store = []
@@ -17,8 +20,8 @@ def generateProps(table):
             vartype = "DateTime"
         else:
             vartype = "string"
-        store.append(f'{vartype} {row}')
-    return ", ".join(store)
+        store.append(f'public {vartype} {row} {{ get; set; }}')
+    return "\n        ".join(store)
 
 def getColumnID(table):
     for row in table:
@@ -31,6 +34,13 @@ def removecomma(word):
     return word
 
 sqlfile = open("tables.sql")
+folder = os.path.join(os.getcwd(), "Models")
+
+def printToFile(string, classname):
+    writing = open(os.path.join(folder, f'{classname}.cs'), 'w')
+    writing.write(string)
+    writing.close()
+
 
 variables = {}
 inTable = False
@@ -53,24 +63,37 @@ for line in sqlfile.readlines():
             variables[tableName] = {}
         variables[tableName][variableName] = variableType
 
-model = """\
-{
+modelstring = """\
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Quizkey.Models
+{{
+    {}
     public class {}
-    {
-        public {} { get; set; }
-        public {} { get; set; }
-        public {} { get; set; }
-        public {} { get; set; }
-        public {} { get; set; }
-    }
-}"""
+    {{
+        {}
+    }}
+}}
+"""
+
 
 def model(table):
-    print(model.format(
+    printToFile(modelstring.format(
+        prettyprintdividors(table),
         table,
         generateProps(variables[table])
-    ))
+    ), table)
 
 for table in variables:
+    #model(table) # generates files for model
     prettyprintdividors(table)
-    model(table)
+    #print(f'private static {table} Get{table}FromDataRow(DataRow row)\n{{')
+    #print("        " + generateProps(variables[table]))
+    #print(f'private static List<{table}> {table.lower()}Cache = null;')
+#    print(f'''\
+#if ({table.lower()}Cache.Contains(new {table} {{ {getColumnID(variables[table])} = {getColumnID(variables[table])} }}))
+#    return {table.lower()}Cache.Find(x => x.{getColumnID(variables[table])} == {getColumnID(variables[table])});''')
+    print(f'{table.lower()}Cache = collection;')
