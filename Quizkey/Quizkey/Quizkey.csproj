@@ -74,6 +74,8 @@
   <ItemGroup>
     <Content Include="CodeEntry.ascx" />
     <Content Include="GameStartPage.aspx" />
+    <Content Include="CodeEntry.ascx" />
+    <Content Include="GameStartPage.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Readme-marko.txt" />
