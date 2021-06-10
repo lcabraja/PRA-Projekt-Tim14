@@ -56,10 +56,10 @@ for table in variables:
 public static int Create{table}({table} {table.lower()}) =>
     (int)SqlHelper.ExecuteScalar(cs, "proc_create_{table}", {generateProps(table, variables[table], True)});
 
-public static {table} Get{table}(int {getColumnID(table)})
+public static {table} Get{table}(int {getColumnID(variables[table])})
 {{
     List<{table}> collection = new List<{table}>();
-    DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_{table}", {getColumnID(table)});
+    DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_{table}", {getColumnID(variables[table])});
     return Get{table}FromDataRow(ds.Tables[0].Rows[0]);
 }}
 
@@ -79,8 +79,8 @@ public static void Update{table}({table} {table.lower()})
     SqlHelper.ExecuteDataset(cs, "proc_update_{table}", {generateProps(table, variables[table], False)});
 }}
 
-public static void Delete{table}(int {getColumnID(table)})
+public static void Delete{table}(int {getColumnID(variables[table])})
 {{
-    SqlHelper.ExecuteDataset(cs, "proc_delete_{table}", {getColumnID(table)});
+    SqlHelper.ExecuteDataset(cs, "proc_delete_{table}", {getColumnID(variables[table])});
 }}
 ''')
