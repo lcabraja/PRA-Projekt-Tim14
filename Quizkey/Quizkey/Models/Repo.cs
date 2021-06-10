@@ -21,7 +21,6 @@ namespace Quizkey.Models
         private static List<Attendee> attendeeCache = null;
         private static List<LogItem> logitemCache = null;
         private static List<RecentQuiz> recentquizCache = null;
-
         //---------------------------------------------------------Author---------------------------------------------------------
         public static int CreateAuthor(Author author)
         {
