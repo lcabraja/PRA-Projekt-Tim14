@@ -23,8 +23,8 @@
 - EndOfQuiz.aspx | **Fran**
 - QuizQuestion.aspx | **Fran**
 #### Database
-- Creating Tables | **Luka**
-- Creating Procedures | **Luka**
+- ~~Creating Tables | **Luka**~~
+- ~~Creating Procedures | **Luka**~~
 
 ## Status
 ### PRA Tim-14 Solution
