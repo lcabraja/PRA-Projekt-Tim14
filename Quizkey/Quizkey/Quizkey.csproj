@@ -67,14 +67,31 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Attendee.cs" />
+    <Compile Include="Models\Author.cs" />
+    <Compile Include="Models\LogItem.cs" />
+    <Compile Include="Models\Quiz.cs" />
+    <Compile Include="Models\QuizAnswer.cs" />
+    <Compile Include="Models\QuizQuestion.cs" />
+    <Compile Include="Models\QuizSession.cs" />
+    <Compile Include="Models\RecentQuiz.cs" />
     <Compile Include="Models\Repo.cs" />
+    <Compile Include="Models\SQLInsertException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
