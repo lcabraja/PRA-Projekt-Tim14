@@ -18,7 +18,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <uc1:_Navbar runat="server" ID="_Navbar" />
+            <uc1:_Navbar runat="server" Points="30" QuizCode="KFGHIK" ID="_Navbar" />
 
         </div>
     </form>

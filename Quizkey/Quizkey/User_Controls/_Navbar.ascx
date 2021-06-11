@@ -12,30 +12,39 @@
         border-top-left-radius: 0;
         display: inline;
     }
+
+    .qk-nav-input-group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+
+    .bi-door-closed:hover::before {
+        content: "\f308" !important;
+    }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:60px !important;">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/Default.aspx">Quizkey</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid justify-content-xl-between justify-content-lg-between">
+        <a class="navbar-brand text-secondary d-none d-sm-block" href="/Default.aspx">Quizkey</a>
+        <span id="welcomeText" class="navbar-brand me-auto" runat="server"></span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <div class="navbar-nav ms-auto mb-lg-0">
-                <div class="input-group" style="height:38px !important;">
-
-                <i class="d-inline-block text-light bg-primary border-primary input-group-text bi bi-translate qk-nav-left"></i>
-                <asp:Button ID="ToggleLanguage" CssClass="btn btn-primary qk-nav-right" Text="English" runat="server" />
+            <div id="navbarbutton" class="navbar-nav ms-auto mb-lg-0 mx-1 qk-nav-grid" runat="server">
+                <span id="quizcode" visible="false" class="text-secondary nav-link px-1 text-light" runat="server"></span>
+                <div id="navbarLinks" class="navbar-nav px-1" runat="server">
                 </div>
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="#">My Profile</a>
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <div class="qk-nav-input-group px-1">
+                    <i class="text-light bg-primary border-primary input-group-text bi bi-translate qk-nav-left"></i>
+                    <asp:Button ID="ToggleLanguage" CssClass="btn btn-primary qk-nav-right" Text="English" runat="server" />
+                </div>
+                <div id="logout" visible="false" class="qk-nav-input-group px-1" runat="server">
+                    <i class="text-light bg-danger border-danger input-group-text bi bi-door-closed qk-nav-left"></i>
+                    <asp:Button ID="Button1" CssClass="btn btn-danger qk-nav-right" Text="Logout" runat="server" />
+                </div>
             </div>
         </div>
     </div>
 </nav>
-
-<%--<form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>--%>

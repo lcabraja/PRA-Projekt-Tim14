@@ -12,6 +12,13 @@ cookie["loggedIn"] == "author" // Send to HomePage.aspx
 cookie["loggedIn"] == "attendee" // Send GameStartPage.aspx
 ```
 
+Self Explanatory
+```csharp
+
+cookie["language"] == "en" // English
+cookie["language"] == "hr" // Croatian
+```
+
 User name and identifier
 ```csharp
 cookie["userName"] // Used for all users

@@ -12,7 +12,15 @@ namespace Quizkey
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Repo.GetMultipleAuthor().ForEach(x => Response.Write(x.ToString() + "<br />"));
+            _Navbar.Points += 1;
+            if (Request.Cookies["UserState"] == null)
+            {
+
+            }
+            HttpCookie userState = new HttpCookie("UserState");
+            userState["loggedIn"] = "attendee";
+            userState["userName"] = "pero123";
+            Response.Cookies.Set(userState);
         }
     }
 }
