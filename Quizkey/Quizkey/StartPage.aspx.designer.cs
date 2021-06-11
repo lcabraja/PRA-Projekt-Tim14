@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace Quizkey
+namespace Projekt_za_PRA
 {
     public partial class StartPage
     {

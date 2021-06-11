@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Quizkey
+namespace Projekt_za_PRA
 {
     public partial class StartPage : System.Web.UI.Page
     {
