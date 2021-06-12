@@ -18,7 +18,6 @@
         flex-wrap: wrap;
         align-items: stretch;
     }
-
     .bi-door-closed:hover::before {
         content: "\f308" !important;
     }
@@ -27,7 +26,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid justify-content-xl-between justify-content-lg-between">
         <a class="navbar-brand text-secondary d-none d-sm-block" href="/Default.aspx">Quizkey</a>
-        <span id="welcomeText" class="navbar-brand me-auto" runat="server"></span>
+        <div id="welcomeText" class="navbar-brand p-0 me-auto d-flex justify-content-center align-content-center flex-nowrap" runat="server"></div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -38,11 +37,11 @@
                 </div>
                 <div class="qk-nav-input-group px-1">
                     <i class="text-light bg-primary border-primary input-group-text bi bi-translate qk-nav-left"></i>
-                    <asp:Button ID="ToggleLanguage" CssClass="btn btn-primary qk-nav-right" Text="English" runat="server" />
+                    <asp:Button ID="btToggleLanguage" OnClick="btToggleLanguage_Click" CssClass="btn btn-primary qk-nav-right" runat="server" />
                 </div>
                 <div id="logout" visible="false" class="qk-nav-input-group px-1" runat="server">
                     <i class="text-light bg-danger border-danger input-group-text bi bi-door-closed qk-nav-left"></i>
-                    <asp:Button ID="Button1" CssClass="btn btn-danger qk-nav-right" Text="Logout" runat="server" />
+                    <asp:Button ID="btLogOut" OnClick="btLogOut_Click" CssClass="btn btn-danger qk-nav-right" Text="Logout" runat="server" />
                 </div>
             </div>
         </div>
