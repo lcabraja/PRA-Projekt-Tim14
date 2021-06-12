@@ -8,8 +8,8 @@ HttpCookie userState = Request.Cookies["UserState"]
 
 cookie == null // Send to StartPage.aspx
 
-cookie["loggedIn"] == "author" // Send to HomePage.aspx
-cookie["loggedIn"] == "attendee" // Send GameStartPage.aspx
+cookie["loggedin"] == "author" // Send to HomePage.aspx
+cookie["loggedin"] == "attendee" // Send GameStartPage.aspx
 ```
 
 Self Explanatory
@@ -21,23 +21,22 @@ cookie["language"] == "hr" // Croatian
 
 User name and identifier
 ```csharp
-cookie["userName"] // Used for all users
-cookie["userID"] // Used only for authors
+cookie["username"] // Used for all users
+cookie["userid"] // Used only for authors
+```
+
+```csharp
+cookie["points"] // An integer ammount of points that the attendee has
+cookie["quizcode"] // The quizcode that the user is currently attending
 ```
 
 Quiz session identifier, should be empty if the user is not in a session
 ```csharp
-cookie["sessionID"] // Used for all users, when attending a quiz session
+cookie["sessionid"] // Used for all users, when attending a quiz session
 ```
 
 This is a precaution in case we need it, it might help with redirection
 ```csharp
-cookie["comingFrom"] // The page the user is coming from
-cookie["goingTo"] // The page the user is going to
-```
-
-This might help with redirecting users between quiz questions.
-```csharp
-cookie["comingFrom"] // The page the user is coming from
-cookie["goingTo"] // The page the user is going to
+cookie["comingfrom"] // The page the user is coming from
+cookie["goingto"] // The page the user is going to
 ```
