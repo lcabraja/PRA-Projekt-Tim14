@@ -1,41 +1,18 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HomePage.aspx.cs" Inherits="Projekt_za_PRA.HomePage" %>
 
+<%@ Register Src="~/User_Controls/_Navbar.ascx" TagPrefix="uc1" TagName="_Navbar" %>
+
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>/
-              <link href="Content/bootstrap.css" rel="stylesheet" />
+    <title></title>
     <link href="Content/custom.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Quizkey</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Dobrodošli  </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Korisničko ime</a>
-                        </li>
-
-                    </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-success" type="submit">Odjavi se</button>
-                        <button class="btn btn-outline-success" type="submit">Moj profil</button>
-                        <button class="btn btn-outline-success" type="submit">Moji kvizovi</button>
-                        <button class="btn btn-outline-success" type="submit">Moji zapisnici</button>
-                        <button class="btn btn-outline-success" type="submit">JEZIK</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+        <uc1:_Navbar runat="server" ID="_Navbar" />
         <div class="card-group">
             <div class="card">
                 <img src="Pictures/Quiz-1.png" class="card-img-top" alt="...">
