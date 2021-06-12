@@ -13,5 +13,9 @@ namespace Quizkey
         {
 
         }
+
+        protected void testbutton_ServerClick(object sender, EventArgs e)
+        {
+        }
     }
 }
