@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
 
 namespace Quizkey
 {
@@ -11,6 +6,18 @@ namespace Quizkey
     {
         protected void Application_Start(object sender, EventArgs e)
         {
+        }
+
+        void Application_EndRequest(object sender, EventArgs e)
+        {
+            Response.Write("<script src=\"Scripts/bootstrap.js\"></script>" +
+                "<script src=\"Scripts/jquery-3.6.0.js\"></script>" +
+                "<script>$(\"document\").ready(function () { " +
+                "$('head').append(\"" +
+                "<link href =\\\"Content/bootstrap.css\\\" rel=\\\"stylesheet\\\" />" +
+                "<link rel = \\\"stylesheet\\\" href = \\\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css\\\">" +
+                "<meta charset =\\\"utf-8\\\"><meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\">" +
+                "\");});</script>");
         }
     }
 }
