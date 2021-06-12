@@ -51,13 +51,13 @@ namespace Quizkey
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl navbarLinks;
 
         /// <summary>
-        /// ToggleLanguage control.
+        /// btToggleLanguage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ToggleLanguage;
+        protected global::System.Web.UI.WebControls.Button btToggleLanguage;
 
         /// <summary>
         /// logout control.
@@ -69,12 +69,12 @@ namespace Quizkey
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl logout;
 
         /// <summary>
-        /// Button1 control.
+        /// btLogOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btLogOut;
     }
 }

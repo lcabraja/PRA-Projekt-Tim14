@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Quizkey.Cookies;
+using System;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Quizkey
 {
     public partial class Navbar : System.Web.UI.UserControl
     {
-        public int Points { get; set; }
-        public string QuizCode { get; set; }
-
         // Link Style = <a class="nav-link active" aria-current="page" href="#">Home</a>
 
         //navbarLinks.Controls.Add(new HyperLink { Text = "My Profile", NavigateUrl="/ProfilePage.aspx", CssClass = "nav-link px-1 text-light d-md-flex" });
@@ -27,7 +22,10 @@ namespace Quizkey
             if (Request.Cookies["UserState"] != null)
             {
                 HttpCookie userState = Request.Cookies["UserState"];
-
+                CookieParseWrapper cookie = new CookieParseWrapper(userState);
+                
+                SetLanguageButtonText(userState);
+                
                 if (userState["loggedIn"] == "author")
                 {
                     welcomeText.InnerText = $"Welcome {userState["userName"]}";
@@ -36,13 +34,40 @@ namespace Quizkey
                     navbarLinks.Controls.Add(new HyperLink { Text = "My Logs", NavigateUrl = "/Table.aspx?table=log", CssClass = "nav-link px-1 text-light" });
                     logout.Visible = true;
                 }
-                if (userState["loggedIn"] == "attendee")
+                if (userState[UserState.loggedin.ToString()] == "attendee")
                 {
-                    welcomeText.InnerHtml = $"<b>{userState["userName"].ToString().ToUpper()}</b> POINTS: {Points}";
+                    welcomeText.InnerHtml = $"<span class=\"d-inline\">{cookie.Enum(UserState.username).ToUpper().ToBold()}<span/> " +
+                        $"<span class=\"badge bg-success d-inline\">{(cookie.Enum(UserState.points) ?? "0").ToBold()}</span>";
                     quizcode.Visible = true;
-                    quizcode.InnerText = QuizCode.ToString().ToUpper();
+                    quizcode.InnerHtml = cookie.Enum(UserState.quizcode)?.ToString().ToUpper().ToBadge("secondary");
                 }
             }
+        }
+
+        private void SetLanguageButtonText(HttpCookie cookie)
+        {
+            if (cookie[UserState.language.ToString()] == UserStateLanguage.en.ToString())
+            {
+                btToggleLanguage.Text = "English";
+            }
+            else
+            {
+                btToggleLanguage.Text = "Hrvatski";
+            }
+        }
+
+        protected void btToggleLanguage_Click(object sender, EventArgs e)
+        {
+            HttpCookie userState = Request.Cookies["UserState"];
+            userState[UserState.language.ToString()] =
+                userState[UserState.language.ToString()] == UserStateLanguage.en.ToString() ? UserStateLanguage.hr.ToString() : UserStateLanguage.en.ToString();
+            SetLanguageButtonText(userState);
+            Response.SetCookie(userState);
+        }
+
+        protected void btLogOut_Click(object sender, EventArgs e)
+        {
+            Response.Cookies.Remove("UserState");
         }
     }
 }
