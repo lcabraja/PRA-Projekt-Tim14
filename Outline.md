@@ -1,7 +1,7 @@
 # Pra Tim-14 Quick Look
 ## Assignment
 ### PRA Tim-14 Solution
-- Navbar.ascx | **Luka**
+- ~~Navbar.ascx | **Luka**~~
 #### Author Forms
 - StartPage.aspx | **Adelisa**
 - Register.aspx | **Adelisa**
@@ -29,8 +29,8 @@
 ## Status
 ### PRA Tim-14 Solution
 - Navbar.ascx | **User Control** 
-- [ ] Code
-- [ ] Style
+- [x] Code
+- [x] Style
     - AuthorNavbar.ascx | **UserControl** 
 - [ ] Code
 - [ ] Style
