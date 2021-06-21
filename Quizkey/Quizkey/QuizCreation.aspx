@@ -19,11 +19,11 @@
             <div class="container-fluid d-flex justify-content-between flex-sm-nowrap">
                 <div class="input-group m-1">
                     <span class="input-group-text">Naziv Kviza</span>
-                    <asp:TextBox CssClass="form-control" runat="server" />
+                    <asp:TextBox ID="tbQuizName" CssClass="form-control" runat="server" />
                 </div>
                 <div class="d-flex m-1">
-                    <asp:Button Text="Save" CssClass="btn btn-warning me-1" runat="server" />
-                    <asp:Button Text="Discard" CssClass="btn btn-danger mx-1" runat="server" />
+                    <asp:Button ID="Save" Text="Save" CssClass="btn btn-warning me-1" OnClick="Save_Click" runat="server" />
+                    <asp:Button ID="Discard" Text="Discard" CssClass="btn btn-danger mx-1" OnClientClick="return confirm('All progress will be lost?');" OnClick="Discard_Click" runat="server" />
                 </div>
             </div>
         </nav>

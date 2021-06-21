@@ -11,7 +11,16 @@ namespace Quizkey
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            HttpCookie cookie = new HttpCookie("UserState");
 
+            cookie["loggedin"] = "author";
+            cookie["language"] = "en";
+            cookie["username"] = "Pero123";
+            cookie["points"] = "6969";
+            cookie["userid"] = "1007";
+            cookie["quizcode"] = "poland";
+
+            Response.SetCookie(cookie);
         }
     }
 }

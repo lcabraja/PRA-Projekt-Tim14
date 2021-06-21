@@ -28,7 +28,7 @@ namespace Quizkey.Models
             int IDAuthor = (int)SqlHelper.ExecuteScalar(cs, "proc_create_Author", author.Username, author.PasswordHash, author.Email);
             if (IDAuthor > 0)
             {
-                authorCache.Add(author);
+                Add(author);
                 return IDAuthor;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -77,10 +77,12 @@ namespace Quizkey.Models
         //----------------------------------------------------------Quiz----------------------------------------------------------
         public static int CreateQuiz(Quiz quiz)
         {
-            int IDQuiz = (int)SqlHelper.ExecuteScalar(cs, "proc_create_Quiz", quiz.AuthorID, quiz.QuizName);
+            var scalareresult = SqlHelper.ExecuteScalar(cs, "proc_create_Quiz", quiz.AuthorID, quiz.QuizName);
+            string @string = scalareresult.ToString();
+            int IDQuiz = int.Parse(@string);
             if (IDQuiz > 0)
             {
-                quizCache.Add(quiz);
+                Add(quiz);
                 return IDQuiz;
             }
             throw new SQLInsertException("Could not insert values into table \"Quiz\"");
@@ -138,7 +140,7 @@ namespace Quizkey.Models
             );
             if (IDQuizQuestion > 0)
             {
-                quizquestionCache.Add(quizquestion);
+                Add(quizquestion);
                 return IDQuizQuestion;
             }
             throw new SQLInsertException("Could not insert values into table \"QuizQuestion\"");
@@ -191,7 +193,7 @@ namespace Quizkey.Models
             int IDQuizAnswer = (int)SqlHelper.ExecuteScalar(cs, "proc_create_QuizAnswer", quizanswer.QuizQuestionID, quizanswer.AnswerText, quizanswer.QuestionOrder);
             if (IDQuizAnswer > 0)
             {
-                quizanswerCache.Add(quizanswer);
+                Add(quizanswer);
                 return IDQuizAnswer;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -244,7 +246,7 @@ namespace Quizkey.Models
             int IDQuizSession = (int)SqlHelper.ExecuteScalar(cs, "proc_create_QuizSession", quizsession.QuizID, quizsession.OccurredAt, quizsession.SessionCode);
             if (IDQuizSession > 0)
             {
-                quizsessionCache.Add(quizsession);
+                Add(quizsession);
                 return IDQuizSession;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -295,7 +297,7 @@ namespace Quizkey.Models
             int IDAttendee = (int)SqlHelper.ExecuteScalar(cs, "proc_create_Attendee", attendee.Username, attendee.SessionID);
             if (IDAttendee > 0)
             {
-                attendeeCache.Add(attendee);
+                Add(attendee);
                 return IDAttendee;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -345,7 +347,7 @@ namespace Quizkey.Models
             int IDAuthor = (int)SqlHelper.ExecuteScalar(cs, "proc_create_LogItem", logitem.QuizSessionID, logitem.QuizQuestionID, logitem.QuizAnswerID, logitem.AttendeeID, logitem.Points);
             if (IDAuthor > 0)
             {
-                logitemCache.Add(logitem);
+                Add(logitem);
                 return IDAuthor;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -398,7 +400,7 @@ namespace Quizkey.Models
             int IDRecentQuiz = (int)SqlHelper.ExecuteScalar(cs, "proc_create_RecentQuiz", recentquiz.QuizID, recentquiz.LastEvent);
             if (IDRecentQuiz > 0)
             {
-                recentquizCache.Add(recentquiz);
+                Add(recentquiz);
                 return IDRecentQuiz;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -441,6 +443,98 @@ namespace Quizkey.Models
                 QuizID = (int)row["QuizID"],
                 LastEvent = DateTimeOffset.Parse(row["LastEvent"].ToString())
             };
+        }
+
+        private static void Add(object item)
+        {
+            if (item.GetType().Equals(typeof(Attendee)))
+            {
+                if (attendeeCache != null)
+                {
+                    attendeeCache.Add(item as Attendee);
+                }
+                else
+                {
+                    attendeeCache = new List<Attendee> { item as Attendee };
+                }
+            }
+            else if (item.GetType().Equals(typeof(Author)))
+            {
+                if (attendeeCache != null)
+                {
+                    authorCache.Add(item as Author);
+                }
+                else
+                {
+                    authorCache = new List<Author> { item as Author };
+                }
+            }
+            else if (item.GetType().Equals(typeof(LogItem)))
+            {
+                if (attendeeCache != null)
+                {
+                    logitemCache.Add(item as LogItem);
+                }
+                else
+                {
+                    logitemCache = new List<LogItem> { item as LogItem };
+                }
+            }
+            else if (item.GetType().Equals(typeof(Quiz)))
+            {
+                if (attendeeCache != null)
+                {
+                    quizCache.Add(item as Quiz);
+                }
+                else
+                {
+                    quizCache = new List<Quiz> { item as Quiz };
+                }
+            }
+            else if (item.GetType().Equals(typeof(QuizAnswer)))
+            {
+                if (attendeeCache != null)
+                {
+                    quizanswerCache.Add(item as QuizAnswer);
+                }
+                else
+                {
+                    quizanswerCache = new List<QuizAnswer> { item as QuizAnswer };
+                }
+            }
+            else if (item.GetType().Equals(typeof(QuizQuestion)))
+            {
+                if (attendeeCache != null)
+                {
+                    quizquestionCache.Add(item as QuizQuestion);
+                }
+                else
+                {
+                    quizquestionCache = new List<QuizQuestion> { item as QuizQuestion };
+                }
+            }
+            else if (item.GetType().Equals(typeof(QuizSession)))
+            {
+                if (attendeeCache != null)
+                {
+                    quizsessionCache.Add(item as QuizSession);
+                }
+                else
+                {
+                    quizsessionCache = new List<QuizSession> { item as QuizSession };
+                }
+            }
+            else if (item.GetType().Equals(typeof(RecentQuiz)))
+            {
+                if (attendeeCache != null)
+                {
+                    recentquizCache.Add(item as RecentQuiz);
+                }
+                else
+                {
+                    recentquizCache = new List<RecentQuiz> { item as RecentQuiz };
+                }
+            }
         }
     }
 }
