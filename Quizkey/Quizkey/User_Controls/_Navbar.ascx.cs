@@ -14,11 +14,12 @@ namespace Quizkey
         //navbarLinks.Controls.Add(new HyperLink { Text = "My Logs", NavigateUrl = "/Table.aspx?table=log", CssClass = "nav-link px-1 text-light d-md-flex" });
         protected void Page_Load(object sender, EventArgs e)
         {
-            quizcode.Visible = false;
+           quizcode.Visible = false;
             logout.Visible = false;
             //navbarLinks.Controls.Add(new Button { Text = "My Profile", CssClass = "my-2 my-sm-0 btn btn-secondary nav-link px-2 text-light qk-nav-min" });
             //navbarLinks.Controls.Add(new Button { Text = "My Quizes", CssClass = "my-2 my-sm-0 btn btn-secondary nav-link px-2 text-light qk-nav-min" });
             //navbarLinks.Controls.Add(new Button { Text = "My Logs", CssClass = "my-2 my-sm-0 btn btn-secondary nav-link px-2 text-light qk-nav-min" });
+            
             if (Request.Cookies["UserState"] != null)
             {
                 HttpCookie userState = Request.Cookies["UserState"];

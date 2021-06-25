@@ -60,40 +60,40 @@ namespace Quizkey
         protected global::System.Web.UI.WebControls.Button Discard;
 
         /// <summary>
-        /// Button2 control.
+        /// QuizCreationButton1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button2;
+        protected global::Quizkey.User_Controls.QuizCreationButton QuizCreationButton1;
 
         /// <summary>
-        /// Button3 control.
+        /// QuizCreationButton2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button3;
+        protected global::Quizkey.User_Controls.QuizCreationButton QuizCreationButton2;
 
         /// <summary>
-        /// Button4 control.
+        /// QuizCreationButton3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button4;
+        protected global::Quizkey.User_Controls.QuizCreationButton QuizCreationButton3;
 
         /// <summary>
-        /// Button5 control.
+        /// QuizCreationButton4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button5;
+        protected global::Quizkey.User_Controls.QuizCreationButton QuizCreationButton4;
 
         /// <summary>
         /// Button6 control.
@@ -148,6 +148,42 @@ namespace Quizkey
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton testbutton;
+
+        /// <summary>
+        /// QuizCreationAnswer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Quizkey.QuizCreationAnswer QuizCreationAnswer1;
+
+        /// <summary>
+        /// QuizCreationAnswer2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Quizkey.QuizCreationAnswer QuizCreationAnswer2;
+
+        /// <summary>
+        /// QuizCreationAnswer3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Quizkey.QuizCreationAnswer QuizCreationAnswer3;
+
+        /// <summary>
+        /// QuizCreationAnswer4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Quizkey.QuizCreationAnswer QuizCreationAnswer4;
 
         /// <summary>
         /// Button1 control.

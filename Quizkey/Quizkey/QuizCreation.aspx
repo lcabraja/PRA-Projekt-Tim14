@@ -1,6 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="QuizCreation.aspx.cs" Inherits="Quizkey.QuizCreation" %>
 
 <%@ Register Src="~/User_Controls/_Navbar.ascx" TagPrefix="uc1" TagName="_Navbar" %>
+<%@ Register Src="~/User_Controls/QuizCreationAnswer.ascx" TagPrefix="uc1" TagName="QuizCreationAnswer" %>
+<%@ Register Src="~/User_Controls/QuizCreationButton.ascx" TagPrefix="uc1" TagName="QuizCreationButton" %>
+
+
+
 
 
 <!DOCTYPE html>
@@ -35,19 +40,12 @@
                     <p class="text-center">
                         Odaberite tocan odgovor
                     </p>
+                    <script src="Scripts/CustomScripts/QuizCreationButtonScript.js"></script>
                     <div class="d-grid gap-2 text-center">
-                        <button id="Button2" class="btn btn-primary" runat="server">
-                            <i class="bi bi-triangle qk-quizcreation-fontsize"></i>
-                        </button>
-                        <button id="Button3" class="btn btn-primary" runat="server">
-                            <i class="bi bi-star qk-quizcreation-fontsize"></i>
-                        </button>
-                        <button id="Button4" class="btn btn-light" runat="server">
-                            <i class="bi bi-pentagon-fill qk-quizcreation-fontsize"></i>
-                        </button>
-                        <button id="Button5" class="btn btn-primary" runat="server">
-                            <i class="bi bi-circle qk-quizcreation-fontsize"></i>
-                        </button>
+                        <uc1:QuizCreationButton runat="server" ID="QuizCreationButton1" />
+                        <uc1:QuizCreationButton runat="server" ID="QuizCreationButton2" />
+                        <uc1:QuizCreationButton runat="server" ID="QuizCreationButton3" />
+                        <uc1:QuizCreationButton runat="server" ID="QuizCreationButton4" />
                     </div>
                 </div>
                 <%--Question--%>
@@ -93,24 +91,12 @@
                 <%--Answers--%>
                 <div class="qk-quizcreation-answers">
                     <div class="qk-quizcreation-answers-half pt-0">
-                        <div class="bg-dark text-light p-2 d-flex flex-nowrap gap-2 rounded">
-                            <i class="bi bi-triangle m-auto qk-quizcreation-fontsize"></i>
-                            <asp:TextBox CssClass="form-control m-auto qk-quizcreation-answer" runat="server" />
-                        </div>
-                        <div class="bg-dark text-light p-2 d-flex flex-nowrap gap-2 rounded">
-                            <i class="bi bi-star m-auto qk-quizcreation-fontsize"></i>
-                            <asp:TextBox CssClass="form-control m-auto qk-quizcreation-answer" runat="server" />
-                        </div>
+                        <uc1:QuizCreationAnswer Shape="Triangle" runat="server" ID="QuizCreationAnswer1" />
+                        <uc1:QuizCreationAnswer Shape="Star" runat="server" ID="QuizCreationAnswer2" />
                     </div>
                     <div class="qk-quizcreation-answers-half">
-                        <div class="bg-dark text-light p-2 d-flex flex-nowrap gap-2 rounded">
-                            <i class="bi bi-pentagon-fill m-auto qk-quizcreation-fontsize"></i>
-                            <asp:TextBox CssClass="form-control m-auto qk-quizcreation-answer" runat="server" />
-                        </div>
-                        <div class="bg-dark text-light p-2 d-flex flex-nowrap gap-2 rounded">
-                            <i class="bi bi-circle m-auto qk-quizcreation-fontsize m-auto"></i>
-                            <asp:TextBox CssClass="form-control m-auto qk-quizcreation-answer" runat="server" />
-                        </div>
+                        <uc1:QuizCreationAnswer Shape="Pentagon" runat="server" ID="QuizCreationAnswer3" />
+                        <uc1:QuizCreationAnswer Shape="Circle" runat="server" ID="QuizCreationAnswer4" />
                     </div>
                 </div>
                 <%--Right Arrow--%>

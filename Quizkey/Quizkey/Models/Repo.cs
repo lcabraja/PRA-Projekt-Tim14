@@ -460,7 +460,7 @@ namespace Quizkey.Models
             }
             else if (item.GetType().Equals(typeof(Author)))
             {
-                if (attendeeCache != null)
+                if (authorCache != null)
                 {
                     authorCache.Add(item as Author);
                 }
@@ -471,7 +471,7 @@ namespace Quizkey.Models
             }
             else if (item.GetType().Equals(typeof(LogItem)))
             {
-                if (attendeeCache != null)
+                if (logitemCache != null)
                 {
                     logitemCache.Add(item as LogItem);
                 }
@@ -482,7 +482,7 @@ namespace Quizkey.Models
             }
             else if (item.GetType().Equals(typeof(Quiz)))
             {
-                if (attendeeCache != null)
+                if (quizCache != null)
                 {
                     quizCache.Add(item as Quiz);
                 }
@@ -493,7 +493,7 @@ namespace Quizkey.Models
             }
             else if (item.GetType().Equals(typeof(QuizAnswer)))
             {
-                if (attendeeCache != null)
+                if (quizanswerCache != null)
                 {
                     quizanswerCache.Add(item as QuizAnswer);
                 }
@@ -504,7 +504,7 @@ namespace Quizkey.Models
             }
             else if (item.GetType().Equals(typeof(QuizQuestion)))
             {
-                if (attendeeCache != null)
+                if (quizquestionCache != null)
                 {
                     quizquestionCache.Add(item as QuizQuestion);
                 }
@@ -515,7 +515,7 @@ namespace Quizkey.Models
             }
             else if (item.GetType().Equals(typeof(QuizSession)))
             {
-                if (attendeeCache != null)
+                if (quizsessionCache != null)
                 {
                     quizsessionCache.Add(item as QuizSession);
                 }
@@ -526,7 +526,7 @@ namespace Quizkey.Models
             }
             else if (item.GetType().Equals(typeof(RecentQuiz)))
             {
-                if (attendeeCache != null)
+                if (recentquizCache != null)
                 {
                     recentquizCache.Add(item as RecentQuiz);
                 }

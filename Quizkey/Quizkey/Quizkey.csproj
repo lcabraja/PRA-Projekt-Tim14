@@ -180,6 +180,8 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="QuizCreation.aspx" />
+    <Content Include="User_Controls\QuizCreationAnswer.ascx" />
+    <Content Include="User_Controls\QuizCreationButton.ascx" />
     <Content Include="User_Controls\_Navbar.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -210,12 +212,27 @@
     <Compile Include="Models\RecentQuiz.cs" />
     <Compile Include="Models\Repo.cs" />
     <Compile Include="Exceptions\SQLInsertException.cs" />
+    <Compile Include="Models\StateModels\QuizCreation.cs" />
     <Compile Include="QuizCreation.aspx.cs">
       <DependentUpon>QuizCreation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="QuizCreation.aspx.designer.cs">
       <DependentUpon>QuizCreation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\QuizCreationAnswer.ascx.cs">
+      <DependentUpon>QuizCreationAnswer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\QuizCreationAnswer.ascx.designer.cs">
+      <DependentUpon>QuizCreationAnswer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\QuizCreationButton.ascx.cs">
+      <DependentUpon>QuizCreationButton.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\QuizCreationButton.ascx.designer.cs">
+      <DependentUpon>QuizCreationButton.ascx</DependentUpon>
     </Compile>
     <Compile Include="User_Controls\_Navbar.ascx.cs">
       <DependentUpon>_Navbar.ascx</DependentUpon>
@@ -271,6 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\CustomScripts\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
