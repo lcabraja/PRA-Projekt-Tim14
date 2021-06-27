@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Quizkey.Models
 {
+    [Serializable]
     public class QuizCreation
     {
         public int SelectedAnswer { get; set; }

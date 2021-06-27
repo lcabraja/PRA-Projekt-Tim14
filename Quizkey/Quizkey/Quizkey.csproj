@@ -182,6 +182,7 @@
     <Content Include="QuizCreation.aspx" />
     <Content Include="User_Controls\QuizCreationAnswer.ascx" />
     <Content Include="User_Controls\QuizCreationButton.ascx" />
+    <Content Include="User_Controls\QuizCreationTimeButton.ascx" />
     <Content Include="User_Controls\_Navbar.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -233,6 +234,13 @@
     </Compile>
     <Compile Include="User_Controls\QuizCreationButton.ascx.designer.cs">
       <DependentUpon>QuizCreationButton.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\QuizCreationTimeButton.ascx.cs">
+      <DependentUpon>QuizCreationTimeButton.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\QuizCreationTimeButton.ascx.designer.cs">
+      <DependentUpon>QuizCreationTimeButton.ascx</DependentUpon>
     </Compile>
     <Compile Include="User_Controls\_Navbar.ascx.cs">
       <DependentUpon>_Navbar.ascx</DependentUpon>

@@ -1,8 +1,16 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="QuizCreation.aspx.cs" Inherits="Quizkey.QuizCreation" %>
+﻿
+ 
+
+ 
+
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="QuizCreation.aspx.cs" Inherits="Quizkey.QuizCreation" %>
 
 <%@ Register Src="~/User_Controls/_Navbar.ascx" TagPrefix="uc1" TagName="_Navbar" %>
 <%@ Register Src="~/User_Controls/QuizCreationAnswer.ascx" TagPrefix="uc1" TagName="QuizCreationAnswer" %>
 <%@ Register Src="~/User_Controls/QuizCreationButton.ascx" TagPrefix="uc1" TagName="QuizCreationButton" %>
+<%@ Register Src="~/User_Controls/QuizCreationTimeButton.ascx" TagPrefix="uc1" TagName="QuizCreationTimeButton" %>
+
 
 
 
@@ -42,10 +50,10 @@
                     </p>
                     <script src="Scripts/CustomScripts/QuizCreationButtonScript.js"></script>
                     <div class="d-grid gap-2 text-center">
-                        <uc1:QuizCreationButton runat="server" ID="QuizCreationButton1" />
-                        <uc1:QuizCreationButton runat="server" ID="QuizCreationButton2" />
-                        <uc1:QuizCreationButton runat="server" ID="QuizCreationButton3" />
-                        <uc1:QuizCreationButton runat="server" ID="QuizCreationButton4" />
+                        <uc1:QuizCreationButton Shape="Triangle" runat="server" ID="QuizCreationButton1" />
+                        <uc1:QuizCreationButton Shape="Star" runat="server" ID="QuizCreationButton2" />
+                        <uc1:QuizCreationButton Shape="Pentagon" runat="server" ID="QuizCreationButton3" />
+                        <uc1:QuizCreationButton Shape="Circle" runat="server" ID="QuizCreationButton4" />
                     </div>
                 </div>
                 <%--Question--%>
@@ -62,22 +70,14 @@
                             Odaberite vremensko ogranicenje
                         </p>
                         <div class="d-flex flex-column gap-2 text-center">
-                            <button id="Button6" class="btn btn-primary" runat="server">
-                                120 sekundi
-                            </button>
-                            <button id="Button7" class="btn btn-primary" runat="server">
-                                60 sekundi
-                            </button>
-                            <button id="Button8" class="btn btn-primary" runat="server">
-                                30 sekundi
-                            </button>
-                            <button id="Button9" class="btn btn-primary" runat="server">
-                                15 sekundi
-                            </button>
-                            <button id="Button10" class="btn btn-primary" runat="server">
+                            <uc1:QuizCreationTimeButton Seconds="120" runat="server" id="QuizCreationTimeButton1" />
+                            <uc1:QuizCreationTimeButton Seconds="60" runat="server" id="QuizCreationTimeButton2" />
+                            <uc1:QuizCreationTimeButton Seconds="30" runat="server" id="QuizCreationTimeButton3" />
+                            <uc1:QuizCreationTimeButton Seconds="15" runat="server" id="QuizCreationTimeButton4" />
+                            <button id="ButtonCustomTime" onserverclick="ButtonCustomTime_ServerClick" class="btn btn-primary" runat="server">
                                 proizvoljno
                             </button>
-                            <asp:TextBox Enabled="false" CssClass="form-control" runat="server" />
+                            <asp:TextBox Enabled="true" AutoCompleteType="None" TextMode="Number" CssClass="form-control" id="TextboxCustomTime" runat="server" />
                         </div>
                     </div>
                 </div>

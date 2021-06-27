@@ -10,7 +10,8 @@ namespace Quizkey.User_Controls
     public partial class QuizCreationButton : System.Web.UI.UserControl
     {
         public event System.EventHandler ASAAAAAAAAAAAAAAAAAAAA;
-        public bool IsClicked { get; set; } = false;
+        public string Shape { get; set; }
+        public bool Filled { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             this.PreRender += QuizCreationButton_PreRender;
@@ -19,8 +20,8 @@ namespace Quizkey.User_Controls
 
         private void QuizCreationButton_PreRender(object sender, EventArgs e)
         {
-            Button.Attributes["class"] = $"btn {(IsClicked ? "btn-light" : "btn-primary")}";
-            icon.Attributes["class"] = $"bi bi-triangle{(IsClicked ? "-fill" : string.Empty)} qk-quizcreation-fontsize";
+            Button.Attributes["class"] = $"btn {(Filled ? "btn-light" : "btn-primary")}";
+            icon.Attributes["class"] = $"bi bi-{Shape}{(Filled ? "-fill" : string.Empty)} qk-quizcreation-fontsize";
         }
     }
 }

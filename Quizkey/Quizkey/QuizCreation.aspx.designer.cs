@@ -96,49 +96,58 @@ namespace Quizkey
         protected global::Quizkey.User_Controls.QuizCreationButton QuizCreationButton4;
 
         /// <summary>
-        /// Button6 control.
+        /// QuizCreationTimeButton1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button6;
+        protected global::Quizkey.User_Controls.QuizCreationTimeButton QuizCreationTimeButton1;
 
         /// <summary>
-        /// Button7 control.
+        /// QuizCreationTimeButton2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button7;
+        protected global::Quizkey.User_Controls.QuizCreationTimeButton QuizCreationTimeButton2;
 
         /// <summary>
-        /// Button8 control.
+        /// QuizCreationTimeButton3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button8;
+        protected global::Quizkey.User_Controls.QuizCreationTimeButton QuizCreationTimeButton3;
 
         /// <summary>
-        /// Button9 control.
+        /// QuizCreationTimeButton4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button9;
+        protected global::Quizkey.User_Controls.QuizCreationTimeButton QuizCreationTimeButton4;
 
         /// <summary>
-        /// Button10 control.
+        /// ButtonCustomTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button10;
+        protected global::System.Web.UI.HtmlControls.HtmlButton ButtonCustomTime;
+
+        /// <summary>
+        /// TextboxCustomTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextboxCustomTime;
 
         /// <summary>
         /// testbutton control.

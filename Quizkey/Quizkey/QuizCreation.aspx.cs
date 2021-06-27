@@ -54,10 +54,70 @@ namespace Quizkey
             QuizCreationButton2.ASAAAAAAAAAAAAAAAAAAAA += btStar_ServerClick;
             QuizCreationButton3.ASAAAAAAAAAAAAAAAAAAAA += btPentagon_ServerClick;
             QuizCreationButton4.ASAAAAAAAAAAAAAAAAAAAA += btCircle_ServerClick;
+
+            QuizCreationTimeButton1.ServerClick += QuizCreationTimeButton1_ServerClick;
+            QuizCreationTimeButton2.ServerClick += QuizCreationTimeButton2_ServerClick;
+            QuizCreationTimeButton3.ServerClick += QuizCreationTimeButton3_ServerClick;
+            QuizCreationTimeButton4.ServerClick += QuizCreationTimeButton4_ServerClick;
+
+            LoadSessionValues();
+        }
+
+        private void LoadSessionValues()
+        {
+            QuizCreation quizCreation = Session["QuizCreationStore"] as QuizCreation;
         }
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
+            this.tbQuizName.Text = Session["QuizName"].ToString();
+
+            // Correct answer selection
+            this.QuizCreationAnswer1.Filled = (bool)(Session["TriangleFill"] ?? false);
+            this.QuizCreationAnswer2.Filled = (bool)(Session["StarFill"] ?? false);
+            this.QuizCreationAnswer3.Filled = (bool)(Session["PentagonFill"] ?? false);
+            this.QuizCreationAnswer4.Filled = (bool)(Session["CircleFill"] ?? false);
+            this.QuizCreationButton1.Filled = (bool)(Session["TriangleFill"] ?? false);
+            this.QuizCreationButton2.Filled = (bool)(Session["StarFill"] ?? false);
+            this.QuizCreationButton3.Filled = (bool)(Session["PentagonFill"] ?? false);
+            this.QuizCreationButton4.Filled = (bool)(Session["CircleFill"] ?? false);
+
+            // Time limit selection
+            if (Session["SelectedTime"] != null)
+            {
+
+                int time = (int)Session["SelectedTime"];
+                switch (time)
+                {
+                    case 120:
+                        this.QuizCreationTimeButton1.Filled = true;
+                        ClearCustomTime();
+                        break;
+                    case 60:
+                        this.QuizCreationTimeButton2.Filled = true;
+                        ClearCustomTime();
+                        break;
+                    case 30:
+                        this.QuizCreationTimeButton3.Filled = true;
+                        ClearCustomTime();
+                        break;
+                    case 15:
+                        this.QuizCreationTimeButton4.Filled = true;
+                        ClearCustomTime();
+                        break;
+                    default:
+                        ButtonCustomTime.Attributes["class"] = "btn btn-light";
+                        TextboxCustomTime.Text = time.ToString();
+                        break;
+
+                }
+            }
+        }
+
+        private void ClearCustomTime()
+        {
+            ButtonCustomTime.Attributes["class"] = "btn btn-primary";
+            TextboxCustomTime.Text = string.Empty;
         }
 
         private string GetSession()
@@ -85,10 +145,13 @@ namespace Quizkey
             }
         }
 
+
         private bool PageValid()
         {
             return true;
         }
+
+        // ================================================================================================ Event Handlers
 
         protected void Discard_Click(object sender, EventArgs e)
         {
@@ -105,30 +168,52 @@ namespace Quizkey
         {
             ResetShapes();
             Session["TriangleFill"] = true;
-            QuizCreationAnswer1.Filled = true;
-            QuizCreationButton1.IsClicked = true;
         }
         protected void btStar_ServerClick(object sender, EventArgs e)
         {
             ResetShapes();
             Session["StarFill"] = true;
-            QuizCreationAnswer2.Filled = true;
-            QuizCreationButton2.IsClicked = true;
         }
         protected void btPentagon_ServerClick(object sender, EventArgs e)
         {
             ResetShapes();
             Session["PentagonFill"] = true;
-            QuizCreationAnswer3.Filled = true;
-            QuizCreationButton3.IsClicked = true;
         }
         protected void btCircle_ServerClick(object sender, EventArgs e)
         {
             ResetShapes();
             Session["CircleFill"] = true;
-            QuizCreationAnswer4.Filled = true;
-            QuizCreationButton4.IsClicked = true;
 
+        }
+        private void QuizCreationTimeButton1_ServerClick(object sender, EventArgs e)
+        {
+            Session["SelectedTime"] = 120;
+        }
+        private void QuizCreationTimeButton2_ServerClick(object sender, EventArgs e)
+        {
+            Session["SelectedTime"] = 60;
+        }
+        private void QuizCreationTimeButton3_ServerClick(object sender, EventArgs e)
+        {
+            Session["SelectedTime"] = 30;
+        }
+        private void QuizCreationTimeButton4_ServerClick(object sender, EventArgs e)
+        {
+            Session["SelectedTime"] = 15;
+        }
+        protected void ButtonCustomTime_ServerClick(object sender, EventArgs e)
+        {
+            if (int.TryParse(TextboxCustomTime.Text, out int seconds))
+            {
+                if (seconds < 10 || seconds > 120)
+                {
+                    TextboxCustomTime.Text = string.Empty;
+                }
+                else
+                {
+                    Session["SelectedTime"] = seconds;
+                }
+            }
         }
     }
 }
