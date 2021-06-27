@@ -70,17 +70,34 @@ namespace Quizkey
 
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            this.tbQuizName.Text = Session["QuizName"].ToString();
+            this.tbQuizName.Text = Session["QuizName"]?.ToString();
 
             // Correct answer selection
-            this.QuizCreationAnswer1.Filled = (bool)(Session["TriangleFill"] ?? false);
-            this.QuizCreationAnswer2.Filled = (bool)(Session["StarFill"] ?? false);
-            this.QuizCreationAnswer3.Filled = (bool)(Session["PentagonFill"] ?? false);
-            this.QuizCreationAnswer4.Filled = (bool)(Session["CircleFill"] ?? false);
-            this.QuizCreationButton1.Filled = (bool)(Session["TriangleFill"] ?? false);
-            this.QuizCreationButton2.Filled = (bool)(Session["StarFill"] ?? false);
-            this.QuizCreationButton3.Filled = (bool)(Session["PentagonFill"] ?? false);
-            this.QuizCreationButton4.Filled = (bool)(Session["CircleFill"] ?? false);
+            // Time limit selection
+            if (Session["SelectedAnswer"] != null)
+            {
+                int answer = (int)Session["SelectedAnswer"];
+                switch (answer)
+                {
+                    case 1:
+                        this.QuizCreationAnswer1.Filled = true;
+                        this.QuizCreationButton1.Filled = true;
+                        break;
+                    case 2:
+                        this.QuizCreationAnswer2.Filled = true;
+                        this.QuizCreationButton2.Filled = true;
+                        break;
+                    case 3:
+                        this.QuizCreationAnswer3.Filled = true;
+                        this.QuizCreationButton3.Filled = true;
+                        break;
+                    case 4:
+                        this.QuizCreationAnswer4.Filled = true;
+                        this.QuizCreationButton4.Filled = true;
+                        break;
+
+                }
+            }
 
             // Time limit selection
             if (Session["SelectedTime"] != null)
@@ -157,32 +174,21 @@ namespace Quizkey
         {
             Response.Redirect("/");
         }
-        private void ResetShapes()
-        {
-            Session["TriangleFill"] = false;
-            Session["StarFill"] = false;
-            Session["PentagonFill"] = false;
-            Session["CircleFill"] = false;
-        }
         protected void btTriangle_ServerClick(object sender, EventArgs e)
         {
-            ResetShapes();
-            Session["TriangleFill"] = true;
+            Session["SelectedAnswer"] = 1;
         }
         protected void btStar_ServerClick(object sender, EventArgs e)
         {
-            ResetShapes();
-            Session["StarFill"] = true;
+            Session["SelectedAnswer"] = 2;
         }
         protected void btPentagon_ServerClick(object sender, EventArgs e)
         {
-            ResetShapes();
-            Session["PentagonFill"] = true;
+            Session["SelectedAnswer"] = 3;
         }
         protected void btCircle_ServerClick(object sender, EventArgs e)
         {
-            ResetShapes();
-            Session["CircleFill"] = true;
+            Session["SelectedAnswer"] = 4;
 
         }
         private void QuizCreationTimeButton1_ServerClick(object sender, EventArgs e)
