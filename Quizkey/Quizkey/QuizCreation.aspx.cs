@@ -93,7 +93,6 @@ namespace Quizkey
             QuizCreationAnswer3.tbAnswer.Text = currentPage.Answer3;
             QuizCreationAnswer4.tbAnswer.Text = currentPage.Answer4;
 
-            SetQuestionNumbers();
         }
 
         private void QuizCreationAnswer3_OnAddAnswer(object sender, EventArgs e)
@@ -187,17 +186,26 @@ namespace Quizkey
 
                         QuizCreationAnswer4.Visible = true;
                         QuizCreationAnswer4.Delete = false;
+
+                        QuizCreationButton3.Visible = true;
+                        QuizCreationButton4.Visible = false;
                         break;
                     case 4:
                         QuizCreationAnswer3.Delete = true;
 
                         QuizCreationAnswer4.Visible = true;
                         QuizCreationAnswer4.Delete = true;
+
+                        QuizCreationButton3.Visible = true;
+                        QuizCreationButton4.Visible = true;
                         break;
                     default:
                         QuizCreationAnswer3.Delete = false;
 
                         QuizCreationAnswer4.Visible = false;
+
+                        QuizCreationButton3.Visible = false;
+                        QuizCreationButton4.Visible = false;
                         break;
                 }
             }
