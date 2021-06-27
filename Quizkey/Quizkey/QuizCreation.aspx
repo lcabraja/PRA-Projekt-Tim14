@@ -1,10 +1,4 @@
-﻿
- 
-
- 
-
-
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="QuizCreation.aspx.cs" Inherits="Quizkey.QuizCreation" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="QuizCreation.aspx.cs" Inherits="Quizkey.QuizCreation" %>
 
 <%@ Register Src="~/User_Controls/_Navbar.ascx" TagPrefix="uc1" TagName="_Navbar" %>
 <%@ Register Src="~/User_Controls/QuizCreationAnswer.ascx" TagPrefix="uc1" TagName="QuizCreationAnswer" %>
@@ -52,15 +46,15 @@
                     <div class="d-grid gap-2 text-center">
                         <uc1:QuizCreationButton Shape="Triangle" runat="server" ID="QuizCreationButton1" />
                         <uc1:QuizCreationButton Shape="Star" runat="server" ID="QuizCreationButton2" />
-                        <uc1:QuizCreationButton Shape="Pentagon" runat="server" ID="QuizCreationButton3" />
-                        <uc1:QuizCreationButton Shape="Circle" runat="server" ID="QuizCreationButton4" />
+                        <uc1:QuizCreationButton Visible="false" Shape="Pentagon" runat="server" ID="QuizCreationButton3" />
+                        <uc1:QuizCreationButton Visible="false" Shape="Circle" runat="server" ID="QuizCreationButton4" />
                     </div>
                 </div>
                 <%--Question--%>
                 <div class="bg-secondary rounded d-flex text-center">
                     <div class="input-group m-2">
                         <span class="input-group-text">Pitanje</span>
-                        <asp:TextBox TextMode="MultiLine" CssClass="form-control qk-quizcreation-multiline" runat="server" />
+                        <asp:TextBox TextMode="MultiLine" CssClass="form-control qk-quizcreation-multiline" ID="tbQuestion" runat="server" />
                     </div>
                 </div>
                 <%--Time--%>
@@ -70,14 +64,14 @@
                             Odaberite vremensko ogranicenje
                         </p>
                         <div class="d-flex flex-column gap-2 text-center">
-                            <uc1:QuizCreationTimeButton Seconds="120" runat="server" id="QuizCreationTimeButton1" />
-                            <uc1:QuizCreationTimeButton Seconds="60" runat="server" id="QuizCreationTimeButton2" />
-                            <uc1:QuizCreationTimeButton Seconds="30" runat="server" id="QuizCreationTimeButton3" />
-                            <uc1:QuizCreationTimeButton Seconds="15" runat="server" id="QuizCreationTimeButton4" />
+                            <uc1:QuizCreationTimeButton Seconds="120" runat="server" ID="QuizCreationTimeButton1" />
+                            <uc1:QuizCreationTimeButton Seconds="60" runat="server" ID="QuizCreationTimeButton2" />
+                            <uc1:QuizCreationTimeButton Seconds="30" runat="server" ID="QuizCreationTimeButton3" />
+                            <uc1:QuizCreationTimeButton Seconds="15" runat="server" ID="QuizCreationTimeButton4" />
                             <button id="ButtonCustomTime" onserverclick="ButtonCustomTime_ServerClick" class="btn btn-primary" runat="server">
                                 proizvoljno
                             </button>
-                            <asp:TextBox Enabled="true" AutoCompleteType="None" TextMode="Number" CssClass="form-control" id="TextboxCustomTime" runat="server" />
+                            <asp:TextBox Enabled="true" AutoCompleteType="None" TextMode="Number" CssClass="form-control" ID="TextboxCustomTime" runat="server" />
                         </div>
                     </div>
                 </div>
@@ -90,13 +84,22 @@
                 </div>
                 <%--Answers--%>
                 <div class="qk-quizcreation-answers">
+                    <style>
+                        .bi-plus-circle:hover::before {
+                            content: "\f4f9" !important;
+                        }
+
+                        .bi-x-circle:hover::before {
+                            content: "\f622" !important;
+                        }
+                    </style>
                     <div class="qk-quizcreation-answers-half pt-0">
                         <uc1:QuizCreationAnswer Shape="Triangle" runat="server" ID="QuizCreationAnswer1" />
                         <uc1:QuizCreationAnswer Shape="Star" runat="server" ID="QuizCreationAnswer2" />
                     </div>
                     <div class="qk-quizcreation-answers-half">
-                        <uc1:QuizCreationAnswer Shape="Pentagon" runat="server" ID="QuizCreationAnswer3" />
-                        <uc1:QuizCreationAnswer Shape="Circle" runat="server" ID="QuizCreationAnswer4" />
+                        <uc1:QuizCreationAnswer Enabled="true" Shape="Pentagon" runat="server" ID="QuizCreationAnswer3" />
+                        <uc1:QuizCreationAnswer Enabled="true" Visible="false" Shape="Circle" runat="server" ID="QuizCreationAnswer4" />
                     </div>
                 </div>
                 <%--Right Arrow--%>

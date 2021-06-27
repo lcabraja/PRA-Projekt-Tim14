@@ -213,7 +213,8 @@
     <Compile Include="Models\RecentQuiz.cs" />
     <Compile Include="Models\Repo.cs" />
     <Compile Include="Exceptions\SQLInsertException.cs" />
-    <Compile Include="Models\StateModels\QuizCreation.cs" />
+    <Compile Include="Models\StateModels\QuizCreationModel.cs" />
+    <Compile Include="Models\StateModels\QuizCreationPage.cs" />
     <Compile Include="QuizCreation.aspx.cs">
       <DependentUpon>QuizCreation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
