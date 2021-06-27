@@ -10,29 +10,33 @@ namespace Quizkey
 {
     public partial class QuizCreation : System.Web.UI.Page
     {
+        // ================================================================================================ Props ==========================================================
         public bool TriangleFill { get; set; }
         public bool StarFill { get; set; }
         public bool PentagonFill { get; set; }
         public bool CircleFill { get; set; }
 
+
+        private int QuizID;
+
         public QuizCreationModel CreationState
         {
             get
             {
-                if (Session["qk-QuizCreationModel"] == null)
+                if (Session["qc-QuizCreationModel"] == null)
                 {
-                    Session["qk-QuizCreationModel"] = new QuizCreationModel();
+                    Session["qc-QuizCreationModel"] = new QuizCreationModel();
                 }
-                return Session["qk-QuizCreationModel"] as QuizCreationModel;
+                return Session["qc-QuizCreationModel"] as QuizCreationModel;
             }
-            set { Session["qk-QuizCreationModel"] = value; }
+            set { Session["qc-QuizCreationModel"] = value; }
         }
         public HttpCookie UserState
         {
             get { return Request.Cookies["UserState"]; }
             set { Response.SetCookie(value); }
         }
-
+        // ================================================================================================ Load ===========================================================
         protected void Page_Load(object sender, EventArgs e)
         {
             this.PreRender += Page_PreRender;
@@ -52,7 +56,43 @@ namespace Quizkey
 
             QuizCreationAnswer3.OnAddAnswer += QuizCreationAnswer3_OnAddAnswer;
             QuizCreationAnswer4.OnAddAnswer += QuizCreationAnswer4_OnAddAnswer;
+
+            LoadQuiz();
             LoadSessionValues();
+        }
+
+        private void LoadQuiz() {
+
+            quizID = (int)Session["qc-ID-toEdit"];
+            if (quizID == 0) {
+                return;
+            }
+            var quizDatabaseInstance = Repo.GetQuiz(quizID);
+            // TODO : I don't think this will ever actually be null
+            if (quizDatabaseInstance == null) {
+                Response.Redirect("/");
+                return;
+            }
+
+            var answers = Repo.GetMultipleQuizAnswer().Where(x => x.QuizID == quizID);
+            Repo.GetMultipleQuizQuestion().ForEach(x => CreationState.Pages.Add(new QuizCreationPage { 
+                                                                                        QuestionID = x.IDQuizQuestion, 
+                                                                                        SelectedAnswer = x.CorrectAnswer,
+                                                                                        SelectedTime = x.AnswerTimeSeconds,
+                                                                                        Question = x.QuestionText,
+                                                                                        Answer1 = answers.Find(y => y.QuestionOrder == 1).AnswerText,
+                                                                                        Answer2 = answers.Find(y => y.QuestionOrder == 2).AnswerText,
+                                                                                        Answer3 = answers.Find(y => y.QuestionOrder == 3).AnswerText,
+                                                                                        Answer4 = answers.Find(y => y.QuestionOrder == 4).AnswerText
+                                                                                        }))
+        }
+
+        private void InserIntoQuizQuestion(QuizAnswer answer) {
+            var p = CreationState.Pages.Find(x => x.QuestionID == answer.QuizQuestionID);
+            switch(answer.QuestionOrder) {
+                case 1:
+                    CreationState.Pages
+            }
         }
 
         private void LoadSessionValues()
@@ -81,12 +121,12 @@ namespace Quizkey
 
             QuizCreationPage currentPage = CreationState.Pages[pageNumber];
 
-            base.Session["SelectedAnswer"] = currentPage.SelectedAnswer;
-            Session["SelectedTime"] = currentPage.SelectedTime;
+            base.Session["qc-SelectedAnswer"] = currentPage.SelectedAnswer;
+            Session["qc-SelectedTime"] = currentPage.SelectedTime;
 
             tbQuestion.Text = currentPage.Question;
 
-            Session["AnswerNumber"] = currentPage.AnswerNumber;
+            Session["qc-AnswerNumber"] = currentPage.AnswerNumber;
 
             QuizCreationAnswer1.tbAnswer.Text = currentPage.Answer1;
             QuizCreationAnswer2.tbAnswer.Text = currentPage.Answer2;
@@ -95,32 +135,33 @@ namespace Quizkey
 
         }
 
+
         private void QuizCreationAnswer3_OnAddAnswer(object sender, EventArgs e)
         {
-            var delete = (bool)(Session["qk-a3-delete"] ?? false);
+            var delete = (bool)(Session["qc-a3-delete"] ?? false);
             int NumberOfQuestions = delete ? 2 : 3;
-            Session["AnswerNumber"] = NumberOfQuestions;
-            Session["qk-a3-delete"] = !delete;
+            Session["qc-AnswerNumber"] = NumberOfQuestions;
+            Session["qc-a3-delete"] = !delete;
         }
         private void QuizCreationAnswer4_OnAddAnswer(object sender, EventArgs e)
         {
-            var delete = (bool)(Session["qk-a4-delete"] ?? false);
+            var delete = (bool)(Session["qc-a4-delete"] ?? false);
             int NumberOfQuestions = delete ? 3 : 4;
-            Session["AnswerNumber"] = NumberOfQuestions;
-            Session["qk-a4-delete"] = !delete;
+            Session["qc-AnswerNumber"] = NumberOfQuestions;
+            Session["qc-a4-delete"] = !delete;
         }
-
+        // ================================================================================================ Render =========================================================
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            this.tbQuizName.Text = Session["QuizName"]?.ToString();
+            this.tbQuizName.Text = Session["qc-QuizName"]?.ToString();
 
             // Answer number selection
             SetQuestionNumbers();
 
             // Correct answer selection
-            if (Session["SelectedAnswer"] != null)
+            if (Session["qc-SelectedAnswer"] != null)
             {
-                int answer = (int)Session["SelectedAnswer"];
+                int answer = (int)Session["qc-SelectedAnswer"];
                 switch (answer)
                 {
                     case 1:
@@ -144,10 +185,10 @@ namespace Quizkey
             }
 
             // Time limit selection
-            if (Session["SelectedTime"] != null)
+            if (Session["qc-SelectedTime"] != null)
             {
 
-                int time = (int)Session["SelectedTime"];
+                int time = (int)Session["qc-SelectedTime"];
                 switch (time)
                 {
                     case 120:
@@ -176,9 +217,9 @@ namespace Quizkey
 
         private void SetQuestionNumbers()
         {
-            if (Session["AnswerNumber"] != null)
+            if (Session["qc-AnswerNumber"] != null)
             {
-                int answer = (int)Session["AnswerNumber"];
+                int answer = (int)Session["qc-AnswerNumber"];
                 switch (answer)
                 {
                     case 3:
@@ -227,49 +268,53 @@ namespace Quizkey
             return hold;
         }
 
+        // TODO
+        private void ClearSession() {
+            Session.AllKeys.ToList().Where(x => x.StartsWith("qc").ForEach(x => Session[x] = null);
+        }
+        // ================================================================================================ Event Handlers =================================================
+
         protected void Save_Click(object sender, EventArgs e)
         {
-
+            // TODO : foreach through CreationState, adding items to the DB
         }
-
-        // ================================================================================================ Event Handlers
-
         protected void Discard_Click(object sender, EventArgs e)
         {
             Response.Redirect("/");
+            ClearSession();
         }
         protected void btTriangle_ServerClick(object sender, EventArgs e)
         {
-            Session["SelectedAnswer"] = 1;
+            Session["qc-SelectedAnswer"] = 1;
         }
         protected void btStar_ServerClick(object sender, EventArgs e)
         {
-            Session["SelectedAnswer"] = 2;
+            Session["qc-SelectedAnswer"] = 2;
         }
         protected void btPentagon_ServerClick(object sender, EventArgs e)
         {
-            Session["SelectedAnswer"] = 3;
+            Session["qc-SelectedAnswer"] = 3;
         }
         protected void btCircle_ServerClick(object sender, EventArgs e)
         {
-            Session["SelectedAnswer"] = 4;
+            Session["qc-SelectedAnswer"] = 4;
 
         }
         private void QuizCreationTimeButton1_ServerClick(object sender, EventArgs e)
         {
-            Session["SelectedTime"] = 120;
+            Session["qc-SelectedTime"] = 120;
         }
         private void QuizCreationTimeButton2_ServerClick(object sender, EventArgs e)
         {
-            Session["SelectedTime"] = 60;
+            Session["qc-SelectedTime"] = 60;
         }
         private void QuizCreationTimeButton3_ServerClick(object sender, EventArgs e)
         {
-            Session["SelectedTime"] = 30;
+            Session["qc-SelectedTime"] = 30;
         }
         private void QuizCreationTimeButton4_ServerClick(object sender, EventArgs e)
         {
-            Session["SelectedTime"] = 15;
+            Session["qc-SelectedTime"] = 15;
         }
         protected void ButtonCustomTime_ServerClick(object sender, EventArgs e)
         {
@@ -281,7 +326,7 @@ namespace Quizkey
                 }
                 else
                 {
-                    Session["SelectedTime"] = seconds;
+                    Session["qc-SelectedTime"] = seconds;
                 }
             }
         }

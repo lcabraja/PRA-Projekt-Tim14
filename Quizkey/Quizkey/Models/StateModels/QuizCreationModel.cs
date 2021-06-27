@@ -8,6 +8,7 @@ namespace Quizkey.Models
     public class QuizCreationModel
     {
         public string QuizName { get; set; }
+        public int QuizID  {get; set; }
         public List<QuizCreationPage> Pages { get; private set; }
     }
 }

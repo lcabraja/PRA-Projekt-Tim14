@@ -154,6 +154,7 @@ namespace Quizkey.Models
             return GetQuizQuestionFromDataRow(ds.Tables[0].Rows[0]);
         }
 
+        // TODO multiple with quiz ID
         public static List<QuizQuestion> GetMultipleQuizQuestion()
         {
             List<QuizQuestion> collection = new List<QuizQuestion>();
