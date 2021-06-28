@@ -9,6 +9,11 @@ namespace Quizkey.Models
     {
         public string QuizName { get; set; }
         public int QuizID  {get; set; }
-        public List<QuizCreationPage> Pages { get; private set; }
+        public SortedList<int, QuizCreationPage> Pages { get; private set; }
+
+        public QuizCreationModel()
+        {
+            Pages = new SortedList<int, QuizCreationPage>();
+        }
     }
 }

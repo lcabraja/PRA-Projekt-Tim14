@@ -14,6 +14,7 @@
         <div>
             <uc1:_Navbar runat="server" ID="_Navbar" />
             <asp:HyperLink NavigateUrl="QuizCreation.aspx" Text="Create new Quiz" CssClass="a" runat="server" />
+            <asp:LinkButton Text="text" OnClick="Unnamed_Click" runat="server" />
         </div>
     </form>
 </body>

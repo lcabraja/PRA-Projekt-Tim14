@@ -80,7 +80,7 @@
             <div class="qk-quizcreation-grid-container-bottom">
                 <%--Left Arrow--%>
                 <div class="qk-quizcreation-left-button d-grid gap-2">
-                    <button id="testbutton" class="btn btn-primary p-2" runat="server"><i class="bi bi-arrow-left-circle"></i></button>
+                    <button onserverclick="Left_ServerClick" id="testbutton" class="btn btn-primary p-2" runat="server"><i class="bi bi-arrow-left-circle"></i></button>
                 </div>
                 <%--Answers--%>
                 <div class="qk-quizcreation-answers">
@@ -104,7 +104,7 @@
                 </div>
                 <%--Right Arrow--%>
                 <div class="text-center qk-quizcreation-right-button d-grid gap-2">
-                    <button id="Button1" class="btn btn-primary p-2" runat="server"><i class="bi bi-arrow-right-circle"></i></button>
+                    <button id="Button1" onserverclick="Right_ServerClick" class="btn btn-primary p-2" runat="server"><i class="bi bi-arrow-right-circle"></i></button>
                 </div>
             </div>
         </div>

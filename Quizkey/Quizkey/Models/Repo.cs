@@ -25,7 +25,7 @@ namespace Quizkey.Models
         //---------------------------------------------------------Author---------------------------------------------------------
         public static int CreateAuthor(Author author)
         {
-            int IDAuthor = (int)SqlHelper.ExecuteScalar(cs, "proc_create_Author", author.Username, author.PasswordHash, author.Email);
+            int IDAuthor = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_Author", author.Username, author.PasswordHash, author.Email).ToString());
             if (IDAuthor > 0)
             {
                 Add(author);
@@ -36,10 +36,11 @@ namespace Quizkey.Models
 
         public static Author GetAuthor(int IDAuthor)
         {
-            if (authorCache.Contains(new Author { IDAuthor = IDAuthor }))
-                return authorCache.Find(x => x.IDAuthor == IDAuthor);
+            if (authorCache != null)
+                if (authorCache.Contains(new Author { IDAuthor = IDAuthor }))
+                    return authorCache.Find(x => x.IDAuthor == IDAuthor);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_Author", IDAuthor);
-            return GetAuthorFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetAuthorFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<Author> GetMultipleAuthor()
@@ -77,9 +78,7 @@ namespace Quizkey.Models
         //----------------------------------------------------------Quiz----------------------------------------------------------
         public static int CreateQuiz(Quiz quiz)
         {
-            var scalareresult = SqlHelper.ExecuteScalar(cs, "proc_create_Quiz", quiz.AuthorID, quiz.QuizName);
-            string @string = scalareresult.ToString();
-            int IDQuiz = int.Parse(@string);
+            int IDQuiz = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_Quiz", quiz.AuthorID, quiz.QuizName).ToString());
             if (IDQuiz > 0)
             {
                 Add(quiz);
@@ -90,10 +89,11 @@ namespace Quizkey.Models
 
         public static Quiz GetQuiz(int IDQuiz)
         {
-            if (quizCache.Contains(new Quiz { IDQuiz = IDQuiz }))
-                return quizCache.Find(x => x.IDQuiz == IDQuiz);
+            if (quizCache != null)
+                if (quizCache.Contains(new Quiz { IDQuiz = IDQuiz }))
+                    return quizCache.Find(x => x.IDQuiz == IDQuiz);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_Quiz", IDQuiz);
-            return GetQuizFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetQuizFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<Quiz> GetMultipleQuiz()
@@ -129,15 +129,15 @@ namespace Quizkey.Models
         //------------------------------------------------------QuizQuestion------------------------------------------------------
         public static int CreateQuizQuestion(QuizQuestion quizquestion)
         {
-            int IDQuizQuestion = (int)SqlHelper.ExecuteScalar(
+            int IDQuizQuestion = int.Parse(SqlHelper.ExecuteScalar(
                 cs,
                 "proc_create_QuizQuestion",
                 quizquestion.QuizID,
-                quizquestion.QuestionNumber,
+                quizquestion.AnswerNumber,
                 quizquestion.QuestionText,
                 quizquestion.CorrectAnswer,
                 quizquestion.AnswerTimeSeconds
-            );
+            ).ToString());
             if (IDQuizQuestion > 0)
             {
                 Add(quizquestion);
@@ -148,10 +148,11 @@ namespace Quizkey.Models
 
         public static QuizQuestion GetQuizQuestion(int IDQuizQuestion)
         {
-            if (quizquestionCache.Contains(new QuizQuestion { IDQuizQuestion = IDQuizQuestion }))
-                return quizquestionCache.Find(x => x.IDQuizQuestion == IDQuizQuestion);
+            if (quizquestionCache != null)
+                if (quizquestionCache.Contains(new QuizQuestion { IDQuizQuestion = IDQuizQuestion }))
+                    return quizquestionCache.Find(x => x.IDQuizQuestion == IDQuizQuestion);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_QuizQuestion", IDQuizQuestion);
-            return GetQuizQuestionFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetQuizQuestionFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         // TODO multiple with quiz ID
@@ -169,7 +170,7 @@ namespace Quizkey.Models
 
         public static void UpdateQuizQuestion(QuizQuestion quizquestion)
         {
-            SqlHelper.ExecuteDataset(cs, "proc_update_QuizQuestion", quizquestion.IDQuizQuestion, quizquestion.QuizID, quizquestion.QuestionNumber, quizquestion.QuestionText, quizquestion.CorrectAnswer, quizquestion.AnswerTimeSeconds);
+            SqlHelper.ExecuteDataset(cs, "proc_update_QuizQuestion", quizquestion.IDQuizQuestion, quizquestion.QuizID, quizquestion.AnswerNumber, quizquestion.QuestionText, quizquestion.CorrectAnswer, quizquestion.AnswerTimeSeconds);
         }
 
         public static void DeleteQuizQuestion(int IDQuizQuestion)
@@ -182,16 +183,16 @@ namespace Quizkey.Models
             {
                 IDQuizQuestion = (int)row["IDQuizQuestion"],
                 QuizID = (int)row["QuizID"],
-                QuestionNumber = (int)row["QuestionNumber"],
+                AnswerNumber = (int)row["QuestionNumber"],
                 QuestionText = row["QuestionText"].ToString(),
-                CorrectAnswer = row["CorrectAnswer"].ToString(),
+                CorrectAnswer = (short)row["CorrectAnswer"],
                 AnswerTimeSeconds = (int)row["AnswerTimeSeconds"]
             };
         }
         //-------------------------------------------------------QuizAnswer-------------------------------------------------------
         public static int CreateQuizAnswer(QuizAnswer quizanswer)
         {
-            int IDQuizAnswer = (int)SqlHelper.ExecuteScalar(cs, "proc_create_QuizAnswer", quizanswer.QuizQuestionID, quizanswer.AnswerText, quizanswer.QuestionOrder);
+            int IDQuizAnswer = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_QuizAnswer", quizanswer.QuizQuestionID, quizanswer.AnswerText, quizanswer.QuestionOrder).ToString());
             if (IDQuizAnswer > 0)
             {
                 Add(quizanswer);
@@ -202,10 +203,11 @@ namespace Quizkey.Models
 
         public static QuizAnswer GetQuizAnswer(int IDQuizAnswer)
         {
-            if (quizanswerCache.Contains(new QuizAnswer { IDQuizAnswer = IDQuizAnswer }))
-                return quizanswerCache.Find(x => x.IDQuizAnswer == IDQuizAnswer);
+            if (quizanswerCache != null)
+                if (quizanswerCache.Contains(new QuizAnswer { IDQuizAnswer = IDQuizAnswer }))
+                    return quizanswerCache.Find(x => x.IDQuizAnswer == IDQuizAnswer);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_QuizAnswer", IDQuizAnswer);
-            return GetQuizAnswerFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetQuizAnswerFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<QuizAnswer> GetMultipleQuizAnswer()
@@ -231,20 +233,19 @@ namespace Quizkey.Models
         }
 
         private static QuizAnswer GetQuizAnswerFromDataRow(DataRow row)
-
         {
             return new QuizAnswer
             {
                 IDQuizAnswer = (int)row["IDQuizAnswer"],
                 QuizQuestionID = (int)row["QuizQuestionID"],
                 AnswerText = row["AnswerText"].ToString(),
-                QuestionOrder = row["QuestionOrder"].ToString()
+                QuestionOrder = (short)row["QuestionOrder"]
             };
         }
         //------------------------------------------------------QuizSession-------------------------------------------------------
         public static int CreateQuizSession(QuizSession quizsession)
         {
-            int IDQuizSession = (int)SqlHelper.ExecuteScalar(cs, "proc_create_QuizSession", quizsession.QuizID, quizsession.OccurredAt, quizsession.SessionCode);
+            int IDQuizSession = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_QuizSession", quizsession.QuizID, quizsession.OccurredAt, quizsession.SessionCode).ToString());
             if (IDQuizSession > 0)
             {
                 Add(quizsession);
@@ -255,10 +256,11 @@ namespace Quizkey.Models
 
         public static QuizSession GetQuizSession(int IDQuizSession)
         {
-            if (quizsessionCache.Contains(new QuizSession { IDQuizSession = IDQuizSession }))
-                return quizsessionCache.Find(x => x.IDQuizSession == IDQuizSession);
+            if (quizsessionCache != null)
+                if (quizsessionCache.Contains(new QuizSession { IDQuizSession = IDQuizSession }))
+                    return quizsessionCache.Find(x => x.IDQuizSession == IDQuizSession);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_QuizSession", IDQuizSession);
-            return GetQuizSessionFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetQuizSessionFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<QuizSession> GetMultipleQuizSession()
@@ -295,7 +297,7 @@ namespace Quizkey.Models
         //--------------------------------------------------------Attendee--------------------------------------------------------
         public static int CreateAttendee(Attendee attendee)
         {
-            int IDAttendee = (int)SqlHelper.ExecuteScalar(cs, "proc_create_Attendee", attendee.Username, attendee.SessionID);
+            int IDAttendee = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_Attendee", attendee.Username, attendee.SessionID).ToString());
             if (IDAttendee > 0)
             {
                 Add(attendee);
@@ -306,10 +308,11 @@ namespace Quizkey.Models
 
         public static Attendee GetAttendee(int IDAttendee)
         {
-            if (attendeeCache.Contains(new Attendee { IDAttendee = IDAttendee }))
-                return attendeeCache.Find(x => x.IDAttendee == IDAttendee);
+            if (attendeeCache != null)
+                if (attendeeCache.Contains(new Attendee { IDAttendee = IDAttendee }))
+                    return attendeeCache.Find(x => x.IDAttendee == IDAttendee);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_Attendee", IDAttendee);
-            return GetAttendeeFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetAttendeeFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<Attendee> GetMultipleAttendee()
@@ -345,7 +348,7 @@ namespace Quizkey.Models
         //--------------------------------------------------------LogItem---------------------------------------------------------
         public static int CreateLogItem(LogItem logitem)
         {
-            int IDAuthor = (int)SqlHelper.ExecuteScalar(cs, "proc_create_LogItem", logitem.QuizSessionID, logitem.QuizQuestionID, logitem.QuizAnswerID, logitem.AttendeeID, logitem.Points);
+            int IDAuthor = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_LogItem", logitem.QuizSessionID, logitem.QuizQuestionID, logitem.QuizAnswerID, logitem.AttendeeID, logitem.Points).ToString());
             if (IDAuthor > 0)
             {
                 Add(logitem);
@@ -356,10 +359,11 @@ namespace Quizkey.Models
 
         public static LogItem GetLogItem(int IDLogItem)
         {
-            if (logitemCache.Contains(new LogItem { IDLogItem = IDLogItem }))
-                return logitemCache.Find(x => x.IDLogItem == IDLogItem);
+            if (logitemCache != null)
+                if (logitemCache.Contains(new LogItem { IDLogItem = IDLogItem }))
+                    return logitemCache.Find(x => x.IDLogItem == IDLogItem);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_LogItem", IDLogItem);
-            return GetLogItemFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetLogItemFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<LogItem> GetMultipleLogItem()
@@ -398,7 +402,7 @@ namespace Quizkey.Models
         //-------------------------------------------------------RecentQuiz-------------------------------------------------------
         public static int CreateRecentQuiz(RecentQuiz recentquiz)
         {
-            int IDRecentQuiz = (int)SqlHelper.ExecuteScalar(cs, "proc_create_RecentQuiz", recentquiz.QuizID, recentquiz.LastEvent);
+            int IDRecentQuiz = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_RecentQuiz", recentquiz.QuizID, recentquiz.LastEvent).ToString());
             if (IDRecentQuiz > 0)
             {
                 Add(recentquiz);
@@ -409,10 +413,11 @@ namespace Quizkey.Models
 
         public static RecentQuiz GetRecentQuiz(int IDRecentQuiz)
         {
-            if (recentquizCache.Contains(new RecentQuiz { IDRecentQuiz = IDRecentQuiz }))
-                return recentquizCache.Find(x => x.IDRecentQuiz == IDRecentQuiz);
+            if (recentquizCache != null)
+                if (recentquizCache.Contains(new RecentQuiz { IDRecentQuiz = IDRecentQuiz }))
+                    return recentquizCache.Find(x => x.IDRecentQuiz == IDRecentQuiz);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_RecentQuiz", IDRecentQuiz);
-            return GetRecentQuizFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetRecentQuizFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<RecentQuiz> GetMultipleRecentQuiz()
@@ -445,7 +450,7 @@ namespace Quizkey.Models
                 LastEvent = DateTimeOffset.Parse(row["LastEvent"].ToString())
             };
         }
-
+        //---------------------------------------------------------Cache----------------------------------------------------------
         private static void Add(object item)
         {
             if (item.GetType().Equals(typeof(Attendee)))

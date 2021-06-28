@@ -15,12 +15,18 @@ namespace Quizkey
 
             cookie["loggedin"] = "author";
             cookie["language"] = "en";
-            cookie["username"] = "Pero123";
+            cookie["username"] = "dino";
             cookie["points"] = "6969";
             cookie["userid"] = "1007";
             cookie["quizcode"] = "poland";
 
             Response.SetCookie(cookie);
+        }
+
+        protected void Unnamed_Click(object sender, EventArgs e)
+        {
+            Session["qc-ID-toEdit"] = 3002;
+            Response.Redirect("QuizCreation.aspx");
         }
     }
 }

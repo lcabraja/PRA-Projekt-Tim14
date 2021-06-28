@@ -9,13 +9,13 @@ namespace Quizkey.User_Controls
 {
     public partial class QuizCreationButton : System.Web.UI.UserControl
     {
-        public event System.EventHandler ASAAAAAAAAAAAAAAAAAAAA;
+        public event System.EventHandler ServerClick;
         public string Shape { get; set; }
         public bool Filled { get; set; } = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             this.PreRender += QuizCreationButton_PreRender;
-            Button.ServerClick += ASAAAAAAAAAAAAAAAAAAAA;
+            Button.ServerClick += ServerClick;
         }
 
         private void QuizCreationButton_PreRender(object sender, EventArgs e)

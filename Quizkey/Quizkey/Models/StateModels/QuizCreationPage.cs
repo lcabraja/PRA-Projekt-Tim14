@@ -13,10 +13,10 @@ namespace Quizkey.Models
         public int SelectedTime { get; set; }
         public int AnswerNumber { get { 
             int answerCount = 0; 
-            Answer1.Equals(string.Empty) ? answerCount += 1 : void; 
-            Answer2.Equals(string.Empty) ? answerCount += 1 : void; 
-            Answer3.Equals(string.Empty) ? answerCount += 1 : void; 
-            Answer4.Equals(string.Empty) ? answerCount += 1 : void;
+            if (Answer1 != null) answerCount += 1; 
+            if (Answer2 != null) answerCount += 1; 
+            if (Answer3 != null) answerCount += 1; 
+            if (Answer4 != null) answerCount += 1;
             return answerCount;
         } }
         public string Question { get; set; }
