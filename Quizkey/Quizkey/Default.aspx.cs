@@ -18,7 +18,8 @@ namespace Quizkey
             cookie["username"] = "dino";
             cookie["points"] = "6969";
             cookie["userid"] = "1007";
-            cookie["quizcode"] = "poland";
+            
+            Session["SessionID"] = "3";
 
             Response.SetCookie(cookie);
         }

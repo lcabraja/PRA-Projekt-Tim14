@@ -330,7 +330,7 @@ namespace Quizkey
             foreach (var page in CreationState.Pages)
             {
                 var pagedata = page.Value;
-                var questionID = Repo.CreateQuizQuestion(new QuizQuestion
+                var questionID = Repo.CreateQuizQuestion(new Models.QuizQuestion
                 {
                     AnswerTimeSeconds = pagedata.SelectedTime,
                     CorrectAnswer = pagedata.SelectedAnswer,
