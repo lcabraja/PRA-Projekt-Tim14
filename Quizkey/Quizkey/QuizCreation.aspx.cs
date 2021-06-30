@@ -335,7 +335,7 @@ namespace Quizkey
                     AnswerTimeSeconds = pagedata.SelectedTime,
                     CorrectAnswer = pagedata.SelectedAnswer,
                     QuizID = quizID,
-                    AnswerNumber = pagedata.AnswerNumber,
+                    QuestionNumber = page.Key,
                     QuestionText = pagedata.Question
                 });
                 Repo.CreateQuizAnswer(new QuizAnswer

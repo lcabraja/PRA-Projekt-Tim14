@@ -85,6 +85,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\qk-inprogress.css" />
     <Content Include="Content\qk-quizcreation.css" />
     <Content Include="Default.aspx" />
     <Content Include="GameStartPage.aspx" />
@@ -182,6 +183,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="QuizCreation.aspx" />
+    <Content Include="User_Controls\InProgressAnswer.ascx" />
     <Content Include="User_Controls\QuizCreationAnswer.ascx" />
     <Content Include="User_Controls\QuizCreationButton.ascx" />
     <Content Include="User_Controls\QuizCreationTimeButton.ascx" />
@@ -220,6 +222,7 @@
     <Compile Include="InProgressQuizQuestion.aspx.designer.cs">
       <DependentUpon>InProgressQuizQuestion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="LoadQuizData.cs" />
     <Compile Include="Models\Attendee.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\LogItem.cs" />
@@ -238,6 +241,13 @@
     </Compile>
     <Compile Include="QuizCreation.aspx.designer.cs">
       <DependentUpon>QuizCreation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\InProgressAnswer.ascx.cs">
+      <DependentUpon>InProgressAnswer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\InProgressAnswer.ascx.designer.cs">
+      <DependentUpon>InProgressAnswer.ascx</DependentUpon>
     </Compile>
     <Compile Include="User_Controls\QuizCreationAnswer.ascx.cs">
       <DependentUpon>QuizCreationAnswer.ascx</DependentUpon>

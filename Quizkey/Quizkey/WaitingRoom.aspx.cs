@@ -28,6 +28,45 @@ namespace Quizkey
                 return int.Parse(Session["SessionID"].ToString());
             }
         }
+        public int PageNumber
+        {
+            get
+            {
+                return (int)(Session["qp-quizstate-PageNumber"] ?? 0);
+            }
+
+            set
+            {
+                Session["qp-quizstate-PageNumber"] = value;
+            }
+        }
+        public bool StatePlaying
+        {
+            get
+            {
+                return (bool)(Session["qp-quizstate-playing"] ?? false);
+            }
+            set
+            {
+                Session["qp-quizstate-playing"] = value;
+            }
+        }
+        public QuizCreationModel QuizData
+        {
+            get
+            {
+                if (Session["qp-QuizData"] == null)
+                {
+                    QuizData = LoadQuizData.GetQuizData(SessionID);
+                }
+                return Session["qp-QuizData"] as QuizCreationModel;
+            }
+
+            set
+            {
+                Session["qp-QuizData"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == this.SessionID);
@@ -41,14 +80,13 @@ namespace Quizkey
         protected void Start_Click(object sender, EventArgs e)
         {
             Session["qp-quizstate-playing"] = true;
-            Session["qp-quizstate-question"] = 0;
+            PageNumber = 0;
             Response.Redirect("QuizQuestion.aspx");
         }
 
         protected void Odustani_Click(object sender, EventArgs e)
         {
-            Session["qp-quizstate-playing"] = null;
-            Session["qp-quizstate-question"] = null;
+            StatePlaying = false;
             Session["SessionID"] = null;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quizkey.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,15 +19,15 @@ namespace Quizkey
             cookie["username"] = "dino";
             cookie["points"] = "6969";
             cookie["userid"] = "1007";
-            
-            Session["SessionID"] = "3";
 
+            Session["SessionID"] = Repo.CreateQuizSession(new QuizSession { OccurredAt = DateTimeOffset.Now, QuizID = 4002, SessionCode = "bigbob" });
+            Response.Write(Session["SessionID"].ToString());
             Response.SetCookie(cookie);
         }
 
         protected void Unnamed_Click(object sender, EventArgs e)
         {
-            Session["qc-ID-toEdit"] = 3002;
+            Session["qc-ID-toEdit"] = 4002;
             Response.Redirect("QuizCreation.aspx");
         }
     }

@@ -133,7 +133,7 @@ namespace Quizkey.Models
                 cs,
                 "proc_create_QuizQuestion",
                 quizquestion.QuizID,
-                quizquestion.AnswerNumber,
+                quizquestion.QuestionNumber,
                 quizquestion.QuestionText,
                 quizquestion.CorrectAnswer,
                 quizquestion.AnswerTimeSeconds
@@ -170,7 +170,7 @@ namespace Quizkey.Models
 
         public static void UpdateQuizQuestion(QuizQuestion quizquestion)
         {
-            SqlHelper.ExecuteDataset(cs, "proc_update_QuizQuestion", quizquestion.IDQuizQuestion, quizquestion.QuizID, quizquestion.AnswerNumber, quizquestion.QuestionText, quizquestion.CorrectAnswer, quizquestion.AnswerTimeSeconds);
+            SqlHelper.ExecuteDataset(cs, "proc_update_QuizQuestion", quizquestion.IDQuizQuestion, quizquestion.QuizID, quizquestion.QuestionNumber, quizquestion.QuestionText, quizquestion.CorrectAnswer, quizquestion.AnswerTimeSeconds);
         }
 
         public static void DeleteQuizQuestion(int IDQuizQuestion)
@@ -183,7 +183,7 @@ namespace Quizkey.Models
             {
                 IDQuizQuestion = (int)row["IDQuizQuestion"],
                 QuizID = (int)row["QuizID"],
-                AnswerNumber = (int)row["QuestionNumber"],
+                QuestionNumber = (int)row["QuestionNumber"],
                 QuestionText = row["QuestionText"].ToString(),
                 CorrectAnswer = (short)row["CorrectAnswer"],
                 AnswerTimeSeconds = (int)row["AnswerTimeSeconds"]

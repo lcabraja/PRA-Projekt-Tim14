@@ -38,7 +38,7 @@
         <div class="container-fluid qk-quizcreation-grid-container-main">
             <div class="qk-quizcreation-grid-container-top d-flex">
                 <%--Players--%>
-                <div class="bg-secondary rounded text-center box " style="width: 100%; /*height: 79vh;*/" id="players" runat="server">
+                <div class="bg-secondary rounded text-center box" style="width: 100%; /*height: 79vh; */" id="players" runat="server">
                 </div>
             </div>
         </div>

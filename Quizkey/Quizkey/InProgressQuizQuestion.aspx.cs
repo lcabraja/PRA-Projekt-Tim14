@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quizkey.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,61 +10,110 @@ namespace Quizkey
 {
     public partial class InProgressQuizQuestion : System.Web.UI.Page
     {
+        public string SessionCode
+        {
+            get
+            {
+                return Repo.GetQuizSession(SessionID).SessionCode;
+            }
+        }
+        public int SessionID
+        {
+            get
+            {
+                if (Session["SessionID"] == null)
+                {
+                    Response.Redirect("/");
+                }
+                return int.Parse(Session["SessionID"].ToString());
+            }
+        }
+        public int PageNumber
+        {
+            get
+            {
+                return (int)(Session["qp-quizstate-PageNumber"] ?? 0);
+            }
+
+            set
+            {
+                Session["qp-quizstate-PageNumber"] = value;
+            }
+        }
+        public bool StatePlaying
+        {
+            get
+            {
+                return (bool)(Session["qp-quizstate-playing"] ?? false);
+            }
+            set
+            {
+                Session["qp-quizstate-playing"] = value;
+            }
+        }
+        public QuizCreationModel QuizData
+        {
+            get
+            {
+                if (Session["qp-QuizData"] == null)
+                {
+                    QuizData = LoadQuizData.GetQuizData(SessionID);
+                }
+                return Session["qp-QuizData"] as QuizCreationModel;
+            }
+
+            set
+            {
+                Session["qp-QuizData"] = value;
+            }
+        }
+        public QuizCreationModel CreationState
+        {
+            get
+            {
+                return Session["qc-QuizCreationModel"] as QuizCreationModel;
+            }
+            set { Session["qc-QuizCreationModel"] = value; }
+        }
+        public QuizCreationModel GetCreationState() => 
+            CreationState == null ? LoadQuizData.GetQuizData(SessionID) : CreationState;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            var sesh = Session;
+            if (!StatePlaying)
+                Response.Write("notplaying ");
+            this.PreRender += Page_PreRender;
         }
 
+        private void Page_PreRender(object sender, EventArgs e)
+        {
+            QuizCreationPage page;
 
+                var data = GetCreationState();
+                page = GetCreationState().Pages[PageNumber];
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+                return;
+            }
 
-        protected void Save_Click(object sender, EventArgs e)
-        {
-            
-                // TODO update Session["qc-ID-toEdit"] after save
-            
-        }
-        protected void Discard_Click(object sender, EventArgs e)
-        {
-        }
-        protected void btTriangle_ServerClick(object sender, EventArgs e)
-        {
-        }
-        protected void btStar_ServerClick(object sender, EventArgs e)
-        {
-        }
-        protected void btPentagon_ServerClick(object sender, EventArgs e)
-        {
-        }
-        protected void btCircle_ServerClick(object sender, EventArgs e)
-        {
+            lbQuestion.Text = page.Question;
 
-        }
-        private void QuizCreationTimeButton1_ServerClick(object sender, EventArgs e)
-        {
-        }
-        private void QuizCreationTimeButton2_ServerClick(object sender, EventArgs e)
-        {
-        }
-        private void QuizCreationTimeButton3_ServerClick(object sender, EventArgs e)
-        {
-        }
-        private void QuizCreationTimeButton4_ServerClick(object sender, EventArgs e)
-        {
-        }
-        protected void ButtonCustomTime_ServerClick(object sender, EventArgs e)
-        {
-        }
-        private void QuizCreationAnswer3_OnAddAnswer(object sender, EventArgs e)
-        {
-        }
-        private void QuizCreationAnswer4_OnAddAnswer(object sender, EventArgs e)
-        {
-        }
-        protected void Left_ServerClick(object sender, EventArgs e)
-        {
-        }
-        protected void Right_ServerClick(object sender, EventArgs e)
-        {
+            Answer1.AnswerText = page.Answer1;
+            Answer2.AnswerText = page.Answer2;
+            if (page.Answer3 != null)
+            {
+                Answer3.Visible = true;
+                Answer3.AnswerText = page.Answer3;
+            }
+            if (page.Answer4 != null)
+            {
+                Answer4.Visible = true;
+                Answer4.AnswerText = page.Answer4;
+            }
         }
     }
 }

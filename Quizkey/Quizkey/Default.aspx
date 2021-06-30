@@ -16,6 +16,7 @@
             <asp:HyperLink NavigateUrl="QuizCreation.aspx" Text="Create new Quiz" CssClass="a" runat="server" />
             <asp:LinkButton Text="QuizCreation + Code of Quiz to edit" OnClick="Unnamed_Click" runat="server" />
             <asp:HyperLink NavigateUrl="WaitingRoom.aspx" Text="Waiting Room" CssClass="a" runat="server" />
+            <asp:HyperLink NavigateUrl="InProgressQuizQuestion.aspx" Text="In Progress Quiz Question" CssClass="a" runat="server" />
         </div>
     </form>
 </body>

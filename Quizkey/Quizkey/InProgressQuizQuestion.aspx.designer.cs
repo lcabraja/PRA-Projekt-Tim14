@@ -33,130 +33,31 @@ namespace Quizkey
         protected global::Quizkey.Navbar _Navbar;
 
         /// <summary>
-        /// tbQuizName control.
+        /// lbQuestion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbQuizName;
+        protected global::System.Web.UI.WebControls.Label lbQuestion;
 
         /// <summary>
-        /// Save control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Save;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// Discard control.
+        /// timetimer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Discard;
-
-        /// <summary>
-        /// QuizCreationButton1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.QuizCreationButton QuizCreationButton1;
-
-        /// <summary>
-        /// QuizCreationButton2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.QuizCreationButton QuizCreationButton2;
-
-        /// <summary>
-        /// QuizCreationButton3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.QuizCreationButton QuizCreationButton3;
-
-        /// <summary>
-        /// QuizCreationButton4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.QuizCreationButton QuizCreationButton4;
-
-        /// <summary>
-        /// tbQuestion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbQuestion;
-
-        /// <summary>
-        /// QuizCreationTimeButton1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.QuizCreationTimeButton QuizCreationTimeButton1;
-
-        /// <summary>
-        /// QuizCreationTimeButton2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.QuizCreationTimeButton QuizCreationTimeButton2;
-
-        /// <summary>
-        /// QuizCreationTimeButton3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.QuizCreationTimeButton QuizCreationTimeButton3;
-
-        /// <summary>
-        /// QuizCreationTimeButton4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.QuizCreationTimeButton QuizCreationTimeButton4;
-
-        /// <summary>
-        /// ButtonCustomTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton ButtonCustomTime;
-
-        /// <summary>
-        /// TextboxCustomTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextboxCustomTime;
+        protected global::System.Web.UI.Timer timetimer;
 
         /// <summary>
         /// testbutton control.
@@ -168,48 +69,39 @@ namespace Quizkey
         protected global::System.Web.UI.HtmlControls.HtmlButton testbutton;
 
         /// <summary>
-        /// QuizCreationAnswer1 control.
+        /// Answer1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Quizkey.QuizCreationAnswer QuizCreationAnswer1;
+        protected global::Quizkey.User_Controls.InProgressAnswer Answer1;
 
         /// <summary>
-        /// QuizCreationAnswer2 control.
+        /// Answer2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Quizkey.QuizCreationAnswer QuizCreationAnswer2;
+        protected global::Quizkey.User_Controls.InProgressAnswer Answer2;
 
         /// <summary>
-        /// QuizCreationAnswer3 control.
+        /// Answer3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Quizkey.QuizCreationAnswer QuizCreationAnswer3;
+        protected global::Quizkey.User_Controls.InProgressAnswer Answer3;
 
         /// <summary>
-        /// QuizCreationAnswer4 control.
+        /// Answer4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Quizkey.QuizCreationAnswer QuizCreationAnswer4;
-
-        /// <summary>
-        /// Button1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton Button1;
+        protected global::Quizkey.User_Controls.InProgressAnswer Answer4;
     }
 }
