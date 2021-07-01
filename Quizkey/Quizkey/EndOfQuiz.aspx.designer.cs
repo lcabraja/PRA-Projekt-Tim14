@@ -11,7 +11,7 @@ namespace Quizkey
 {
 
 
-    public partial class Results
+    public partial class EndOfQuiz
     {
 
         /// <summary>
@@ -49,5 +49,32 @@ namespace Quizkey
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl positioncontainer;
+
+        /// <summary>
+        /// place2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl place2;
+
+        /// <summary>
+        /// place1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl place1;
+
+        /// <summary>
+        /// place3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl place3;
     }
 }

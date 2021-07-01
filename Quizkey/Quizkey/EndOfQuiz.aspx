@@ -1,4 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Results.aspx.cs" Inherits="Quizkey.Results" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EndOfQuiz.aspx.cs" Inherits="Quizkey.EndOfQuiz" %>
+
+<!DOCTYPE html>
 
 <%@ Register Src="~/User_Controls/_Navbar.ascx" TagPrefix="uc1" TagName="_Navbar" %>
 <%@ Register Src="~/User_Controls/QuizCreationAnswer.ascx" TagPrefix="uc1" TagName="QuizCreationAnswer" %>
@@ -12,7 +14,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Quizkey</title>
-    <link href="Content/qk-results.css" rel="stylesheet" />
+    <link href="Content/qk-endofquiz.css" rel="stylesheet" />
 </head>
 <body class="bg-light">
     <form id="form1" runat="server">
@@ -32,14 +34,22 @@
             <%--Top Container--%>
             <div class="qk-quizcreation-grid-container-top">
                 <%--Question--%>
-                <div class="bg-secondary rounded d-flex text-center order" id="positioncontainer" runat="server">
+                <div class="bg-secondary rounded text-center order" id="positioncontainer" runat="server">
+                    <div class="position-columns">
+                        <div class="qk-column" id="place2" runat="server">2</div>
+                        <div class="qk-column" id="place1" runat="server">1</div>
+                        <div class="qk-column" id="place3" runat="server">3</div>
+                    </div>
+                    <div class="rowrowrowyourboat">
+                        <div class="bg-light rounded"><h2 class="d-grid">testvaleusad</h2></div>
+                    </div>
                 </div>
                 <%--Time--%>
             </div>
             <%--Bottom Container--%>
             <div class="qk-quizcreation-grid-container-bottom">
-                <button class="btn btn-primary d-flex" onserverclick="Stop_Click" runat="server"><h2 style="margin: auto;">Prekini Kviz</h2></button>
-                <button class="btn btn-primary d-flex" onserverclick="Next_Click" runat="server"><h2 style="margin: auto;">Pokreni Slijedece Pitanje</h2></button>
+                <button class="btn btn-primary d-flex"  runat="server"><h2 style="margin: auto;">Prekini Kviz</h2></button>
+                <button class="btn btn-primary d-flex"  runat="server"><h2 style="margin: auto;">Pokreni Slijedece Pitanje</h2></button>
             </div>
         </div>
     </form>

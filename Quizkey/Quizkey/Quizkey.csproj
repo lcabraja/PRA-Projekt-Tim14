@@ -86,8 +86,10 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\qk-inprogress.css" />
+    <Content Include="Content\qk-endofquiz.css" />
     <Content Include="Content\qk-results.css" />
     <Content Include="Content\qk-quizcreation.css" />
+    <Content Include="EndOfQuiz.aspx" />
     <Content Include="Results.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="GameStartPage.aspx" />
@@ -195,6 +197,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EndOfQuiz.aspx.cs">
+      <DependentUpon>EndOfQuiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EndOfQuiz.aspx.designer.cs">
+      <DependentUpon>EndOfQuiz.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Results.aspx.cs">
       <DependentUpon>Results.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

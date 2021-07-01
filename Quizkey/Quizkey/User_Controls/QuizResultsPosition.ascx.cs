@@ -12,14 +12,17 @@ namespace Quizkey.User_Controls
         public string BackgroundColor { get; set; } = "light";
         public int Position { get; set; }
         public string Username { get; set; }
+
+        protected global::System.Web.UI.WebControls.PlaceHolder aaaaaaa;
         protected void Page_Load(object sender, EventArgs e)
         {
+            aaaaaaa = new PlaceHolder();
             this.PreRender += QuizResultsPosition_PreRender;
         }
         private void QuizResultsPosition_PreRender(object sender, EventArgs e)
         {
-            aaaaaaaaaa.Attributes["class"] = $"bg-{BackgroundColor} rounded";
-            bbbbbbbbb.InnerText = $"{Position}. {Username}";
+            Response.Write($"<div class=\"bg-{BackgroundColor} rounded\"><h2 class=\"d-grid\">{Position}. {Username}</h2>");
+            aaaaaaa.Controls.Add(new LiteralControl($"<div class=\"bg-{BackgroundColor} rounded\"><h2 class=\"d-grid\">{Position}. {Username}</h2>"));
         }
     }
 }

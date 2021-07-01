@@ -77,22 +77,29 @@ namespace Quizkey
             var sortedAttendees = attendees.OrderBy(GetScore).Take(5).ToList();
             for (int i = 0; i < sortedAttendees.Count; i++)
             {
-                CreateQuizResultPosition(sortedAttendees[i], i);
+                positioncontainer.Controls.Add(new LiteralControl($"<div class=\"bg-{(i < 3 ? "primary" : "light")} rounded\" ><h2 class=\"d-grid\">{i + 1}. {sortedAttendees[i].Username}</h2></div>"));
             }
-
-        }
-        private void CreateQuizResultPosition(Attendee x, int i)
-        {
-            positioncontainer.Controls.Add(new QuizResultsPosition
-            {
-                BackgroundColor = i < 3 ? "primary" : "light",
-                Position = i,
-                Username = x.Username
-            });
         }
         private int GetScore(Attendee attendee)
         {
-            return Repo.GetMultipleLogItem().Where(x => x.QuizSessionID == SessionID && x.AttendeeID == attendee.IDAttendee).Select(x => x.Points).Sum();
+            return -Repo.GetMultipleLogItem().Where(x => x.QuizSessionID == SessionID && x.AttendeeID == attendee.IDAttendee).Select(x => x.Points).Sum();
+        }
+        protected void Stop_Click(object sender, EventArgs e)
+        {
+            Session["SessionID"] = null;
+            StatePlaying = false;
+            Response.Redirect("/");
+        }
+        protected void Next_Click(object sender, EventArgs e)
+        {
+            if (PageNumber + 1 == CreationState.Pages.Count)
+            {
+                StatePlaying = false;
+                Response.Redirect("EndOfQuiz.aspx");
+                return;
+            }
+            PageNumber++;
+            Response.Redirect("InProgressQuizQuestion.aspx");
         }
     }
 }
