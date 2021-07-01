@@ -20,8 +20,13 @@ namespace Quizkey
             cookie["points"] = "6969";
             cookie["userid"] = "1007";
 
-            Session["SessionID"] = Repo.CreateQuizSession(new QuizSession { OccurredAt = DateTimeOffset.Now, QuizID = 4003, SessionCode = "kodkod" });
+            var SessionID = Repo.CreateQuizSession(new QuizSession { OccurredAt = DateTimeOffset.Now, QuizID = 4003, SessionCode = "kodkod" });
+            Session["SessionID"] = SessionID;
             Session["qp-quizstate-playing"] = true;
+            Repo.CreateAttendee(new Attendee {SessionID = SessionID, Username = "PeroStanko1"});
+            Repo.CreateAttendee(new Attendee {SessionID = SessionID, Username = "PeroStanko3"});
+            Repo.CreateAttendee(new Attendee {SessionID = SessionID, Username = "PeroStanko4"});
+            Repo.CreateAttendee(new Attendee {SessionID = SessionID, Username = "PeroStanko5"});
             Response.Write(Session["SessionID"].ToString());
             Response.SetCookie(cookie);
         }

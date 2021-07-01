@@ -1,6 +1,8 @@
 ﻿using Quizkey.Models;
+using Quizkey.User_Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -8,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace Quizkey
 {
-    public partial class InProgressQuizQuestion : System.Web.UI.Page
+    public partial class Results : System.Web.UI.Page
     {
         public string SessionCode
         {
@@ -69,51 +71,28 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            var sesh = Session;
-            if (!StatePlaying)
-                Response.Write("notplaying ");
-            this.PreRender += Page_PreRender;
-
-            if (Request.QueryString["nextpage"] != null)
+            QuizCreationModel model = GetCreationState();
+            var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == SessionID);
+            Console.OpenStandardOutput();
+            var sortedAttendees = attendees.OrderBy(GetScore).Take(5).ToList();
+            for (int i = 0; i < sortedAttendees.Count; i++)
             {
-                Response.Redirect("Results.aspx");
+                CreateQuizResultPosition(sortedAttendees[i], i);
             }
+
         }
-        private void Page_PreRender(object sender, EventArgs e)
+        private void CreateQuizResultPosition(Attendee x, int i)
         {
-            QuizCreationPage page;
-
-            var data = GetCreationState();
-            page = GetCreationState().Pages[PageNumber];
-            try
+            positioncontainer.Controls.Add(new QuizResultsPosition
             {
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-                return;
-            }
-
-            lbQuestion.Text = page.Question;
-
-            Answer1.AnswerText = page.Answer1;
-            Answer2.AnswerText = page.Answer2;
-            if (page.Answer3 != null)
-            {
-                Answer3.Visible = true;
-                Answer3.AnswerText = page.Answer3;
-            }
-            if (page.Answer4 != null)
-            {
-                Answer4.Visible = true;
-                Answer4.AnswerText = page.Answer4;
-            }
+                BackgroundColor = i < 3 ? "primary" : "light",
+                Position = i,
+                Username = x.Username
+            });
         }
-
-        protected void timetimer_Tick(object sender, EventArgs e)
+        private int GetScore(Attendee attendee)
         {
-            Response.Write("TEST TEST TESTICLE TEST");
-            Session["username"] = "cum";
+            return Repo.GetMultipleLogItem().Where(x => x.QuizSessionID == SessionID && x.AttendeeID == attendee.IDAttendee).Select(x => x.Points).Sum();
         }
     }
 }

@@ -51,22 +51,6 @@ namespace Quizkey
                 Session["qp-quizstate-playing"] = value;
             }
         }
-        public QuizCreationModel QuizData
-        {
-            get
-            {
-                if (Session["qp-QuizData"] == null)
-                {
-                    QuizData = LoadQuizData.GetQuizData(SessionID);
-                }
-                return Session["qp-QuizData"] as QuizCreationModel;
-            }
-
-            set
-            {
-                Session["qp-QuizData"] = value;
-            }
-        }
         protected void Page_Load(object sender, EventArgs e)
         {
             var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == this.SessionID);
@@ -79,9 +63,10 @@ namespace Quizkey
 
         protected void Start_Click(object sender, EventArgs e)
         {
+            //var SessionID = Repo.CreateQuizSession(new QuizSession { OccurredAt = DateTimeOffset.Now, QuizID = 4003, SessionCode = "kodkod" });
             Session["qp-quizstate-playing"] = true;
             PageNumber = 0;
-            Response.Redirect("QuizQuestion.aspx");
+            Response.Redirect("InProgressQuizQuestion.aspx");
         }
 
         protected void Odustani_Click(object sender, EventArgs e)

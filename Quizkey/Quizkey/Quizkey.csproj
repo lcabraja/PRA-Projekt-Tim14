@@ -86,8 +86,9 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\qk-inprogress.css" />
+    <Content Include="Content\qk-results.css" />
     <Content Include="Content\qk-quizcreation.css" />
-    <Content Include="Content\Results.aspx" />
+    <Content Include="Results.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="GameStartPage.aspx" />
     <Content Include="Global.asax" />
@@ -188,16 +189,17 @@
     <Content Include="User_Controls\QuizCreationAnswer.ascx" />
     <Content Include="User_Controls\QuizCreationButton.ascx" />
     <Content Include="User_Controls\QuizCreationTimeButton.ascx" />
+    <Content Include="User_Controls\QuizResultsPosition.ascx" />
     <Content Include="User_Controls\_Navbar.ascx" />
     <Content Include="WaitingRoom.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Content\Results.aspx.cs">
+    <Compile Include="Results.aspx.cs">
       <DependentUpon>Results.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Content\Results.aspx.designer.cs">
+    <Compile Include="Results.aspx.designer.cs">
       <DependentUpon>Results.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cookies\CookieParseWrapper.cs" />
@@ -277,6 +279,13 @@
     </Compile>
     <Compile Include="User_Controls\QuizCreationTimeButton.ascx.designer.cs">
       <DependentUpon>QuizCreationTimeButton.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\QuizResultsPosition.ascx.cs">
+      <DependentUpon>QuizResultsPosition.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\QuizResultsPosition.ascx.designer.cs">
+      <DependentUpon>QuizResultsPosition.ascx</DependentUpon>
     </Compile>
     <Compile Include="User_Controls\_Navbar.ascx.cs">
       <DependentUpon>_Navbar.ascx</DependentUpon>
