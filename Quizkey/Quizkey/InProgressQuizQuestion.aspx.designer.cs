@@ -42,31 +42,13 @@ namespace Quizkey
         protected global::System.Web.UI.WebControls.Label lbQuestion;
 
         /// <summary>
-        /// ScriptManager1 control.
+        /// placeholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
-
-        /// <summary>
-        /// timetimer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.Timer timetimer;
-
-        /// <summary>
-        /// testbutton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton testbutton;
+        protected global::System.Web.UI.WebControls.PlaceHolder placeholder;
 
         /// <summary>
         /// Answer1 control.

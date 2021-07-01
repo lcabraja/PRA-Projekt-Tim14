@@ -20,7 +20,8 @@ namespace Quizkey
             cookie["points"] = "6969";
             cookie["userid"] = "1007";
 
-            Session["SessionID"] = Repo.CreateQuizSession(new QuizSession { OccurredAt = DateTimeOffset.Now, QuizID = 4002, SessionCode = "bigbob" });
+            Session["SessionID"] = Repo.CreateQuizSession(new QuizSession { OccurredAt = DateTimeOffset.Now, QuizID = 4003, SessionCode = "kodkod" });
+            Session["qp-quizstate-playing"] = true;
             Response.Write(Session["SessionID"].ToString());
             Response.SetCookie(cookie);
         }

@@ -21,9 +21,9 @@
         <%--Main Container--%>
         <div class="container-fluid qk-quizcreation-grid-container-main mt-3" style="height: 90%;">
             <%--Top Container--%>
-            <div style="height:100%;">
+            <div style="height: 100%;">
                 <%--Question--%>
-                <div class="bg-secondary rounded d-flex text-center m-auto" style="height: 100%;" >
+                <div class="bg-secondary rounded d-flex text-center m-auto" style="height: 100%;">
                     <div class="input-group m-2">
                         <span class="input-group-text">Pitanje</span>
                         <asp:Label CssClass="form-control qk-quizcreation-multiline" ID="lbQuestion" runat="server" />
@@ -34,9 +34,36 @@
             <div class="qk-quizcreation-grid-container-bottom">
                 <%--Left Arrow--%>
                 <div class="qk-quizcreation-left-button d-grid gap-2">
-                    <asp:ScriptManager ID="ScriptManager1" runat="server" />
-                    <asp:Timer ID="timetimer" runat="server" />
-                    <button id="testbutton" class="btn btn-primary p-2" runat="server"><i class="bi bi-arrow-left-circle"></i></button>
+                    <div id="demo" class="btn btn-primary p-2"></div>
+                    <asp:PlaceHolder ID="placeholder" runat="server" />
+                    <button onserverclick="timetimer_Tick" style="display: none;" runat="server"></button>
+                    <script>
+                        // Set the date we're counting down to
+                        var countDownDate = new Date().setSeconds(new Date().getSeconds() + 5)
+
+                        // Update the count down every 1 second
+                        var x = setInterval(function () {
+
+                            // Get today's date and time
+                            var now = new Date().getTime();
+
+                            // Find the distance between now and the count down date
+                            var distance = countDownDate - now;
+
+                            // Time calculations for days, hours, minutes and seconds
+                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                            // Display the result in the element with id="demo"
+                            document.getElementById("demo").innerHTML = seconds + "s ";
+
+                            // If the count down is finished, write some text
+                            if (distance < 0) {
+                                clearInterval(x);
+                                document.getElementById("demo").innerHTML = "0s";
+                                window.location.replace("InProgressQuizQuestion.aspx?nextpage=1");
+                            }
+                        }, 1000);
+                    </script>
                 </div>
                 <%--Answers--%>
                 <div class="qk-quizcreation-answers">

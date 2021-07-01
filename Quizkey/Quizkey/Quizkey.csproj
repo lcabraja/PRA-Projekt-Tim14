@@ -87,6 +87,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\qk-inprogress.css" />
     <Content Include="Content\qk-quizcreation.css" />
+    <Content Include="Content\Results.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="GameStartPage.aspx" />
     <Content Include="Global.asax" />
@@ -192,6 +193,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\Results.aspx.cs">
+      <DependentUpon>Results.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Content\Results.aspx.designer.cs">
+      <DependentUpon>Results.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cookies\CookieParseWrapper.cs" />
     <Compile Include="Cookies\UserState.cs" />
     <Compile Include="Cookies\UserStateLanguage.cs" />

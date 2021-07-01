@@ -75,22 +75,33 @@ namespace Quizkey
             }
             set { Session["qc-QuizCreationModel"] = value; }
         }
-        public QuizCreationModel GetCreationState() => 
-            CreationState == null ? LoadQuizData.GetQuizData(SessionID) : CreationState;
+        public QuizCreationModel GetCreationState()
+        {
+            if (CreationState == null)
+            {
+                CreationState = LoadQuizData.GetQuizData(SessionID);
+            }
+            return CreationState;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             var sesh = Session;
             if (!StatePlaying)
                 Response.Write("notplaying ");
             this.PreRender += Page_PreRender;
+
+            if (Request.QueryString["nextpage"] != null)
+            {
+                Response.Redirect("Results.aspx");
+            }
         }
 
         private void Page_PreRender(object sender, EventArgs e)
         {
             QuizCreationPage page;
 
-                var data = GetCreationState();
-                page = GetCreationState().Pages[PageNumber];
+            var data = GetCreationState();
+            page = GetCreationState().Pages[PageNumber];
             try
             {
             }
@@ -114,6 +125,12 @@ namespace Quizkey
                 Answer4.Visible = true;
                 Answer4.AnswerText = page.Answer4;
             }
+        }
+
+        protected void timetimer_Tick(object sender, EventArgs e)
+        {
+            Response.Write("TEST TEST TESTICLE TEST");
+            Session["username"] = "cum";
         }
     }
 }
