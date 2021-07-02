@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -61,6 +62,9 @@ namespace Quizkey
             }
             set { Session["qc-QuizCreationModel"] = value; }
         }
+
+        public static bool TransmittingFile { get; internal set; } = false;
+
         public QuizCreationModel GetCreationState()
         {
             if (CreationState == null)
@@ -112,10 +116,33 @@ namespace Quizkey
 
         protected void zapisnik_ServerClick(object sender, EventArgs e)
         {
-            var csvdata = Repo.GetMultipleLogItem().Select(x => $"").Aggregate((x, y) => $"{x};\n{y}");
-            var filepath = "";
+            var csvdata = Repo.GetMultipleLogItem()
+                              .Where(x => x.QuizSessionID == SessionID)
+                              .Select(ConvertToCSVLine)
+                              .Aggregate((x, y) => $"{x}\n{y}");
+            var filepath = Path.GetTempFileName();
             File.WriteAllText(filepath, csvdata);
+            Response.ContentType = "text/csv";
+            Response.AppendHeader("Content-Disposition", $"attachment; filename=Quizkey-Log-{Repo.GetQuizSession(SessionID).OccurredAt}.csv");
+            TransmittingFile = true;
             Response.TransmitFile(filepath);
+            Response.End();
+        }
+
+        private string ConvertToCSVLine(LogItem arg)
+        {
+            List<string> values = new List<string>();
+
+            values.Add(arg.IDLogItem.ToString());
+            values.Add(SessionCode);
+            values.Add(Regex.Replace(Repo.GetQuizQuestion(arg.QuizQuestionID).QuestionText.Trim(), @"[^0-9a-zA-Z]+", "-"));
+            values.Add(Regex.Replace(Repo.GetQuizAnswer(arg.QuizAnswerID).AnswerText.Trim(), @"[^0-9a-zA-Z]+", "-"));
+            values.Add(arg.AttendeeID.ToString());
+            values.Add(Regex.Replace(Repo.GetAttendee(arg.AttendeeID).Username.Trim(), @"[^0-9a-zA-Z]+", "-"));
+            values.Add(arg.Points.ToString());
+
+            var hold = string.Join(",", values);
+            return hold;
         }
     }
 }

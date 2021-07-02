@@ -10,6 +10,11 @@ namespace Quizkey
 
         void Application_EndRequest(object sender, EventArgs e)
         {
+            if (EndOfQuiz.TransmittingFile)
+            {
+                EndOfQuiz.TransmittingFile = false;
+                return;
+            }
             Response.Write("<script src=\"Scripts/bootstrap.js\"></script>" +
                 "<script src=\"Scripts/jquery-3.6.0.js\"></script>" +
                 "<script>$(\"document\").ready(function () { " +
