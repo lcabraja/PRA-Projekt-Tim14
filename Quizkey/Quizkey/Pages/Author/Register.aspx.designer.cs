@@ -24,6 +24,15 @@ namespace Quizkey
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// _Navbar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Quizkey.Navbar _Navbar;
+
+        /// <summary>
         /// hfUserID control.
         /// </summary>
         /// <remarks>

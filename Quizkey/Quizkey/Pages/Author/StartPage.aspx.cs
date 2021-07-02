@@ -9,20 +9,18 @@ namespace Quizkey
 {
     public partial class StartPage : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Play_Click(object sender, EventArgs e)
         {
+            Response.Redirect("GameStartPage.aspx");
         }
-        protected void btncheck1_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("HomePage.aspx");
-        }
-        protected void btncheck2_Click(object sender, EventArgs e)
+        protected void Login_Click(object sender, EventArgs e)
         {
             Response.Redirect("Login.aspx");
         }
-        protected void btncheck3_Click(object sender, EventArgs e)
+        protected void Register_Click(object sender, EventArgs e)
         {
             Response.Redirect("Register.aspx");
         }
+
     }
 }
