@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="Quizkey.Register" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="Quizkey.Register" UnobtrusiveValidationMode="None" %>
 
 <%@ Register Src="~/User_Controls/_Navbar.ascx" TagPrefix="uc1" TagName="_Navbar" %>
 
@@ -14,29 +14,166 @@
     <form id="form1" runat="server" style="height: 100%;">
         <uc1:_Navbar runat="server" ID="_Navbar" />
         <div class="container m-auto mt-4">
-            <asp:HiddenField ID="hfUserID" runat="server" />
-            <div class="mb-3 row">
-                <label for="exampleFormControlInput1" class="form-label">Korisničko ime</label>
-                <input name="name" class="form-control" id="txtKorisnickoIme" placeholder="Name"/>
-            </div>
-            <div class="mb-3 row">
-                <label for="exampleFormControlInput1" class="form-label">E-mail</label>
-                <input name="email" class="form-control" id="txtEmail" placeholder="name@example.com"/>
-            </div>
-
-            <div class="mb-3 row">
-
-                <label for="exampleFormControlInput1" class="form-label">Zaporka</label>
-                <input name="password" class="form-control" id="txtZaporka" placeholder="password"/>
-            </div>
-
-            <div class="mb-3 row">
-                <label for="exampleFormControlInput1" class="form-label">Ponovljena zaporka</label>
-                <input name="rpassword" class="form-control" id="txtPonovljenazaporka" placeholder="password"/>
-            </div>
-            <div class="mb-3 row">
-                <button name="registracija" class="btn btn-primary mb-3">Registriraj se</button>
-            </div>
+            <table>
+                <tr>
+                    <td>
+                        <asp:Label
+                            ID="label1"
+                            runat="server"
+                            Text="Username" />
+                    </td>
+                    <td>
+                        <asp:TextBox
+                            ID="tbName"
+                            runat="server" />
+                        <asp:RequiredFieldValidator
+                            ID="RequiredFieldValidator2"
+                            runat="server"
+                            ControlToValidate="tbName"
+                            ForeColor="Red"
+                            ErrorMessage="Name was not entered.">*
+                        </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label
+                            ID="label4"
+                            runat="server"
+                            Text="Email" />
+                    </td>
+                    <td>
+                        <asp:TextBox
+                            ID="tbEmail"
+                            runat="server" />
+                        <asp:RequiredFieldValidator
+                            ID="RequiredFieldValidator3"
+                            runat="server"
+                            ControlToValidate="tbEmail"
+                            ForeColor="Red"
+                            ErrorMessage="Email was not entered.">*
+                        </asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator
+                            ID="regex"
+                            runat="server"
+                            ControlToValidate="tbEmail"
+                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                            EnableClientScript="true"
+                            Display="Static"
+                            ForeColor="Red"
+                            ErrorMessage="Wrong Email format">*
+                        </asp:RegularExpressionValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label
+                            ID="label5"
+                            runat="server"
+                            Text="Username (must be even number)" />
+                    </td>
+                    <td>
+                        <script language="javascript"> 
+                            function ClientValidate(source, arguments) {
+                                if (arguments.Value % 2 == 0) {
+                                    arguments.IsValid = true;
+                                } else {
+                                    arguments.IsValid = false;
+                                }
+                            }
+                        </script>
+                        <asp:TextBox
+                            ID="tbUsername"
+                            runat="server" />
+                        <asp:RequiredFieldValidator
+                            ID="RequiredFieldValidator4"
+                            ControlToValidate="tbUsername"
+                            runat="server"
+                            ForeColor="Red"
+                            ErrorMessage="Username was not entered.">*
+                        </asp:RequiredFieldValidator>
+                        <asp:CompareValidator
+                            ID="CompareValidator1"
+                            runat="server"
+                            ControlToValidate="tbUsername"
+                            ForeColor="Red"
+                            ErrorMessage="Username must be an even integer"
+                            Operator="DataTypeCheck"
+                            Type="Integer">*
+                        </asp:CompareValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label
+                            ID="label6"
+                            runat="server"
+                            Text="Password" />
+                    </td>
+                    <td>
+                        <asp:TextBox
+                            ID="tbPassword"
+                            TextMode="Password"
+                            runat="server" />
+                        <asp:RequiredFieldValidator
+                            ID="RequiredFieldValidator6"
+                            runat="server"
+                            ControlToValidate="tbPassword"
+                            ForeColor="Red"
+                            ErrorMessage="Password was not entered.">*
+                        </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label
+                            ID="label7"
+                            runat="server"
+                            Text="Repeat password" />
+                    </td>
+                    <td>
+                        <asp:TextBox
+                            ID="tbPasswordRepeat"
+                            TextMode="Password"
+                            runat="server" />
+                        <asp:RequiredFieldValidator
+                            ID="RequiredFieldValidator5"
+                            runat="server"
+                            Display="Dynamic"
+                            ControlToValidate="tbPasswordRepeat"
+                            ForeColor="Red"
+                            ErrorMessage="Password was not repeated.">*
+                        </asp:RequiredFieldValidator>
+                        <asp:CompareValidator
+                            ID="comparePasswordValidator"
+                            ControlToValidate="tbPasswordRepeat"
+                            ControlToCompare="tbPassword"
+                            runat="server"
+                            ForeColor="Red"
+                            ErrorMessage="Passwords do not match">*
+                        </asp:CompareValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <asp:Button
+                            ID="btSend"
+                            runat="server"
+                            OnClick="btSend_Click"
+                            Text="Send" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <asp:ValidationSummary
+                            ID="summary"
+                            runat="server"
+                            ForeColor="Red" />
+                    </td>
+                </tr>
+            </table>
         </div>
     </form>
 </body>
