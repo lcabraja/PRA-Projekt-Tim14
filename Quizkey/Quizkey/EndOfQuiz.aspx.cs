@@ -145,5 +145,11 @@ namespace Quizkey
             var hold = string.Join(",", values);
             return hold;
         }
+
+        protected void end_ServerClick(object sender, EventArgs e)
+        {
+            Session["SessionID"] = null;
+            Response.Redirect("/");
+        }
     }
 }

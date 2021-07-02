@@ -251,7 +251,7 @@
                 <button class="btn btn-primary d-flex" id="zapisnik" onserverclick="zapisnik_ServerClick" runat="server">
                     <h2 style="margin: auto;">Preuzmi zapisnik</h2>
                 </button>
-                <button class="btn btn-primary d-flex" runat="server">
+                <button class="btn btn-primary d-flex" id="end" onserverclick="end_ServerClick" runat="server">
                     <h2 style="margin: auto;">Zavrsi kviz</h2>
                 </button>
             </div>
