@@ -204,6 +204,7 @@
     <Compile Include="EndOfQuiz.aspx.designer.cs">
       <DependentUpon>EndOfQuiz.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\Class1.cs" />
     <Compile Include="Results.aspx.cs">
       <DependentUpon>Results.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

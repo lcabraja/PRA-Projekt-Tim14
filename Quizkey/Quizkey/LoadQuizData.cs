@@ -6,9 +6,9 @@ using System.Web;
 
 namespace Quizkey
 {
-    public class LoadQuizData
+    public static class LoadQuizData
     {
-        internal static QuizCreationModel GetQuizData(int sessionID)
+        public static QuizCreationModel GetQuizData(int sessionID)
         {
             QuizCreationModel model = new QuizCreationModel();
             var session = Repo.GetQuizSession(sessionID);

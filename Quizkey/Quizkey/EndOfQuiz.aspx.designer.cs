@@ -60,6 +60,24 @@ namespace Quizkey
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl place2;
 
         /// <summary>
+        /// place2points control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl place2points;
+
+        /// <summary>
+        /// place2h2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl place2h2;
+
+        /// <summary>
         /// place1 control.
         /// </summary>
         /// <remarks>
@@ -69,6 +87,24 @@ namespace Quizkey
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl place1;
 
         /// <summary>
+        /// place1points control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl place1points;
+
+        /// <summary>
+        /// place1h2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl place1h2;
+
+        /// <summary>
         /// place3 control.
         /// </summary>
         /// <remarks>
@@ -76,5 +112,41 @@ namespace Quizkey
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl place3;
+
+        /// <summary>
+        /// place3points control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl place3points;
+
+        /// <summary>
+        /// place3h2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl place3h2;
+
+        /// <summary>
+        /// runnersup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl runnersup;
+
+        /// <summary>
+        /// zapisnik control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton zapisnik;
     }
 }

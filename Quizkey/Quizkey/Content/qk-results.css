@@ -16,7 +16,9 @@ body {
 
 .qk-quizcreation-height {
     height: 40px;
+    font-weight: 100
 }
+
 
 .order {
     flex-direction: column;
@@ -34,9 +36,6 @@ body {
     font-size: 3rem;
 }
 @media (min-width: 576px) {
-    html {
-        overflow: hidden;
-    }
     .qk-quizcreation-grid-container-main {
         display: grid !important;
         grid-gap: 1rem;

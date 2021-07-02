@@ -35,15 +35,21 @@ body {
     display: flex;
     flex-direction: column-reverse;
     flex-wrap: nowrap;
-    background-color: red !important;
 }
 .rowrowrowyourboat {
     margin-left: 5rem;
     margin-right: 5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 @media (min-width: 576px) {
     html {
         overflow: hidden;
+    }
+    .qk-column-3 .qk-column-2 .qk-column-1 {
+        width: 100%;
+        margin: auto;
+        background-color: blue;
     }
     .qk-quizcreation-grid-container-main {
         display: grid !important;
