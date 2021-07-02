@@ -90,6 +90,18 @@
     <Content Include="Content\qk-results.css" />
     <Content Include="Content\qk-quizcreation.css" />
     <Content Include="EndOfQuiz.aspx" />
+    <Content Include="Pages\Author\HomePage.aspx" />
+    <Content Include="Pages\Author\Login.aspx" />
+    <Content Include="Pages\Author\Pictures\Quiz-1.png" />
+    <Content Include="Pages\Author\Pictures\Quiz-2.png" />
+    <Content Include="Pages\Author\Pictures\Quiz-3.png" />
+    <Content Include="Pages\Author\Pictures\Quiz-4.png" />
+    <Content Include="Pages\Author\Pictures\Quiz-5.png" />
+    <Content Include="Pages\Author\Pictures\Quiz-6.png" />
+    <Content Include="Pages\Author\Pictures\Quiz-7.png" />
+    <Content Include="Pages\Author\ProfilePage.aspx" />
+    <Content Include="Pages\Author\Register.aspx" />
+    <Content Include="Pages\Author\StartPage.aspx" />
     <Content Include="Results.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="GameStartPage.aspx" />
@@ -205,6 +217,41 @@
       <DependentUpon>EndOfQuiz.aspx</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Class1.cs" />
+    <Compile Include="Pages\Author\HomePage.aspx.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Author\HomePage.aspx.designer.cs">
+      <DependentUpon>HomePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Author\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Author\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Author\ProfilePage.aspx.cs">
+      <DependentUpon>ProfilePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Author\ProfilePage.aspx.designer.cs">
+      <DependentUpon>ProfilePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Author\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Author\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Author\StartPage.aspx.cs">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Author\StartPage.aspx.designer.cs">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Results.aspx.cs">
       <DependentUpon>Results.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
