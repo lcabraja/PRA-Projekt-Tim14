@@ -131,15 +131,16 @@ namespace Quizkey
 
         private string ConvertToCSVLine(LogItem arg)
         {
-            List<string> values = new List<string>();
-
-            values.Add(arg.IDLogItem.ToString());
-            values.Add(SessionCode);
-            values.Add(Regex.Replace(Repo.GetQuizQuestion(arg.QuizQuestionID).QuestionText.Trim(), @"[^0-9a-zA-Z]+", "-"));
-            values.Add(Regex.Replace(Repo.GetQuizAnswer(arg.QuizAnswerID).AnswerText.Trim(), @"[^0-9a-zA-Z]+", "-"));
-            values.Add(arg.AttendeeID.ToString());
-            values.Add(Regex.Replace(Repo.GetAttendee(arg.AttendeeID).Username.Trim(), @"[^0-9a-zA-Z]+", "-"));
-            values.Add(arg.Points.ToString());
+            List<string> values = new List<string>
+            {
+                arg.IDLogItem.ToString(),
+                SessionCode,
+                Regex.Replace(Repo.GetQuizQuestion(arg.QuizQuestionID).QuestionText.Trim(), @"[^0-9a-zA-Z]+", "-"),
+                Regex.Replace(Repo.GetQuizAnswer(arg.QuizAnswerID).AnswerText.Trim(), @"[^0-9a-zA-Z]+", "-"),
+                arg.AttendeeID.ToString(),
+                Regex.Replace(Repo.GetAttendee(arg.AttendeeID).Username.Trim(), @"[^0-9a-zA-Z]+", "-"),
+                arg.Points.ToString()
+            };
 
             var hold = string.Join(",", values);
             return hold;
