@@ -52,6 +52,11 @@ namespace Quizkey
         {
             this.Unload += QuizCreation_Unload;
             this.PreRender += Page_PreRender;
+            if (Session["userid"] == null)
+            {
+                Response.Redirect("/");
+                return;
+            }
             Response.Write(Request.QueryString.AllKeys.ToList().Aggregate("!!", (a, b) => a += " " + b, x => x.ToUpper()));
             Response.Write("<br/>");
             Response.Write(GetSession());
@@ -326,7 +331,7 @@ namespace Quizkey
         protected void Save_Click(object sender, EventArgs e)
         {
             SaveState();
-            var quizID = Repo.CreateQuiz(new Quiz { AuthorID = int.Parse(UserState["userid"]), QuizName = CreationState.QuizName ?? tbQuizName.Text });
+            var quizID = Repo.CreateQuiz(new Quiz { AuthorID = (int)Session["userid"], QuizName = CreationState.QuizName ?? tbQuizName.Text });
             foreach (var page in CreationState.Pages)
             {
                 var pagedata = page.Value;
@@ -336,31 +341,31 @@ namespace Quizkey
                     CorrectAnswer = pagedata.SelectedAnswer,
                     QuizID = quizID,
                     QuestionNumber = page.Key,
-                    QuestionText = pagedata.Question
+                    QuestionText = pagedata.Question ?? string.Empty
                 });
                 Repo.CreateQuizAnswer(new QuizAnswer
                 {
-                    AnswerText = pagedata.Answer1,
+                    AnswerText = pagedata.Answer1 ?? string.Empty,
                     QuestionOrder = 1,
                     QuizQuestionID = questionID
                 });
                 Repo.CreateQuizAnswer(new QuizAnswer
                 {
-                    AnswerText = pagedata.Answer2,
+                    AnswerText = pagedata.Answer2 ?? string.Empty,
                     QuestionOrder = 2,
                     QuizQuestionID = questionID
                 });
                 if (pagedata.AnswerNumber > 2)
                     Repo.CreateQuizAnswer(new QuizAnswer
                     {
-                        AnswerText = pagedata.Answer3,
+                        AnswerText = pagedata.Answer3 ?? string.Empty,
                         QuestionOrder = 3,
                         QuizQuestionID = questionID
                     });
                 if (pagedata.AnswerNumber > 3)
                     Repo.CreateQuizAnswer(new QuizAnswer
                     {
-                        AnswerText = pagedata.Answer4,
+                        AnswerText = pagedata.Answer4 ?? string.Empty,
                         QuestionOrder = 4,
                         QuizQuestionID = questionID
                     });

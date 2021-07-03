@@ -11,7 +11,7 @@ namespace Quizkey
 {
 
 
-    public partial class GameStartPage
+    public partial class GameStartUsername
     {
 
         /// <summary>
@@ -33,13 +33,13 @@ namespace Quizkey
         protected global::Quizkey.Navbar _Navbar;
 
         /// <summary>
-        /// tbQuizCode control.
+        /// tbUsername control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbQuizCode;
+        protected global::System.Web.UI.WebControls.TextBox tbUsername;
 
         /// <summary>
         /// diverrormessage control.

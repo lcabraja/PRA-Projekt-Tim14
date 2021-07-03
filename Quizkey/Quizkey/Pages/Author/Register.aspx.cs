@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quizkey.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,28 +10,44 @@ namespace Quizkey
 {
     public partial class Register : System.Web.UI.Page
     {
-        protected void btSend_Click(object sender, EventArgs e)
+        public bool ShowErrorMessage { get; set; }
+        public string ErrorMessage { get; set; }
+        protected void Page_Load(object sender, EventArgs e)
         {
+            this.PreRender += Register_PreRender;
+            if (IsPostBack)
+                if (RequiredFieldValidator2.IsValid && RequiredFieldValidator3.IsValid && RequiredFieldValidator5.IsValid && RequiredFieldValidator6.IsValid)
+                    if (tbPassword.Text == tbPasswordRepeat.Text)
+                    {
+                        if (Repo.GetMultipleAuthor().Where(x => x.Username == tbUsername.Text).Count() > 0)
+                        {
+                            ShowErrorMessage = true;
+                            ErrorMessage = "Username is already taken.";
+                            return;
+                        }
+                        var userid = Repo.CreateAuthor(new Author
+                        {
+                            Username = tbUsername.Text,
+                            Email = tbEmail.Text,
+                            PasswordHash = BCrypt.Net.BCrypt.HashPassword(tbPasswordRepeat.Text)
+                        });
+
+                        HttpCookie cookie = new HttpCookie("UserState");
+
+                        cookie["loggedin"] = "author";
+                        cookie["language"] = "en";
+                        cookie["username"] = tbUsername.Text;
+                        cookie["userid"] = userid.ToString();
+
+                        Response.SetCookie(cookie);
+                        Response.Redirect("/Pages/Author/HomePage.aspx");
+                    }
         }
-        //if (txtKorisnickoIme.Text == "" || txtEmail.Text == "")
-        //    lblErrorMessage.Text = "Please Fill Mandatory Fields";
-        //else if (txtZaporka.Text != txtPonovljenazaporka.Text)
-        //    lblErrorMessage.Text = "Password do not match";
-        //else
-        //{
-        //    using (SqlConnection sqlCon = new SqlConnection(connectionString))
-        //    {
-        //        sqlCon.Open();
-        //        SqlCommand sqlCmd = new SqlCommand("UserAddOrEdit", sqlCon);
-        //        sqlCmd.CommandType = CommandType.StoredProcedure;
-        //        sqlCmd.Parameters.AddWithValue("@IDAuthor", Convert.ToInt32(hfUserID.Value == "" ? "0" : hfUserID.Value));
-        //        sqlCmd.Parameters.AddWithValue("@Username", txtKorisnickoime.Text.Trim());
-        //        sqlCmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
-        //        sqlCmd.Parameters.AddWithValue("@PasswordHash", txtZaporka.Text.Trim());
-        //        sqlCmd.ExecuteNonQuery();
-        //        Clear();
-        //        lblSuccessMessage.Text = "Submitted Successfully";
-        //    }
-        //}
+
+        private void Register_PreRender(object sender, EventArgs e)
+        {
+            if (ShowErrorMessage)
+                diverrormessage.Controls.Add(new LiteralControl($"<div class=\"badge bg-danger\">{ErrorMessage}</div>"));
+        }
     }
 }

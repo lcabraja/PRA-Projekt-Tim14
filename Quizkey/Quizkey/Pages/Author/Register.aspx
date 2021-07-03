@@ -14,7 +14,7 @@
     <form id="form1" runat="server" style="height: 100%;">
         <uc1:_Navbar runat="server" ID="_Navbar" />
         <div class="container m-auto mt-4">
-            <table>
+            <table style="margin: auto; margin-top: 120px;">
                 <tr>
                     <td>
                         <asp:Label
@@ -24,15 +24,16 @@
                     </td>
                     <td>
                         <asp:TextBox
-                            ID="tbName"
+                            ID="tbUsername"
                             runat="server" />
                         <asp:RequiredFieldValidator
                             ID="RequiredFieldValidator2"
                             runat="server"
-                            ControlToValidate="tbName"
+                            ControlToValidate="tbUsername"
                             ForeColor="Red"
                             ErrorMessage="Name was not entered.">*
                         </asp:RequiredFieldValidator>
+                        <span id="diverrormessage" runat="server"></span>
                     </td>
                 </tr>
                 <tr>
@@ -63,44 +64,6 @@
                             ForeColor="Red"
                             ErrorMessage="Wrong Email format">*
                         </asp:RegularExpressionValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label
-                            ID="label5"
-                            runat="server"
-                            Text="Username (must be even number)" />
-                    </td>
-                    <td>
-                        <script language="javascript"> 
-                            function ClientValidate(source, arguments) {
-                                if (arguments.Value % 2 == 0) {
-                                    arguments.IsValid = true;
-                                } else {
-                                    arguments.IsValid = false;
-                                }
-                            }
-                        </script>
-                        <asp:TextBox
-                            ID="tbUsername"
-                            runat="server" />
-                        <asp:RequiredFieldValidator
-                            ID="RequiredFieldValidator4"
-                            ControlToValidate="tbUsername"
-                            runat="server"
-                            ForeColor="Red"
-                            ErrorMessage="Username was not entered.">*
-                        </asp:RequiredFieldValidator>
-                        <asp:CompareValidator
-                            ID="CompareValidator1"
-                            runat="server"
-                            ControlToValidate="tbUsername"
-                            ForeColor="Red"
-                            ErrorMessage="Username must be an even integer"
-                            Operator="DataTypeCheck"
-                            Type="Integer">*
-                        </asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
@@ -160,7 +123,6 @@
                         <asp:Button
                             ID="btSend"
                             runat="server"
-                            OnClick="btSend_Click"
                             Text="Send" />
                     </td>
                 </tr>

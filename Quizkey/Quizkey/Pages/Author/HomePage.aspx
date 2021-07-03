@@ -13,63 +13,16 @@
 <body>
     <form id="form1" runat="server">
         <uc1:_Navbar runat="server" ID="_Navbar" />
-        <div class="card-group">
-            <div class="card">
-                <img src="Pictures/Quiz-1.png" class="card-img-top" alt="..."/>
+        <div class="flex container mt-3" id="quizplace" runat="server" style="flex-wrap: wrap; flex-direction: row;" >
+            <div class="card" style="width: 18rem;">
+                <img src="Pictures/Quiz-7.png" class="card-img-top" />
                 <div class="card-body">
-                    <h5 class="card-title">Naslov</h5>
-                    <p class="card-text">Opis kviza...</p>
-                    <button class="btn btn-primary" type="submit">Pokreni kviz</button>
+                    <h5 class="card-title" id="title" runat="server"></h5>
+                    <p class="card-text" id="questionnumber" runat="server"></p>
+                    <asp:HyperLink CssClass="btn btn-light btn-outline-primary" NavigateUrl="/QuizCreation.aspx" Text="Create new quiz" runat="server" />
                 </div>
             </div>
-            <div class="card">
-                <img src="Pictures/Quiz-2.png" class="card-img-top" alt="..."/>
-                <div class="card-body">
-                    <h5 class="card-title">Naslov</h5>
-                    <p class="card-text">Opis kviza...</p>
-                    <button class="btn btn-primary" type="submit">Pokreni kviz</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="Pictures/Quiz-3.png" class="card-img-top" alt="..."/>
-                <div class="card-body">
-                    <h5 class="card-title">Naslov</h5>
-                    <p class="card-text">Opis kviza...</p>
-                    <button class="btn btn-primary" type="submit">Pokreni kviz</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="Pictures/Quiz-4.png" class="card-img-top" alt="..."/>
-                <div class="card-body">
-                    <h5 class="card-title">Naslov</h5>
-                    <p class="card-text">Opis kviza...</p>
-                    <button class="btn btn-primary" type="submit">Pokreni kviz</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="Pictures/Quiz-5.png" class="card-img-top" alt="..."/>
-                <div class="card-body">
-                    <h5 class="card-title">Naslov</h5>
-                    <p class="card-text">Opis kviza...</p>
-                    <button class="btn btn-primary" type="submit">Pokreni kviz</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="Pictures/Quiz-6.png" class="card-img-top" alt="..."/>
-                <div class="card-body">
-                    <h5 class="card-title">Naslov</h5>
-                    <p class="card-text">Opis kviza...</p>
-                    <button class="btn btn-primary" type="submit">Pokreni kviz</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="Pictures/Quiz-7.png" class="card-img-top" alt="..."/>
-                <div class="card-body">
-                    <h5 class="card-title">Novi kviz</h5>
-                    <p class="card-text">Opis kviza...</p>
-                    <button class="btn btn-primary" type="submit">Izradi novi kviz</button>
-                </div>
-            </div>
+
         </div>
     </form>
 </body>

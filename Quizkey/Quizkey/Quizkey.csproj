@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net-Next, Version=4.0.2.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.4.0.2\lib\net472\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationBlocks.Data.2.0.0\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
@@ -51,6 +54,19 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -90,6 +106,7 @@
     <Content Include="Content\qk-results.css" />
     <Content Include="Content\qk-quizcreation.css" />
     <Content Include="EndOfQuiz.aspx" />
+    <Content Include="GameStartUsername.aspx" />
     <Content Include="Pages\Author\HomePage.aspx" />
     <Content Include="Pages\Author\Login.aspx" />
     <Content Include="Pages\Author\Pictures\Quiz-1.png" />
@@ -199,6 +216,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="QuizCreation.aspx" />
+    <Content Include="User_Controls\HomePageCardControl.ascx" />
     <Content Include="User_Controls\InProgressAnswer.ascx" />
     <Content Include="User_Controls\QuizCreationAnswer.ascx" />
     <Content Include="User_Controls\QuizCreationButton.ascx" />
@@ -217,6 +235,13 @@
       <DependentUpon>EndOfQuiz.aspx</DependentUpon>
     </Compile>
     <Compile Include="Extensions\Class1.cs" />
+    <Compile Include="GameStartUsername.aspx.cs">
+      <DependentUpon>GameStartUsername.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GameStartUsername.aspx.designer.cs">
+      <DependentUpon>GameStartUsername.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Author\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -308,6 +333,13 @@
     </Compile>
     <Compile Include="QuizCreation.aspx.designer.cs">
       <DependentUpon>QuizCreation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User_Controls\HomePageCardControl.ascx.cs">
+      <DependentUpon>HomePageCardControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User_Controls\HomePageCardControl.ascx.designer.cs">
+      <DependentUpon>HomePageCardControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="User_Controls\InProgressAnswer.ascx.cs">
       <DependentUpon>InProgressAnswer.ascx</DependentUpon>

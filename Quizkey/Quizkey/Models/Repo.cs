@@ -243,6 +243,19 @@ namespace Quizkey.Models
             };
         }
         //------------------------------------------------------QuizSession-------------------------------------------------------
+        internal static string GenerateQuizCode()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string randomString;
+            do
+            {
+
+                var random = new Random();
+                randomString = new string(Enumerable.Repeat(chars, 6)
+                                      .Select(s => s[random.Next(s.Length)]).ToArray());
+            } while (GetMultipleQuizSession().Where(x => x.SessionCode == randomString).Count() > 0);
+            return randomString;
+        }
         public static int CreateQuizSession(QuizSession quizsession)
         {
             int IDQuizSession = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_QuizSession", quizsession.QuizID, quizsession.OccurredAt, quizsession.SessionCode).ToString());

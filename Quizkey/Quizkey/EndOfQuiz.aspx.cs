@@ -126,7 +126,6 @@ namespace Quizkey
             Response.AppendHeader("Content-Disposition", $"attachment; filename=Quizkey-Log-{Repo.GetQuizSession(SessionID).OccurredAt}.csv");
             TransmittingFile = true;
             Response.TransmitFile(filepath);
-            Response.End();
         }
 
         private string ConvertToCSVLine(LogItem arg)
@@ -148,6 +147,8 @@ namespace Quizkey
 
         protected void end_ServerClick(object sender, EventArgs e)
         {
+            QuizSession currentSession = Repo.GetQuizSession(SessionID);
+            Repo.UpdateQuizSession(new QuizSession { IDQuizSession = SessionID, OccurredAt = currentSession.OccurredAt, QuizID = currentSession.QuizID, SessionCode = "used" });
             Session["SessionID"] = null;
             Response.Redirect("/");
         }
