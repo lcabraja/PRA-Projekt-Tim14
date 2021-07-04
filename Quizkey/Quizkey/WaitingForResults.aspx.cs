@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace Quizkey
 {
-    public partial class InProgressQuizQuestion : System.Web.UI.Page
+    public partial class WaitingForResults : System.Web.UI.Page
     {
         public string SessionCode
         {
@@ -67,53 +67,22 @@ namespace Quizkey
             }
             return CreationState;
         }
+        public DateTimeOffset QuestionStarted
+        {
+            get
+            {
+                return (DateTimeOffset)Session["QuestionStarted"];
+            }
+            set
+            {
+                Session["QuestionStarted"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!StatePlaying)
-                Response.Write("notplaying ");
-            this.PreRender += Page_PreRender;
-
-            if (Request.QueryString["nextpage"] != null)
-            {
-                Response.Redirect("Results.aspx");
-            }
-
-            QuizCreationPage page;
-
-            var data = GetCreationState();
-            page = GetCreationState().Pages[PageNumber];
-
-            countdowntime.Attributes["seconds"] = page.SelectedTime.ToString();
-        }
-        private void Page_PreRender(object sender, EventArgs e)
-        {
-            QuizCreationPage page;
-
-            var data = GetCreationState();
-            page = GetCreationState().Pages[PageNumber];
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-                return;
-            }
-
-            lbQuestion.Text = page.Question;
-
-            Answer1.AnswerText = page.Answer1;
-            Answer2.AnswerText = page.Answer2;
-            if (page.Answer3 != null)
-            {
-                Answer3.Visible = true;
-                Answer3.AnswerText = page.Answer3;
-            }
-            if (page.Answer4 != null)
-            {
-                Answer4.Visible = true;
-                Answer4.AnswerText = page.Answer4;
-            }
+            var page = GetCreationState().Pages[PageNumber];
+            var timespent = (int)Session["timespent"];
+            countdowntime.Attributes["seconds"] = (page.SelectedTime - timespent).ToString();
         }
     }
 }

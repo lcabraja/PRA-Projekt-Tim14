@@ -27,8 +27,8 @@ namespace Quizkey
                         cookie["loggedin"] = "author";
                         cookie["language"] = "en";
                         cookie["username"] = tbUsername.Text;
-                        cookie["userid"] = tbUsername.ToString();
-
+                        cookie["userid"] = users.First().IDAuthor.ToString();
+                        Session["userid"] = users.First().IDAuthor;
                         Response.SetCookie(cookie);
                         Response.Redirect("/Pages/Author/HomePage.aspx");
                     }

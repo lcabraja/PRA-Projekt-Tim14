@@ -11,7 +11,7 @@ namespace Quizkey
 {
 
 
-    public partial class InProgressQuizQuestion
+    public partial class InProgressQuizQuestionAttendee
     {
 
         /// <summary>
@@ -33,13 +33,40 @@ namespace Quizkey
         protected global::Quizkey.Navbar _Navbar;
 
         /// <summary>
-        /// lbQuestion control.
+        /// btTriangle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbQuestion;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btTriangle;
+
+        /// <summary>
+        /// btStar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btStar;
+
+        /// <summary>
+        /// btPentagon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btPentagon;
+
+        /// <summary>
+        /// btCircle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btCircle;
 
         /// <summary>
         /// countdowntime control.
@@ -49,50 +76,5 @@ namespace Quizkey
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl countdowntime;
-
-        /// <summary>
-        /// placeholder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder placeholder;
-
-        /// <summary>
-        /// Answer1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.InProgressAnswer Answer1;
-
-        /// <summary>
-        /// Answer2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.InProgressAnswer Answer2;
-
-        /// <summary>
-        /// Answer3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.InProgressAnswer Answer3;
-
-        /// <summary>
-        /// Answer4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Quizkey.User_Controls.InProgressAnswer Answer4;
     }
 }

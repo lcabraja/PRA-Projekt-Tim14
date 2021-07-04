@@ -30,7 +30,7 @@ namespace Quizkey
                 Response.Redirect("/");
                 return;
             }
-            Repo.GetMultipleQuiz().Where(x => x.AuthorID == (int)base.Session["userid"]).ToList().ForEach(x =>
+            Repo.GetMultipleQuiz().Where(x => x.AuthorID == (int)Session["userid"]).ToList().ForEach(x =>
             {
                 var QuestionNumber = Repo.GetMultipleQuizQuestion().Where(y => y.QuizID == x.IDQuiz).Count();
                 HtmlGenericControl card = GenerateCard(x, QuestionNumber);

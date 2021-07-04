@@ -50,22 +50,63 @@
     <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationBlocks.Data.2.0.0\lib\net45\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Connections.Abstractions, Version=5.0.7.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Connections.Abstractions.5.0.7\lib\net461\Microsoft.AspNetCore.Connections.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=5.0.7.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.5.0.7\lib\net461\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.SignalR.Common, Version=5.0.7.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.SignalR.Common.5.0.7\lib\net461\Microsoft.AspNetCore.SignalR.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.5.0.0\lib\net461\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.1\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Pipelines, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.5.0.1\lib\net461\System.IO.Pipelines.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.5.0.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.5.0.2\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -106,7 +147,9 @@
     <Content Include="Content\qk-results.css" />
     <Content Include="Content\qk-quizcreation.css" />
     <Content Include="EndOfQuiz.aspx" />
+    <Content Include="EndOfQuizAttendee.aspx" />
     <Content Include="GameStartUsername.aspx" />
+    <Content Include="InProgressQuizQuestionAttendee.aspx" />
     <Content Include="Pages\Author\HomePage.aspx" />
     <Content Include="Pages\Author\Login.aspx" />
     <Content Include="Pages\Author\Pictures\Quiz-1.png" />
@@ -124,6 +167,7 @@
     <Content Include="GameStartPage.aspx" />
     <Content Include="Global.asax" />
     <Content Include="InProgressQuizQuestion.aspx" />
+    <Content Include="ResultsAttendee.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -223,7 +267,9 @@
     <Content Include="User_Controls\QuizCreationTimeButton.ascx" />
     <Content Include="User_Controls\QuizResultsPosition.ascx" />
     <Content Include="User_Controls\_Navbar.ascx" />
+    <Content Include="WaitingForResults.aspx" />
     <Content Include="WaitingRoom.aspx" />
+    <Content Include="WaitingRoomAttendee.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +280,13 @@
     <Compile Include="EndOfQuiz.aspx.designer.cs">
       <DependentUpon>EndOfQuiz.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EndOfQuizAttendee.aspx.cs">
+      <DependentUpon>EndOfQuizAttendee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EndOfQuizAttendee.aspx.designer.cs">
+      <DependentUpon>EndOfQuizAttendee.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\Class1.cs" />
     <Compile Include="GameStartUsername.aspx.cs">
       <DependentUpon>GameStartUsername.aspx</DependentUpon>
@@ -241,6 +294,13 @@
     </Compile>
     <Compile Include="GameStartUsername.aspx.designer.cs">
       <DependentUpon>GameStartUsername.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InProgressQuizQuestionAttendee.aspx.cs">
+      <DependentUpon>InProgressQuizQuestionAttendee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InProgressQuizQuestionAttendee.aspx.designer.cs">
+      <DependentUpon>InProgressQuizQuestionAttendee.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Author\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
@@ -334,6 +394,13 @@
     <Compile Include="QuizCreation.aspx.designer.cs">
       <DependentUpon>QuizCreation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ResultsAttendee.aspx.cs">
+      <DependentUpon>ResultsAttendee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResultsAttendee.aspx.designer.cs">
+      <DependentUpon>ResultsAttendee.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User_Controls\HomePageCardControl.ascx.cs">
       <DependentUpon>HomePageCardControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -384,12 +451,26 @@
       <DependentUpon>_Navbar.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WaitingForResults.aspx.cs">
+      <DependentUpon>WaitingForResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WaitingForResults.aspx.designer.cs">
+      <DependentUpon>WaitingForResults.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WaitingRoom.aspx.cs">
       <DependentUpon>WaitingRoom.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="WaitingRoom.aspx.designer.cs">
       <DependentUpon>WaitingRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WaitingRoomAttendee.aspx.cs">
+      <DependentUpon>WaitingRoomAttendee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WaitingRoomAttendee.aspx.designer.cs">
+      <DependentUpon>WaitingRoomAttendee.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

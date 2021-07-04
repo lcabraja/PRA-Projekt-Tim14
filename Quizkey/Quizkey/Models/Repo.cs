@@ -75,6 +75,16 @@ namespace Quizkey.Models
                 Email = row["Email"].ToString()
             };
         }
+
+        internal static int CalculateScore(int questionID, int chosenAnswer, int timetaken)
+        {
+            var b = Repo.GetQuizQuestion(questionID).CorrectAnswer == chosenAnswer ? 1 : 0;
+            var time = 1.0 / Math.Pow(timetaken / 6.0, 0.25);
+            var pie = 100 * Math.Pow(Math.PI, Math.E);
+
+            return timetaken == 0 ? b * 4500 : (int)(b * time * pie);
+        }
+
         //----------------------------------------------------------Quiz----------------------------------------------------------
         public static int CreateQuiz(Quiz quiz)
         {

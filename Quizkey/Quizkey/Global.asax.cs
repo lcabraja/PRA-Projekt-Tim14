@@ -1,4 +1,5 @@
 ﻿using System;
+//using
 
 namespace Quizkey
 {
@@ -6,6 +7,8 @@ namespace Quizkey
     {
         protected void Application_Start(object sender, EventArgs e)
         {
+
+            //RouteTable.Routes.MapHubs();
         }
 
         void Application_EndRequest(object sender, EventArgs e)

@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace Quizkey
 {
-    public partial class InProgressQuizQuestion : System.Web.UI.Page
+    public partial class ResultsAttendee : System.Web.UI.Page
     {
         public string SessionCode
         {
@@ -69,51 +69,18 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!StatePlaying)
-                Response.Write("notplaying ");
-            this.PreRender += Page_PreRender;
-
-            if (Request.QueryString["nextpage"] != null)
+            QuizCreationModel model = GetCreationState();
+            var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == SessionID);
+            Console.OpenStandardOutput();
+            var sortedAttendees = attendees.OrderBy(GetScore).Take(5).ToList();
+            for (int i = 0; i < sortedAttendees.Count; i++)
             {
-                Response.Redirect("Results.aspx");
+                positioncontainer.Controls.Add(new LiteralControl($"<div class=\"bg-{(i < 3 ? "primary" : "light")} rounded\" ><h2 class=\"d-grid\">{i + 1}. {sortedAttendees[i].Username}</h2></div>"));
             }
-
-            QuizCreationPage page;
-
-            var data = GetCreationState();
-            page = GetCreationState().Pages[PageNumber];
-
-            countdowntime.Attributes["seconds"] = page.SelectedTime.ToString();
         }
-        private void Page_PreRender(object sender, EventArgs e)
+        private int GetScore(Attendee attendee)
         {
-            QuizCreationPage page;
-
-            var data = GetCreationState();
-            page = GetCreationState().Pages[PageNumber];
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-                return;
-            }
-
-            lbQuestion.Text = page.Question;
-
-            Answer1.AnswerText = page.Answer1;
-            Answer2.AnswerText = page.Answer2;
-            if (page.Answer3 != null)
-            {
-                Answer3.Visible = true;
-                Answer3.AnswerText = page.Answer3;
-            }
-            if (page.Answer4 != null)
-            {
-                Answer4.Visible = true;
-                Answer4.AnswerText = page.Answer4;
-            }
+            return -Repo.GetMultipleLogItem().Where(x => x.QuizSessionID == SessionID && x.AttendeeID == attendee.IDAttendee).Select(x => x.Points).Sum();
         }
     }
 }

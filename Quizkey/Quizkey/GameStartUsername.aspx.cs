@@ -24,9 +24,15 @@ namespace Quizkey
                         cookie["loggedin"] = "attendee";
                         cookie["language"] = "en";
                         cookie["username"] = tbUsername.Text.Trim();
+
+                        var attendeeid = Repo.CreateAttendee(new Attendee { SessionID = (int)Session["SessionID"], Username = tbUsername.Text });
+
+                        cookie["userid"] = attendeeid.ToString();
+                        Session["attendeeid"] = attendeeid;
+
                         Response.SetCookie(cookie);
 
-                        Repo.CreateAttendee(new Attendee { SessionID = (int)Session["SessionID"], Username = tbUsername.Text });
+
                         Response.Redirect("/WaitingRoom.aspx");
                     }
                     else if (tbUsername.Text.Trim().Length == 0)

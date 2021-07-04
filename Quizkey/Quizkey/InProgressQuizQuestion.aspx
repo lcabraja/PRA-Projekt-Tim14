@@ -34,12 +34,13 @@
             <div class="qk-quizcreation-grid-container-bottom">
                 <%--Left Arrow--%>
                 <div class="qk-quizcreation-left-button d-grid gap-2">
-                    <div id="demo" class="btn btn-primary p-2"></div>
+                    <div id="countdowntime" class="btn btn-primary p-2" runat="server"></div>
                     <asp:PlaceHolder ID="placeholder" runat="server" />
-                    <button onserverclick="timetimer_Tick" style="display: none;" runat="server"></button>
                     <script>
+                        // Gets the number of seconds the question lasts for from the server
+                        var seconds = parseInt(document.getElementById("countdowntime").getAttribute("seconds"))
                         // Set the date we're counting down to
-                        var countDownDate = new Date().setSeconds(new Date().getSeconds() + 5)
+                        var countDownDate = new Date().setSeconds(new Date().getSeconds() + seconds)
 
                         // Update the count down every 1 second
                         var x = setInterval(function () {
@@ -54,12 +55,12 @@
                             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                             // Display the result in the element with id="demo"
-                            document.getElementById("demo").innerHTML = seconds + "s ";
+                            document.getElementById("countdowntime").innerHTML = seconds + "s ";
 
                             // If the count down is finished, write some text
                             if (distance < 0) {
                                 clearInterval(x);
-                                document.getElementById("demo").innerHTML = "0s";
+                                document.getElementById("countdowntime").innerHTML = "0s";
                                 window.location.replace("InProgressQuizQuestion.aspx?nextpage=1");
                             }
                         }, 1000);

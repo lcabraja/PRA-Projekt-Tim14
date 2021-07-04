@@ -11,7 +11,7 @@ namespace Quizkey
     {
         protected void Play_Click(object sender, EventArgs e)
         {
-            Response.Redirect("GameStartPage.aspx");
+            Response.Redirect("/GameStartPage.aspx");
         }
         protected void Login_Click(object sender, EventArgs e)
         {
