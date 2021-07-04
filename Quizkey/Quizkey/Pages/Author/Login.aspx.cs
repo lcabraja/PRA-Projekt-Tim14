@@ -16,6 +16,12 @@ namespace Quizkey
         protected void Page_Load(object sender, EventArgs e)
         {
             this.PreRender += Login_PreRender;
+            if (Request.Cookies["UserState"] != null && Request.Cookies["UserState"]["loggedin"] == "author")
+            {
+                Session["userid"] = int.Parse(Request.Cookies["UserState"]["userid"]);
+                Response.Redirect("/Pages/Author/HomePage.aspx");
+                return;
+            }
             if (IsPostBack)
                 if (RequiredFieldValidator2.IsValid && RequiredFieldValidator6.IsValid)
                 {

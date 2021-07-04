@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net.WebSockets;
 
 namespace Quizkey
 {
@@ -75,7 +76,17 @@ namespace Quizkey
             var sortedAttendees = attendees.OrderBy(GetScore).Take(5).ToList();
             for (int i = 0; i < sortedAttendees.Count; i++)
             {
-                positioncontainer.Controls.Add(new LiteralControl($"<div class=\"bg-{(i < 3 ? "primary" : "light")} rounded\" ><h2 class=\"d-grid\">{i + 1}. {sortedAttendees[i].Username}</h2></div>"));
+                var x = sortedAttendees[i];
+                positioncontainer.Controls.Add(
+                    new LiteralControl(
+                                    $"<h2 class=\"d-grid m-2 p-1 {(i < 3 ? "bg-primary" : "bg-light")} rounded\">" +
+                                        "<div style=\"display: flex;\">" +
+                                            $"<span style=\"font-weight: 100; display: inline-flex; padding-right: 1rem;\">{i + 1}.</span>" +
+                                            x.Username +
+                                            $"<span style=\"font-weight: 100; display: inline-flex; padding-left: 1rem;\">{-GetScore(x)} Points</span>" +
+                                        "</div>" +
+                                    "</h2>"
+                    ));
             }
         }
         private int GetScore(Attendee attendee)

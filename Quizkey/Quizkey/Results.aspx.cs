@@ -95,9 +95,11 @@ namespace Quizkey
             if (PageNumber + 1 == CreationState.Pages.Count)
             {
                 StatePlaying = false;
+                WebSockets.AnnounceEnd(SessionID);
                 Response.Redirect("EndOfQuiz.aspx");
                 return;
             }
+            WebSockets.AnnounceStart(SessionID);
             PageNumber++;
             Response.Redirect("InProgressQuizQuestion.aspx");
         }

@@ -82,6 +82,11 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString.Get("advance") != null)
+            {
+                PageNumber++;
+                Response.Redirect("InProgressQuizQuestionAttendee.aspx");
+            }
             if (!StatePlaying)
                 Response.Write("notplaying ");
             this.PreRender += InProgressQuizQuestionAttendee_PreRender;
@@ -122,6 +127,19 @@ namespace Quizkey
             logitem.QuizAnswerID = Repo.GetMultipleQuizAnswer().Where(x => x.QuizQuestionID == page.QuestionID && x.QuestionOrder == questionNumber).First().IDQuizAnswer;
             logitem.QuizQuestionID = page.QuestionID;
             logitem.QuizSessionID = SessionID;
+
+            var userstate = Request.Cookies["UserState"];
+            try
+            {
+                points += int.Parse(userstate["points"]);
+            }
+            catch
+            {
+                //intended behavior
+            }
+            userstate["points"] = points.ToString();
+            Response.SetCookie(userstate);
+
             Repo.CreateLogItem(logitem);
             Session["timespent"] = GetTimeTaken();
             Response.Redirect("WaitingForResults.aspx");

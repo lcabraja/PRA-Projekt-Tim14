@@ -31,9 +31,9 @@ namespace Quizkey
                         Session["attendeeid"] = attendeeid;
 
                         Response.SetCookie(cookie);
+                        Response.SetCookie(new HttpCookie("sessionid", Session["SessionID"].ToString()));
 
-
-                        Response.Redirect("/WaitingRoom.aspx");
+                        Response.Redirect("/WaitingRoomAttendee.aspx");
                     }
                     else if (tbUsername.Text.Trim().Length == 0)
                     {

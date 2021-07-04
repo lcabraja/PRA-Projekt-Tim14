@@ -12,7 +12,14 @@ namespace Quizkey
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Redirect("/Pages/Author/StartPage.aspx");
+            if (Request.Cookies["UserState"] != null && Request.Cookies["UserState"]["loggedin"] == "author")
+            {
+                Response.Redirect("/Pages/Author/Login.aspx");
+            }
+            else
+            {
+                Response.Redirect("/Pages/Author/StartPage.aspx");
+            }
             //HttpCookie cookie = new HttpCookie("UserState");
 
             //cookie["loggedin"] = "author";

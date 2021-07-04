@@ -66,6 +66,7 @@ namespace Quizkey
             //var SessionID = Repo.CreateQuizSession(new QuizSession { OccurredAt = DateTimeOffset.Now, QuizID = 4003, SessionCode = "kodkod" });
             Session["qp-quizstate-playing"] = true;
             PageNumber = 0;
+            WebSockets.AnnounceStart(SessionID);
             Response.Redirect("InProgressQuizQuestion.aspx");
         }
 
