@@ -40,6 +40,14 @@
                             </asp:RequiredFieldValidator>
                     <span id="diverrormessage" runat="server"></span>
                 </div>
+                <div class="mb-3 d-flex flex-row-reverse">
+                    <asp:Button
+                        ID="btUpdateUsername"
+                        runat="server"
+                        CssClass="btn btn-primary"
+                        OnClick="btUpdateUsername_Click"
+                        Text="Update E-mail" />
+                </div>
                 <div class="input-group mb-3">
                     <span id="lbEmail" runat="server" class="input-group-text">E-mail</span>
                     <asp:TextBox
@@ -65,7 +73,7 @@
                         ErrorMessage="Wrong Email format"
                         CssClass="d-none" />
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 d-flex flex-row-reverse">
                     <asp:Button
                         ID="btUpdateEmail"
                         runat="server"
@@ -115,7 +123,15 @@
                         ErrorMessage="Passwords do not match">*
                         </asp:CompareValidator>
                 </div>
-                <div class="d-flex" style="flex-direction: row-reverse; grid-column-gap: 1rem;">
+                <div class="mb-3 d-flex flex-row-reverse">
+                    <asp:Button
+                        ID="btSend"
+                        runat="server"
+                        CssClass="btn btn-primary"
+                        OnClick="btSend_Click"
+                        Text="Update Password" />
+                </div>
+                <div class="mb-3 d-flex flex-row-reverse">
                     <asp:Button
                         ID="btDelete"
                         runat="server"
@@ -123,12 +139,6 @@
                         OnClick="btDelete_Click"
                         CssClass="btn btn-danger"
                         Text="Delete Account" />
-                    <asp:Button
-                        ID="btSend"
-                        runat="server"
-                        CssClass="btn btn-primary"
-                        OnClick="btSend_Click"
-                        Text="Update Password" />
                 </div>
                 <div>
                     <asp:ValidationSummary

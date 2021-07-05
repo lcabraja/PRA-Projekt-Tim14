@@ -78,6 +78,15 @@ namespace Quizkey
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl diverrormessage;
 
         /// <summary>
+        /// btUpdateUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btUpdateUsername;
+
+        /// <summary>
         /// lbEmail control.
         /// </summary>
         /// <remarks>
@@ -186,15 +195,6 @@ namespace Quizkey
         protected global::System.Web.UI.WebControls.CompareValidator comparePasswordValidator;
 
         /// <summary>
-        /// btDelete control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btDelete;
-
-        /// <summary>
         /// btSend control.
         /// </summary>
         /// <remarks>
@@ -202,6 +202,15 @@ namespace Quizkey
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btSend;
+
+        /// <summary>
+        /// btDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btDelete;
 
         /// <summary>
         /// summary control.

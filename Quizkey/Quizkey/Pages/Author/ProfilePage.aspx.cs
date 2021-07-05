@@ -76,6 +76,11 @@ namespace Quizkey
         {
 
         }
+
+        protected void btUpdateUsername_Click(object sender, EventArgs e)
+        {
+            Response.Write("aaaa");
+        }
         //button za promjenu zaporke isto ali s zaporkom i ponovljenom zaporkom
 
         //delete
