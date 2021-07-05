@@ -42,24 +42,19 @@ namespace Quizkey
 
             this.PreRender += ProfilePage_PreRender;
 
-            var author = new Author {IDAuthor = 2004, Email = "luka@katal.hr", PasswordHash= BCrypt.Net.BCrypt.HashPassword("password"), Username="lukac" };//Repo.GetAuthor((int)Session["userid"]);
-            tbUsername.Text = author.Username;
-            tbEmail.Text = author.Email;
-            
-
             //SqlConnection sqlcon = new SqlConnection("putanja");
             //con.Open();
             //SqlCommand cmd = new SqlCommand("Update Author set korisnickoime=@korisnickoime");
             //cmd.Parameters.AddWithValue("@Korisnickoime", txtNovoKorisnickoIme.Text);
             //cmd.ExecuteNonQuery();
             //con.Close();
-
-
         }
 
         private void ProfilePage_PreRender(object sender, EventArgs e)
         {
-            
+            var author = new Author { IDAuthor = 2004, Email = "luka@katal.hr", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password"), Username = "lukac" };//Repo.GetAuthor((int)Session["userid"]);
+            tbUsername.Text = author.Username;
+            tbEmail.Text = author.Email;
         }
 
         protected void btDelete_Click(object sender, EventArgs e)
@@ -67,15 +62,20 @@ namespace Quizkey
             Repo.DeleteAuthorComplete((int)Session["userid"]);
         }
 
-        protected void btSend_Click(object sender, EventArgs e)
+        protected void btUpdateAccount_Click(object sender, EventArgs e)
         {
-            //Repo.Get
+            var author = Repo.GetAuthor((int)Session["userid"]);
+            if (BCrypt.Net.BCrypt.Verify(tbPasswordRepeat.Text, author.PasswordHash))
+            {
+                Repo.UpdateAuthor(new Author { 
+                    IDAuthor = (int)Session["userid"], 
+                    Username = tbUsername.Text, 
+                    Email = tbEmail.Text, 
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(tbPasswordRepeat.Text) 
+                });
+            }
         }
 
-        protected void btUpdateEmail_Click(object sender, EventArgs e)
-        {
-
-        }
         //button za promjenu zaporke isto ali s zaporkom i ponovljenom zaporkom
 
         //delete

@@ -36,8 +36,7 @@
                         ControlToValidate="tbUsername"
                         CssClass="d-none"
                         ForeColor="Red"
-                        ErrorMessage="Name was not entered.">*
-                            </asp:RequiredFieldValidator>
+                        ErrorMessage="Name was not entered." />
                     <span id="diverrormessage" runat="server"></span>
                 </div>
                 <div class="input-group mb-3">
@@ -52,8 +51,7 @@
                         ControlToValidate="tbEmail"
                         CssClass="d-none"
                         ForeColor="Red"
-                        ErrorMessage="Email was not entered.">*
-                        </asp:RequiredFieldValidator>
+                        ErrorMessage="Email was not entered." />
                     <asp:RegularExpressionValidator
                         ID="regex"
                         runat="server"
@@ -64,14 +62,6 @@
                         ForeColor="Red"
                         ErrorMessage="Wrong Email format"
                         CssClass="d-none" />
-                </div>
-                <div class="mb-3">
-                    <asp:Button
-                        ID="btUpdateEmail"
-                        runat="server"
-                        CssClass="btn btn-primary"
-                        OnClick="btUpdateEmail_Click"
-                        Text="Update E-mail" />
                 </div>
                 <div class="input-group mb-3">
                     <span id="lbPassword" runat="server" class="input-group-text">Password</span>
@@ -86,8 +76,7 @@
                         ControlToValidate="tbPassword"
                         CssClass="d-none"
                         ForeColor="Red"
-                        ErrorMessage="Password was not entered.">*
-                        </asp:RequiredFieldValidator>
+                        ErrorMessage="Password was not entered." />
                 </div>
                 <div class="input-group mb-3">
                     <span id="lbRepeatPassword" runat="server" class="input-group-text">Repeat Password</span>
@@ -103,8 +92,7 @@
                         Display="Dynamic"
                         ControlToValidate="tbPasswordRepeat"
                         ForeColor="Red"
-                        ErrorMessage="Password was not repeated.">*
-                        </asp:RequiredFieldValidator>
+                        ErrorMessage="Password was not repeated." />
                     <asp:CompareValidator
                         ID="comparePasswordValidator"
                         ControlToValidate="tbPasswordRepeat"
@@ -112,10 +100,9 @@
                         runat="server"
                         CssClass="d-none"
                         ForeColor="Red"
-                        ErrorMessage="Passwords do not match">*
-                        </asp:CompareValidator>
+                        ErrorMessage="Passwords do not match" />
                 </div>
-                <div class="d-flex" style="flex-direction: row-reverse; grid-column-gap: 1rem;">
+                <div class="d-flex flex-row-reverse gap-3">
                     <asp:Button
                         ID="btDelete"
                         runat="server"
@@ -127,8 +114,8 @@
                         ID="btSend"
                         runat="server"
                         CssClass="btn btn-primary"
-                        OnClick="btSend_Click"
-                        Text="Update Password" />
+                        OnClick="btUpdateAccount_Click"
+                        Text="Update Account" />
                 </div>
                 <div>
                     <asp:ValidationSummary
