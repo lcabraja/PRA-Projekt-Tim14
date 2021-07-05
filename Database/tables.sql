@@ -1,3 +1,5 @@
+USE master
+GO
 IF OBJECT_ID('Quizkey') IS NOT NULL
 BEGIN
     USE master

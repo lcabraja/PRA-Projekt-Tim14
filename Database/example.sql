@@ -27,7 +27,7 @@ SELECT * FROM QuizAnswer WHERE IDQuizAnswer = @IDQuizAnswer1 OR IDQuizAnswer = @
 DECLARE @IDQuizSession int
 DECLARE @OccurredAt datetimeoffset
 SELECT @OccurredAt = SYSDATETIMEOFFSET()
-EXEC proc_create_QuizSession 1, @OccurredAt, "123456"
+EXEC proc_create_QuizSession @IDQuiz, @OccurredAt, "123456"
 SET @IDQuizSession = @@IDENTITY
 SELECT * FROM QuizSession WHERE IDQuizSession = @IDQuizSession
 --Attendee

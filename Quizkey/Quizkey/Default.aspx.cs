@@ -26,7 +26,7 @@ namespace Quizkey
             //cookie["language"] = "en";
             //cookie["username"] = "dino";
             //cookie["points"] = "6969";
-            //cookie["userid"] = "1007";
+            //cookie["userid"] = "2004";
 
             //Session["userid"] = 2004;
 

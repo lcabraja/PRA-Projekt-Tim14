@@ -65,6 +65,13 @@ namespace Quizkey.Models
             SqlHelper.ExecuteDataset(cs, "proc_delete_Author", IDAuthor);
         }
 
+        internal static void DeleteAuthorComplete(int IDAuthor)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "proc_delete_author_complete", IDAuthor);
+            if (authorCache.Contains(new Author { IDAuthor = IDAuthor }))
+                authorCache.Remove(new Author { IDAuthor = IDAuthor });
+        }
+
         private static Author GetAuthorFromDataRow(DataRow row)
         {
             return new Author
