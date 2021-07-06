@@ -10,7 +10,7 @@ namespace Quizkey.Models
 {
     public static class Repo
     {
-        private static string cs = ConfigurationManager.ConnectionStrings["cloud"].ConnectionString;
+        private static string cs = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
 
         //---------------------------------------------------------Cache----------------------------------------------------------
         private static List<Author> authorCache = null;
@@ -124,6 +124,17 @@ namespace Quizkey.Models
             quizCache = collection;
             return collection;
         }
+        public static List<Quiz> GetMultipleQuiz(int authorID)
+        {
+            List<Quiz> collection = new List<Quiz>();
+            DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_Quiz_targeted", authorID);
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                collection.Add(GetQuizFromDataRow(row));
+            }
+            quizCache = collection;
+            return collection;
+        }
 
         public static void UpdateQuiz(Quiz quiz)
         {
@@ -177,6 +188,18 @@ namespace Quizkey.Models
         {
             List<QuizQuestion> collection = new List<QuizQuestion>();
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_QuizQuestion");
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                collection.Add(GetQuizQuestionFromDataRow(row));
+            }
+            quizquestionCache = collection;
+            return collection;
+        }
+
+        public static List<QuizQuestion> GetMultipleQuizQuestion(int quizID)
+        {
+            List<QuizQuestion> collection = new List<QuizQuestion>();
+            DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_QuizQuestion_targeted", quizID);
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 collection.Add(GetQuizQuestionFromDataRow(row));
@@ -304,6 +327,17 @@ namespace Quizkey.Models
             quizsessionCache = collection;
             return collection;
         }
+        public static List<QuizSession> GetMultipleQuizSession(int authorID)
+        {
+            List<QuizSession> collection = new List<QuizSession>();
+            DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_QuizSession_targeted", authorID);
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                collection.Add(GetQuizSessionFromDataRow(row));
+            }
+            quizsessionCache = collection;
+            return collection;
+        }
 
         public static void UpdateQuizSession(QuizSession quizsession)
         {
@@ -400,6 +434,17 @@ namespace Quizkey.Models
         {
             List<LogItem> collection = new List<LogItem>();
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_LogItem");
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                collection.Add(GetLogItemFromDataRow(row));
+            }
+            logitemCache = collection;
+            return collection;
+        }
+        public static List<LogItem> GetMultipleLogItem(int idauthor)
+        {
+            List<LogItem> collection = new List<LogItem>();
+            DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_LogItem_targeted", idauthor);
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 collection.Add(GetLogItemFromDataRow(row));
