@@ -30,7 +30,7 @@ namespace Quizkey
                 if (userState["loggedIn"] == "author")
                 {
                     welcomeText.InnerText = $"Welcome {userState["userName"]}";
-                    navbarLinks.Controls.Add(new HyperLink { Text = "My Profile", NavigateUrl = "/ProfilePage.aspx", CssClass = "nav-link px-1 text-light" });
+                    navbarLinks.Controls.Add(new HyperLink { Text = "My Profile", NavigateUrl = "/Pages/Author/ProfilePage.aspx", CssClass = "nav-link px-1 text-light" });
                     navbarLinks.Controls.Add(new HyperLink { Text = "My Quizes", NavigateUrl = "/Table.aspx?table=quiz", CssClass = "nav-link px-1 text-light" });
                     navbarLinks.Controls.Add(new HyperLink { Text = "My Logs", NavigateUrl = "/Table.aspx?table=log", CssClass = "nav-link px-1 text-light" });
                     logout.Visible = true;

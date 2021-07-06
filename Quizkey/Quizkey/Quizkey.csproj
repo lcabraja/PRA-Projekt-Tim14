@@ -295,6 +295,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="QuizCreation.aspx" />
+    <Content Include="Tables.aspx" />
     <Content Include="User_Controls\HomePageCardControl.ascx" />
     <Content Include="User_Controls\InProgressAnswer.ascx" />
     <Content Include="User_Controls\QuizCreationAnswer.ascx" />
@@ -439,6 +440,13 @@
     </Compile>
     <Compile Include="StartQuestionHub.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Tables.aspx.cs">
+      <DependentUpon>Tables.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tables.aspx.designer.cs">
+      <DependentUpon>Tables.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User_Controls\HomePageCardControl.ascx.cs">
       <DependentUpon>HomePageCardControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
