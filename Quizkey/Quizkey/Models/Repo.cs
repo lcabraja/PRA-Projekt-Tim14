@@ -10,7 +10,7 @@ namespace Quizkey.Models
 {
     public static class Repo
     {
-        private static string cs = ConfigurationManager.ConnectionStrings["local"].ConnectionString;
+        private static string cs = ConfigurationManager.ConnectionStrings["cloud"].ConnectionString;
 
         //---------------------------------------------------------Cache----------------------------------------------------------
         private static List<Author> authorCache = null;
@@ -43,6 +43,7 @@ namespace Quizkey.Models
             return ds.Tables[0].Rows.Count > 0 ? GetAuthorFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
+
         public static List<Author> GetMultipleAuthor()
         {
             List<Author> collection = new List<Author>();
@@ -68,7 +69,7 @@ namespace Quizkey.Models
         internal static void DeleteAuthorComplete(int IDAuthor)
         {
             SqlHelper.ExecuteNonQuery(cs, "proc_delete_author_complete", IDAuthor);
-            if (authorCache.Contains(new Author { IDAuthor = IDAuthor }))
+            if (authorCache != null && authorCache.Contains(new Author { IDAuthor = IDAuthor }))
                 authorCache.Remove(new Author { IDAuthor = IDAuthor });
         }
 
@@ -145,6 +146,12 @@ namespace Quizkey.Models
         {
             SqlHelper.ExecuteDataset(cs, "proc_delete_Quiz", IDQuiz);
         }
+
+        public static void DeleteQuizComplete(int quizID)
+        {
+            SqlHelper.ExecuteDataset(cs, "proc_delete_Quiz_complete", quizID);
+        }
+
         private static Quiz GetQuizFromDataRow(DataRow row)
         {
             return new Quiz

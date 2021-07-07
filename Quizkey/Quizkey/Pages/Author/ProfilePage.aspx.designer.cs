@@ -150,31 +150,13 @@ namespace Quizkey
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lbRepeatPassword;
 
         /// <summary>
-        /// tbPasswordRepeat control.
+        /// tbPasswordNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPasswordRepeat;
-
-        /// <summary>
-        /// RequiredFieldValidator5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
-
-        /// <summary>
-        /// comparePasswordValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator comparePasswordValidator;
+        protected global::System.Web.UI.WebControls.TextBox tbPasswordNew;
 
         /// <summary>
         /// btDelete control.

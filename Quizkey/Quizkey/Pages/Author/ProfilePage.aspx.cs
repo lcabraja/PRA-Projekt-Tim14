@@ -23,16 +23,17 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            HttpCookie cookie = new HttpCookie("UserState");
+            //HttpCookie cookie = new HttpCookie("UserState");
 
-            cookie["loggedin"] = "author";
-            cookie["language"] = "en";
-            cookie["username"] = "dino";
-            cookie["points"] = "6969";
-            cookie["userid"] = "2004";
+            //var author = Repo.GetAuthor(2005);
+            
+            //cookie["loggedin"] = "author";
+            //cookie["language"] = "en";
+            //cookie["username"] = author.Username;
+            //cookie["userid"] = "2005";
 
-            Session["userid"] = 2004;
-            Response.SetCookie(cookie);
+            //Session["userid"] = 2005;
+            //Response.SetCookie(cookie);
 
             if (UserState == null || UserState["loggedin"] != "author" || Session["userid"] == null)
             {
@@ -52,7 +53,7 @@ namespace Quizkey
 
         private void ProfilePage_PreRender(object sender, EventArgs e)
         {
-            var author = new Author { IDAuthor = 2004, Email = "luka@katal.hr", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password"), Username = "lukac" };//Repo.GetAuthor((int)Session["userid"]);
+            var author = Repo.GetAuthor((int)Session["userid"]);
             tbUsername.Text = author.Username;
             tbEmail.Text = author.Email;
         }
@@ -65,14 +66,19 @@ namespace Quizkey
         protected void btUpdateAccount_Click(object sender, EventArgs e)
         {
             var author = Repo.GetAuthor((int)Session["userid"]);
-            if (BCrypt.Net.BCrypt.Verify(tbPasswordRepeat.Text, author.PasswordHash))
+            if (BCrypt.Net.BCrypt.Verify(tbPassword.Text, author.PasswordHash))
             {
                 Repo.UpdateAuthor(new Author { 
                     IDAuthor = (int)Session["userid"], 
                     Username = tbUsername.Text, 
                     Email = tbEmail.Text, 
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(tbPasswordRepeat.Text) 
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(tbPasswordNew.Text) 
                 });
+            } else
+            {
+                var n = 100;
+                var d = 10;
+                Response.Write(10 / (10 - n / d));
             }
         }
 

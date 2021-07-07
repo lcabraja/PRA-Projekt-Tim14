@@ -64,7 +64,7 @@
                         CssClass="d-none" />
                 </div>
                 <div class="input-group mb-3">
-                    <span id="lbPassword" runat="server" class="input-group-text">Password</span>
+                    <span id="lbPassword" runat="server" class="input-group-text">Old Password</span>
                     <asp:TextBox
                         ID="tbPassword"
                         TextMode="Password"
@@ -79,28 +79,12 @@
                         ErrorMessage="Password was not entered." />
                 </div>
                 <div class="input-group mb-3">
-                    <span id="lbRepeatPassword" runat="server" class="input-group-text">Repeat Password</span>
+                    <span id="lbRepeatPassword" runat="server" class="input-group-text">New Password</span>
                     <asp:TextBox
-                        ID="tbPasswordRepeat"
+                        ID="tbPasswordNew"
                         TextMode="Password"
                         runat="server"
                         CssClass="form-control" />
-                    <asp:RequiredFieldValidator
-                        ID="RequiredFieldValidator5"
-                        runat="server"
-                        CssClass="d-none"
-                        Display="Dynamic"
-                        ControlToValidate="tbPasswordRepeat"
-                        ForeColor="Red"
-                        ErrorMessage="Password was not repeated." />
-                    <asp:CompareValidator
-                        ID="comparePasswordValidator"
-                        ControlToValidate="tbPasswordRepeat"
-                        ControlToCompare="tbPassword"
-                        runat="server"
-                        CssClass="d-none"
-                        ForeColor="Red"
-                        ErrorMessage="Passwords do not match" />
                 </div>
                 <div class="d-flex flex-row-reverse gap-3">
                     <asp:Button

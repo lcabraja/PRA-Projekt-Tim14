@@ -59,7 +59,7 @@ namespace Quizkey
 
         protected void btToggleLanguage_Click(object sender, EventArgs e)
         {
-            HttpCookie userState = Request.Cookies["UserState"];
+            HttpCookie userState = Request.Cookies["UserState"] ?? new HttpCookie("UserState");
             userState[UserState.language.ToString()] =
                 userState[UserState.language.ToString()] == UserStateLanguage.en.ToString() ? UserStateLanguage.hr.ToString() : UserStateLanguage.en.ToString();
             SetLanguageButtonText(userState);
@@ -68,7 +68,10 @@ namespace Quizkey
 
         protected void btLogOut_Click(object sender, EventArgs e)
         {
-            Response.Cookies.Remove("UserState");
+            //Response.Cookies.Remove("UserState");
+            Response.SetCookie(new HttpCookie("UserState", null));
+            Session["userid"] = null;
+            Response.Redirect("/");
         }
     }
 }
