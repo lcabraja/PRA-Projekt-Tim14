@@ -28,8 +28,6 @@ namespace Quizkey
             }
         }
 
-        private int QuizID;
-
         public QuizCreationModel CreationState
         {
             get
@@ -57,9 +55,9 @@ namespace Quizkey
                 Response.Redirect("/");
                 return;
             }
-            Response.Write(Request.QueryString.AllKeys.ToList().Aggregate("!!", (a, b) => a += " " + b, x => x.ToUpper()));
-            Response.Write("<br/>");
-            Response.Write(GetSession());
+            //Response.Write(Request.QueryString.AllKeys.ToList().Aggregate("!!", (a, b) => a += " " + b, x => x.ToUpper()));
+            //Response.Write("<br/>");
+            //Response.Write(GetSession());
 
             QuizCreationButton1.ServerClick += btTriangle_ServerClick;
             QuizCreationButton2.ServerClick += btStar_ServerClick;
@@ -79,7 +77,7 @@ namespace Quizkey
                 LoadQuiz();
                 LoadSessionValues();
             }
-            Response.Write(GetSession());
+            //Response.Write(GetSession());
         }
 
         private void QuizCreation_Unload(object sender, EventArgs e)
@@ -89,38 +87,41 @@ namespace Quizkey
 
         private void LoadQuiz()
         {
-            if (!(bool)(Session["qc-DataLoaded"] ?? false))
+            if (Session["qc-ID-toEdit"] != null && (Session["qc-DataLoaded"] == null || (int)Session["qc-DataLoaded"] != (int)Session["qc-ID-toEdit"]))
             {
-                if (QuizID != 0)
+                var QuizID = (int)(Session["qc-ID-toEdit"] ?? 0);
+                var quizDatabaseInstance = Repo.GetQuiz(QuizID);
+
+                if (quizDatabaseInstance == null)
                 {
-                    QuizID = (int)(Session["qc-ID-toEdit"] ?? 0);
-                    var quizDatabaseInstance = Repo.GetQuiz(QuizID);
-
-                    if (quizDatabaseInstance == null)
-                    {
-                        ClearSession();
-                        Response.Redirect("/");
-                        return;
-                    }
-
-                    var answers = Repo.GetMultipleQuizAnswer();
-
-
-                    Session["qc-DataLoaded"] = true;
-                    var questions = Repo.GetMultipleQuizQuestion();
-
-                    questions.ForEach(x => CreationState.Pages[PageNumber] = new QuizCreationPage
-                    {
-                        QuestionID = x.IDQuizQuestion,
-                        SelectedAnswer = x.CorrectAnswer,
-                        SelectedTime = x.AnswerTimeSeconds,
-                        Question = x.QuestionText,
-                        Answer1 = answers.Where(y => y.QuizQuestionID == x.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 1).AnswerText,
-                        Answer2 = answers.Where(y => y.QuizQuestionID == x.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 2).AnswerText,
-                        Answer3 = answers.Where(y => y.QuizQuestionID == x.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 3).AnswerText,
-                        Answer4 = answers.Where(y => y.QuizQuestionID == x.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 4).AnswerText
-                    });
+                    return;
                 }
+
+                CreationState.QuizID = QuizID;
+                CreationState.QuizName = quizDatabaseInstance.QuizName;
+
+                var answers = Repo.GetMultipleQuizAnswer();
+                var questions = Repo.GetMultipleQuizQuestion().Where(x => x.QuizID == QuizID);
+
+                foreach (var question in questions)
+                {
+                    var page = new QuizCreationPage();
+                    page.QuestionID = question.IDQuizQuestion;
+                    page.SelectedAnswer = question.CorrectAnswer;
+                    page.SelectedTime = question.AnswerTimeSeconds;
+                    page.Question = question.QuestionText;
+                    page.Answer1 = answers.Where(y => y.QuizQuestionID == question.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 1)?.AnswerText;
+                    page.IDAnswer1 = answers.Where(y => y.QuizQuestionID == question.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 1)?.IDQuizAnswer ?? 0;
+                    page.Answer2 = answers.Where(y => y.QuizQuestionID == question.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 2)?.AnswerText;
+                    page.IDAnswer2 = answers.Where(y => y.QuizQuestionID == question.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 2)?.IDQuizAnswer ?? 0;
+                    page.Answer3 = answers.Where(y => y.QuizQuestionID == question.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 3)?.AnswerText;
+                    page.IDAnswer3 = answers.Where(y => y.QuizQuestionID == question.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 3)?.IDQuizAnswer ?? 0;
+                    page.Answer4 = answers.Where(y => y.QuizQuestionID == question.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 4)?.AnswerText;
+                    page.IDAnswer4 = answers.Where(y => y.QuizQuestionID == question.IDQuizQuestion).ToList().Find(y => y.QuestionOrder == 4)?.IDQuizAnswer ?? 0;
+
+                    CreationState.Pages[question.QuestionNumber] = page;
+                }
+                Session["qc-DataLoaded"] = QuizID;
             }
 
         }
@@ -165,12 +166,20 @@ namespace Quizkey
             CreationState.QuizName = tbQuizName.Text;
             var page = new QuizCreationPage();
 
+            if (CreationState.Pages.Count > PageNumber)
+            {
+                var oldPage = CreationState.Pages[PageNumber];
+                page.QuestionID = oldPage.QuestionID;
+                page.IDAnswer1 = oldPage.IDAnswer1;
+                page.IDAnswer2 = oldPage.IDAnswer2;
+                page.IDAnswer3 = oldPage.IDAnswer3;
+                page.IDAnswer4 = oldPage.IDAnswer4;
+            }
             page.Question = tbQuestion.Text;
             page.SelectedAnswer = (int)(Session["qc-SelectedAnswer"] ?? 0);
             page.SelectedTime = (int)(Session["qc-SelectedTime"] ?? 0);
             page.Answer1 = QuizCreationAnswer1.tbAnswer.Text;
             page.Answer2 = QuizCreationAnswer2.tbAnswer.Text;
-
 
             int answers = (int)(Session["qc-AnswerNumber"] ?? 0);
             if (answers > 2)
@@ -331,6 +340,7 @@ namespace Quizkey
         protected void Save_Click(object sender, EventArgs e)
         {
             SaveState();
+            var creationState = CreationState;
             if (Session["qc-ID-toEdit"] != null && Repo.GetQuiz((int)Session["qc-ID-toEdit"]) != null)
             {
                 var quiz = Repo.GetQuiz((int)Session["qc-ID-toEdit"]);
@@ -339,9 +349,11 @@ namespace Quizkey
                 foreach (var page in CreationState.Pages)
                 {
                     var pagedata = page.Value;
+                    if (pagedata.Empty)
+                        continue;
                     // QUESTION
                     int questionID;
-                    if (Repo.GetQuiz(pagedata.QuestionID) != null)
+                    if (Repo.GetQuizQuestion(pagedata.QuestionID) != null)
                     {
                         questionID = pagedata.QuestionID;
                         Repo.UpdateQuizQuestion(new Models.QuizQuestion
@@ -366,13 +378,12 @@ namespace Quizkey
                         });
                     }
                     // ANSWERS
-                    var answers = Repo.GetMultipleQuizAnswer().Where(x => x.QuizQuestionID == pagedata.QuestionID);
                     // ANSWER 1
-                    if (answers.Where(x => x.QuestionOrder == 1).Count() == 1)
+                    if (Repo.GetQuizAnswer(pagedata.IDAnswer1) != null)
                     {
                         Repo.UpdateQuizAnswer(new QuizAnswer
                         {
-                            IDQuizAnswer = answers.Where(x => x.QuestionOrder == 1).First().IDQuizAnswer,
+                            IDQuizAnswer = pagedata.IDAnswer1,
                             AnswerText = pagedata.Answer1 ?? string.Empty,
                             QuestionOrder = 1,
                             QuizQuestionID = questionID
@@ -388,11 +399,11 @@ namespace Quizkey
                         });
                     }
                     // ANSWER 2
-                    if (answers.Where(x => x.QuestionOrder == 2).Count() == 1)
+                    if (Repo.GetQuizAnswer(pagedata.IDAnswer2) != null)
                     {
                         Repo.UpdateQuizAnswer(new QuizAnswer
                         {
-                            IDQuizAnswer = answers.Where(x => x.QuestionOrder == 2).First().IDQuizAnswer,
+                            IDQuizAnswer = pagedata.IDAnswer2,
                             AnswerText = pagedata.Answer2 ?? string.Empty,
                             QuestionOrder = 2,
                             QuizQuestionID = questionID
@@ -407,14 +418,14 @@ namespace Quizkey
                             QuizQuestionID = questionID
                         });
                     }
+                    // ANSWER 3
                     if (pagedata.AnswerNumber > 2)
-                        // ANSWER 1
-                        if (answers.Where(x => x.QuestionOrder == 3).Count() == 1)
+                        if (Repo.GetQuizAnswer(pagedata.IDAnswer3) != null)
                         {
                             Repo.UpdateQuizAnswer(new QuizAnswer
                             {
-                                IDQuizAnswer = answers.Where(x => x.QuestionOrder == 3).First().IDQuizAnswer,
-                                AnswerText = pagedata.Answer1 ?? string.Empty,
+                                IDQuizAnswer = pagedata.IDAnswer3,
+                                AnswerText = pagedata.Answer3 ?? string.Empty,
                                 QuestionOrder = 3,
                                 QuizQuestionID = questionID
                             });
@@ -428,13 +439,13 @@ namespace Quizkey
                                 QuizQuestionID = questionID
                             });
                         }
+                    // ANSWER 4
                     if (pagedata.AnswerNumber > 3)
-                        // ANSWER 1
-                        if (answers.Where(x => x.QuestionOrder == 4).Count() == 1)
+                        if (Repo.GetQuizAnswer(pagedata.IDAnswer4) != null)
                         {
                             Repo.UpdateQuizAnswer(new QuizAnswer
                             {
-                                IDQuizAnswer = answers.Where(x => x.QuestionOrder == 4).First().IDQuizAnswer,
+                                IDQuizAnswer = pagedata.IDAnswer4,
                                 AnswerText = pagedata.Answer1 ?? string.Empty,
                                 QuestionOrder = 4,
                                 QuizQuestionID = questionID
@@ -458,6 +469,9 @@ namespace Quizkey
                 foreach (var page in CreationState.Pages)
                 {
                     var pagedata = page.Value;
+                    if (pagedata.Empty)
+                        continue;
+
                     var questionID = Repo.CreateQuizQuestion(new Models.QuizQuestion
                     {
                         AnswerTimeSeconds = pagedata.SelectedTime,
@@ -495,12 +509,14 @@ namespace Quizkey
                 }
             }
             CreationState = null;
+            ClearSession();
             Response.Redirect("/");
         }
         protected void Discard_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/");
+            CreationState = null;
             ClearSession();
+            Response.Redirect("/");
         }
         protected void btTriangle_ServerClick(object sender, EventArgs e)
         {
