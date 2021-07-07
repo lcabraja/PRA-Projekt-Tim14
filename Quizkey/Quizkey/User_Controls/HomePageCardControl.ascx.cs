@@ -39,7 +39,7 @@ namespace Quizkey.User_Controls
             Response.Redirect("QuizCreation.aspx");
         }
 
-        protected void Deletee_Click(object sender, EventArgs e)
+        protected void Delete_Click(object sender, EventArgs e)
         {
             Repo.DeleteQuizComplete(QuizID);
         }

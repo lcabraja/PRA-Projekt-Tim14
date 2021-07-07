@@ -331,46 +331,171 @@ namespace Quizkey
         protected void Save_Click(object sender, EventArgs e)
         {
             SaveState();
-            var quizID = Repo.CreateQuiz(new Quiz { AuthorID = (int)Session["userid"], QuizName = CreationState.QuizName ?? tbQuizName.Text });
-            foreach (var page in CreationState.Pages)
+            if (Session["qc-ID-toEdit"] != null && Repo.GetQuiz((int)Session["qc-ID-toEdit"]) != null)
             {
-                var pagedata = page.Value;
-                var questionID = Repo.CreateQuizQuestion(new Models.QuizQuestion
+                var quiz = Repo.GetQuiz((int)Session["qc-ID-toEdit"]);
+                quiz.QuizName = tbQuizName.Text;
+                Repo.UpdateQuiz(quiz);
+                foreach (var page in CreationState.Pages)
                 {
-                    AnswerTimeSeconds = pagedata.SelectedTime,
-                    CorrectAnswer = pagedata.SelectedAnswer,
-                    QuizID = quizID,
-                    QuestionNumber = page.Key,
-                    QuestionText = pagedata.Question ?? string.Empty
-                });
-                Repo.CreateQuizAnswer(new QuizAnswer
-                {
-                    AnswerText = pagedata.Answer1 ?? string.Empty,
-                    QuestionOrder = 1,
-                    QuizQuestionID = questionID
-                });
-                Repo.CreateQuizAnswer(new QuizAnswer
-                {
-                    AnswerText = pagedata.Answer2 ?? string.Empty,
-                    QuestionOrder = 2,
-                    QuizQuestionID = questionID
-                });
-                if (pagedata.AnswerNumber > 2)
-                    Repo.CreateQuizAnswer(new QuizAnswer
+                    var pagedata = page.Value;
+                    // QUESTION
+                    int questionID;
+                    if (Repo.GetQuiz(pagedata.QuestionID) != null)
                     {
-                        AnswerText = pagedata.Answer3 ?? string.Empty,
-                        QuestionOrder = 3,
-                        QuizQuestionID = questionID
-                    });
-                if (pagedata.AnswerNumber > 3)
-                    Repo.CreateQuizAnswer(new QuizAnswer
+                        questionID = pagedata.QuestionID;
+                        Repo.UpdateQuizQuestion(new Models.QuizQuestion
+                        {
+                            IDQuizQuestion = pagedata.QuestionID,
+                            AnswerTimeSeconds = pagedata.SelectedTime,
+                            CorrectAnswer = pagedata.SelectedAnswer,
+                            QuizID = quiz.IDQuiz,
+                            QuestionNumber = page.Key,
+                            QuestionText = pagedata.Question ?? string.Empty
+                        });
+                    }
+                    else
                     {
-                        AnswerText = pagedata.Answer4 ?? string.Empty,
-                        QuestionOrder = 4,
-                        QuizQuestionID = questionID
-                    });
-                // TODO update Session["qc-ID-toEdit"] after save
+                        questionID = Repo.CreateQuizQuestion(new Models.QuizQuestion
+                        {
+                            AnswerTimeSeconds = pagedata.SelectedTime,
+                            CorrectAnswer = pagedata.SelectedAnswer,
+                            QuizID = quiz.IDQuiz,
+                            QuestionNumber = page.Key,
+                            QuestionText = pagedata.Question ?? string.Empty
+                        });
+                    }
+                    // ANSWERS
+                    var answers = Repo.GetMultipleQuizAnswer().Where(x => x.QuizQuestionID == pagedata.QuestionID);
+                    // ANSWER 1
+                    if (answers.Where(x => x.QuestionOrder == 1).Count() == 1)
+                    {
+                        Repo.UpdateQuizAnswer(new QuizAnswer
+                        {
+                            IDQuizAnswer = answers.Where(x => x.QuestionOrder == 1).First().IDQuizAnswer,
+                            AnswerText = pagedata.Answer1 ?? string.Empty,
+                            QuestionOrder = 1,
+                            QuizQuestionID = questionID
+                        });
+                    }
+                    else
+                    {
+                        Repo.CreateQuizAnswer(new QuizAnswer
+                        {
+                            AnswerText = pagedata.Answer1 ?? string.Empty,
+                            QuestionOrder = 1,
+                            QuizQuestionID = questionID
+                        });
+                    }
+                    // ANSWER 2
+                    if (answers.Where(x => x.QuestionOrder == 2).Count() == 1)
+                    {
+                        Repo.UpdateQuizAnswer(new QuizAnswer
+                        {
+                            IDQuizAnswer = answers.Where(x => x.QuestionOrder == 2).First().IDQuizAnswer,
+                            AnswerText = pagedata.Answer2 ?? string.Empty,
+                            QuestionOrder = 2,
+                            QuizQuestionID = questionID
+                        });
+                    }
+                    else
+                    {
+                        Repo.CreateQuizAnswer(new QuizAnswer
+                        {
+                            AnswerText = pagedata.Answer2 ?? string.Empty,
+                            QuestionOrder = 2,
+                            QuizQuestionID = questionID
+                        });
+                    }
+                    if (pagedata.AnswerNumber > 2)
+                        // ANSWER 1
+                        if (answers.Where(x => x.QuestionOrder == 3).Count() == 1)
+                        {
+                            Repo.UpdateQuizAnswer(new QuizAnswer
+                            {
+                                IDQuizAnswer = answers.Where(x => x.QuestionOrder == 3).First().IDQuizAnswer,
+                                AnswerText = pagedata.Answer1 ?? string.Empty,
+                                QuestionOrder = 3,
+                                QuizQuestionID = questionID
+                            });
+                        }
+                        else
+                        {
+                            Repo.CreateQuizAnswer(new QuizAnswer
+                            {
+                                AnswerText = pagedata.Answer3 ?? string.Empty,
+                                QuestionOrder = 3,
+                                QuizQuestionID = questionID
+                            });
+                        }
+                    if (pagedata.AnswerNumber > 3)
+                        // ANSWER 1
+                        if (answers.Where(x => x.QuestionOrder == 4).Count() == 1)
+                        {
+                            Repo.UpdateQuizAnswer(new QuizAnswer
+                            {
+                                IDQuizAnswer = answers.Where(x => x.QuestionOrder == 4).First().IDQuizAnswer,
+                                AnswerText = pagedata.Answer1 ?? string.Empty,
+                                QuestionOrder = 4,
+                                QuizQuestionID = questionID
+                            });
+                        }
+                        else
+                        {
+                            Repo.CreateQuizAnswer(new QuizAnswer
+                            {
+                                AnswerText = pagedata.Answer4 ?? string.Empty,
+                                QuestionOrder = 4,
+                                QuizQuestionID = questionID
+                            });
+                        }
+                    // TODO update Session["qc-ID-toEdit"] after save
+                }
             }
+            else
+            {
+                var quizID = Repo.CreateQuiz(new Quiz { AuthorID = (int)Session["userid"], QuizName = CreationState.QuizName ?? tbQuizName.Text });
+                foreach (var page in CreationState.Pages)
+                {
+                    var pagedata = page.Value;
+                    var questionID = Repo.CreateQuizQuestion(new Models.QuizQuestion
+                    {
+                        AnswerTimeSeconds = pagedata.SelectedTime,
+                        CorrectAnswer = pagedata.SelectedAnswer,
+                        QuizID = quizID,
+                        QuestionNumber = page.Key,
+                        QuestionText = pagedata.Question ?? string.Empty
+                    });
+                    Repo.CreateQuizAnswer(new QuizAnswer
+                    {
+                        AnswerText = pagedata.Answer1 ?? string.Empty,
+                        QuestionOrder = 1,
+                        QuizQuestionID = questionID
+                    });
+                    Repo.CreateQuizAnswer(new QuizAnswer
+                    {
+                        AnswerText = pagedata.Answer2 ?? string.Empty,
+                        QuestionOrder = 2,
+                        QuizQuestionID = questionID
+                    });
+                    if (pagedata.AnswerNumber > 2)
+                        Repo.CreateQuizAnswer(new QuizAnswer
+                        {
+                            AnswerText = pagedata.Answer3 ?? string.Empty,
+                            QuestionOrder = 3,
+                            QuizQuestionID = questionID
+                        });
+                    if (pagedata.AnswerNumber > 3)
+                        Repo.CreateQuizAnswer(new QuizAnswer
+                        {
+                            AnswerText = pagedata.Answer4 ?? string.Empty,
+                            QuestionOrder = 4,
+                            QuizQuestionID = questionID
+                        });
+                }
+            }
+            CreationState = null;
+            Response.Redirect("/");
         }
         protected void Discard_Click(object sender, EventArgs e)
         {
