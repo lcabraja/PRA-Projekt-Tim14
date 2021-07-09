@@ -50,7 +50,6 @@
                 <HeaderTemplate>
                     <table border="1" class="table">
                         <tr>
-                            <td><b>Session code</b></td>
                             <td><b>Quiz topic</b></td>
                             <td><b># players</b></td>
                             <td><b>Time played</b></td>
@@ -59,9 +58,9 @@
 
                 <ItemTemplate>
                     <tr>
-                        <td><%# DataBinder.Eval(Container.DataItem, "SessionCode") %> </td>
                         <td><%# DataBinder.Eval(Container.DataItem, "QuizName") %> </td>
                         <td><%# DataBinder.Eval(Container.DataItem, "NumberOfPlayers") %> </td>
+                        <td><%# DataBinder.Eval(Container.DataItem, "TimePlayed") %> </td>
                     </tr>
                 </ItemTemplate>
 

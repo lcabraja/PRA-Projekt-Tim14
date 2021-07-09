@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Quizkey.Cookies;
 using Quizkey.Models;
 using Quizkey.User_Controls;
 
@@ -30,15 +31,23 @@ namespace Quizkey
                 Response.Redirect("/");
                 return;
             }
+            this.PreRender += HomePage_PreRender;
+        }
+
+        private void HomePage_PreRender(object sender, EventArgs e)
+        {
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+
             Repo.GetMultipleQuiz().Where(x => x.AuthorID == (int)Session["userid"]).ToList().ForEach(x =>
             {
                 var QuestionNumber = Repo.GetMultipleQuizQuestion().Where(y => y.QuizID == x.IDQuiz).Count();
-                HtmlGenericControl card = GenerateCard(x, QuestionNumber);
-                quizplace.Controls.AddAt(0, GenerateCard(x, QuestionNumber));
+                quizplace.Controls.AddAt(0, GenerateCard(x, QuestionNumber, cookie, locale));
             });
         }
 
-        private HtmlGenericControl GenerateCard(Quiz x, int QuestionNumber)
+        private HtmlGenericControl GenerateCard(Quiz x, int QuestionNumber, CookieParseWrapper cookie, Localizer locale)
         {
             var card = new HtmlGenericControl("div");
             card.Attributes["style"] = "width: 18rem; display: inline-flex;";
@@ -49,7 +58,7 @@ namespace Quizkey
             cardtitle.Attributes["class"] = "card-title";
             cardtitle.InnerText = x.QuizName;
             var cardtext = new HtmlGenericControl("p");
-            cardtext.InnerText = $"{QuestionNumber} {questions}";
+            cardtext.InnerText = $"{QuestionNumber} {locale.Resource("questions", cookie.Enum(Cookies.UserState.language))}";
             var play = new LinkButton();
             play.Text = "Play";
             play.CssClass = "btn btn-outline-success mx-1";

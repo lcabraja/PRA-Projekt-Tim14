@@ -24,9 +24,9 @@ namespace Quizkey
         }
         private class LogsTableRow
         {
-            public string SessionCode { get; set; }
             public string QuizName { get; set; }
             public int NumberOfPlayers { get; set; }
+            public string TimePlayed { get; set; }
         }
         private class LogTableRow
         {
@@ -54,13 +54,14 @@ namespace Quizkey
             //    return;
             //}
             Session["userid"] = 1;
-            this.PreLoad += Tables_PreLoad;
-
+            this.PreRender += Tables_PreRender;
             //values.Add(new PositionData())
         }
 
-        private void Tables_PreLoad(object sender, EventArgs e)
+        private void Tables_PreRender(object sender, EventArgs e)
         {
+            GenerateQuizTables();
+            return;
             if (Request.QueryString.Get("quiz") != null)
             {
                 GenerateQuizTables();
@@ -82,6 +83,7 @@ namespace Quizkey
             Localizer locale = Quizkey.Models.Localizer.Instance;
 
             var values = new ArrayList();
+            var logItems = Repo.GetMultipleLogItem(AuthorID);
             var quizes = Repo.GetMultipleQuiz(AuthorID);
             var sessions = Repo.GetMultipleQuizSession(AuthorID);
             foreach (Quiz item in quizes)
@@ -113,8 +115,6 @@ namespace Quizkey
             }
             QuizRepeater.DataSource = values;
             QuizRepeater.DataBind();
-
-            var logItems = Repo.GetMultipleLogItem(AuthorID);
         }
         private void GenerateLogTables()
         {
@@ -123,80 +123,39 @@ namespace Quizkey
             Localizer locale = Quizkey.Models.Localizer.Instance;
 
             var values = new ArrayList();
-            var logItems = Repo.GetMultipleLogItem(AuthorID);
-            var quizes = Repo.GetMultipleQuiz(AuthorID);
             var sessions = Repo.GetMultipleQuizSession(AuthorID);
-            foreach (Quiz item in quizes)
+            foreach (QuizSession item in sessions)
             {
-                var playbutton = new LinkButton { ID = "playbutton" };
-                playbutton.Text = locale.Resource("Play", cookie.Enum(Cookies.UserState.language));
-                playbutton.Click += Playbutton_Click;
-                playbutton.Attributes["quizid"] = item.IDQuiz.ToString();
-
-                var editbutton = new LinkButton { ID = "editbutton" };
-                editbutton.Text = locale.Resource("Edit", cookie.Enum(Cookies.UserState.language));
-                editbutton.Click += Editbutton_Click;
-                editbutton.Attributes["quizid"] = item.IDQuiz.ToString();
-
-                var deletebutton = new LinkButton { ID = "deletebutton" };
-                deletebutton.Text = locale.Resource("Delete", cookie.Enum(Cookies.UserState.language));
-                deletebutton.Click += Deletebutton_Click;
-                deletebutton.Attributes["quizid"] = item.IDQuiz.ToString();
-
-                values.Add(new QuizTableRow
+                values.Add(new LogsTableRow
                 {
-                    QuizName = item.QuizName,
-                    NumberOfQuestions = Repo.GetMultipleQuizQuestion(item.IDQuiz).Count,
-                    TimesPlayed = sessions.Where(x => x.QuizID == item.IDQuiz).Count(),
-                    PlayButton = playbutton,
-                    EditButton = editbutton,
-                    DeleteButton = deletebutton
+                    QuizName = Repo.GetQuiz(item.QuizID).QuizName,
+                    NumberOfPlayers = Repo.GetMultipleAttendee().Where(x => x.SessionID == item.IDQuizSession).Count(),
+                    TimePlayed = item.OccurredAt.ToString("g")
                 });
             }
-            QuizRepeater.DataSource = values;
-            QuizRepeater.DataBind();
-
+            LogsRepeater.DataSource = values;
+            LogsRepeater.DataBind();
         }
-        private void GenerateLogTables(int v)
+        private void GenerateLogTables(int sessionid)
         {
             HttpCookie userState = Request.Cookies["UserState"];
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
 
             var values = new ArrayList();
-            var quizes = Repo.GetMultipleQuiz(AuthorID);
-            var sessions = Repo.GetMultipleQuizSession(AuthorID);
-            foreach (Quiz item in quizes)
+            var logItems = Repo.GetMultipleLogItem(AuthorID).Where(x => x.QuizSessionID == sessionid);
+            foreach (LogItem item in logItems)
             {
-                var playbutton = new LinkButton { ID = "playbutton" };
-                playbutton.Text = locale.Resource("Play", cookie.Enum(Cookies.UserState.language));
-                playbutton.Click += Playbutton_Click;
-                playbutton.Attributes["quizid"] = item.IDQuiz.ToString();
-
-                var editbutton = new LinkButton { ID = "editbutton" };
-                editbutton.Text = locale.Resource("Edit", cookie.Enum(Cookies.UserState.language));
-                editbutton.Click += Editbutton_Click;
-                editbutton.Attributes["quizid"] = item.IDQuiz.ToString();
-
-                var deletebutton = new LinkButton { ID = "deletebutton" };
-                deletebutton.Text = locale.Resource("Delete", cookie.Enum(Cookies.UserState.language));
-                deletebutton.Click += Deletebutton_Click;
-                deletebutton.Attributes["quizid"] = item.IDQuiz.ToString();
-
-                values.Add(new QuizTableRow
+                values.Add(new LogTableRow
                 {
-                    QuizName = item.QuizName,
-                    NumberOfQuestions = Repo.GetMultipleQuizQuestion(item.IDQuiz).Count,
-                    TimesPlayed = sessions.Where(x => x.QuizID == item.IDQuiz).Count(),
-                    PlayButton = playbutton,
-                    EditButton = editbutton,
-                    DeleteButton = deletebutton
+                    Player = Repo.GetAttendee(item.AttendeeID).Username,
+                    Question = Repo.GetQuizQuestion(item.QuizQuestionID).QuestionText,
+                    Answer = Repo.GetQuizAnswer(item.QuizAnswerID).AnswerText,
+                    Points = item.Points
                 });
             }
-            QuizRepeater.DataSource = values;
-            QuizRepeater.DataBind();
-
-            var logItems = Repo.GetMultipleLogItem(AuthorID);
+            LogRepeater.DataSource = values;
+            LogRepeater.DataBind();
         }
 
         private void Deletebutton_Click(object sender, EventArgs e)
