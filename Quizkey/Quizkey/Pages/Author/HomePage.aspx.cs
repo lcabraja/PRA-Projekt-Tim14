@@ -24,6 +24,11 @@ namespace Quizkey
                 Response.SetCookie(value);
             }
         }
+        static List<HtmlGenericControl> cardtext = new List<HtmlGenericControl>();
+        static List<LinkButton> play = new List<LinkButton>();
+        static List<LinkButton> edit = new List<LinkButton>();
+        static List<LinkButton> delete = new List<LinkButton>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (UserState == null || UserState["loggedin"] != "author" || Session["userid"] == null)
@@ -32,6 +37,12 @@ namespace Quizkey
                 return;
             }
             this.PreRender += HomePage_PreRender;
+
+            Repo.GetMultipleQuiz().Where(x => x.AuthorID == (int)Session["userid"]).ToList().ForEach(x =>
+            {
+                var QuestionNumber = Repo.GetMultipleQuizQuestion().Where(y => y.QuizID == x.IDQuiz).Count();
+                quizplace.Controls.AddAt(0, GenerateCard(x, QuestionNumber));
+            });
         }
 
         private void HomePage_PreRender(object sender, EventArgs e)
@@ -40,14 +51,18 @@ namespace Quizkey
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
 
-            Repo.GetMultipleQuiz().Where(x => x.AuthorID == (int)Session["userid"]).ToList().ForEach(x =>
-            {
-                var QuestionNumber = Repo.GetMultipleQuizQuestion().Where(y => y.QuizID == x.IDQuiz).Count();
-                quizplace.Controls.AddAt(0, GenerateCard(x, QuestionNumber, cookie, locale));
-            });
+            foreach (var item in cardtext)
+                item.InnerText += locale.Resource("questions", cookie.Enum(Cookies.UserState.language));
+            foreach (var item in play)
+                item.Text = locale.Resource("Play", cookie.Enum(Cookies.UserState.language));
+            foreach (var item in edit)
+                item.Text = locale.Resource("Edit", cookie.Enum(Cookies.UserState.language));
+            foreach (var item in delete)
+                item.Text = locale.Resource("Delete", cookie.Enum(Cookies.UserState.language));
+            hyperlink.Text = locale.Resource("CreateNewQuiz", cookie.Enum(Cookies.UserState.language));
         }
 
-        private HtmlGenericControl GenerateCard(Quiz x, int QuestionNumber, CookieParseWrapper cookie, Localizer locale)
+        private HtmlGenericControl GenerateCard(Quiz x, int QuestionNumber)
         {
             var card = new HtmlGenericControl("div");
             card.Attributes["style"] = "width: 18rem; display: inline-flex;";
@@ -58,22 +73,23 @@ namespace Quizkey
             cardtitle.Attributes["class"] = "card-title";
             cardtitle.InnerText = x.QuizName;
             var cardtext = new HtmlGenericControl("p");
-            cardtext.InnerText = $"{QuestionNumber} {locale.Resource("questions", cookie.Enum(Cookies.UserState.language))}";
+            cardtext.InnerText = $"{QuestionNumber} ";
+            HomePage.cardtext.Add(cardtext);
             var play = new LinkButton();
-            play.Text = "Play";
             play.CssClass = "btn btn-outline-success mx-1";
             play.Attributes["quizid"] = x.IDQuiz.ToString();
             play.Click += Playclick_Click;
+            HomePage.play.Add(play);
             var edit = new LinkButton();
-            edit.Text = "Edit";
             edit.CssClass = "btn btn-outline-info mx-1";
             edit.Attributes["quizid"] = x.IDQuiz.ToString();
             edit.Click += Edit_Click;
+            HomePage.edit.Add(edit);
             var delete = new LinkButton();
-            delete.Text = "Delete";
             delete.CssClass = "btn btn-outline-danger mx-1";
             delete.Attributes["quizid"] = x.IDQuiz.ToString();
             delete.Click += Delete_Click;
+            HomePage.delete.Add(delete);
 
             cardbody.Controls.Add(cardtitle);
             cardbody.Controls.Add(cardtext);
@@ -87,8 +103,10 @@ namespace Quizkey
 
         private void Edit_Click(object sender, EventArgs e)
         {
+            Response.Write("Event ");
             if (sender is LinkButton button)
             {
+                Response.Write("If ");
                 int QuizID = int.Parse(button.Attributes["quizid"]);
                 Session["qc-ID-toEdit"] = QuizID;
                 Response.Redirect("/QuizCreation.aspx");

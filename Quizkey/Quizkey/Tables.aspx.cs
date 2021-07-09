@@ -18,9 +18,9 @@ namespace Quizkey
             public string QuizName { get; set; }
             public int NumberOfQuestions { get; set; }
             public int TimesPlayed { get; set; }
-            public LinkButton PlayButton { get; set; }
-            public LinkButton EditButton { get; set; }
-            public LinkButton DeleteButton { get; set; }
+            public string PlayButton { get; set; }
+            public string EditButton { get; set; }
+            public string DeleteButton { get; set; }
         }
         private class LogsTableRow
         {
@@ -60,8 +60,23 @@ namespace Quizkey
 
         private void Tables_PreRender(object sender, EventArgs e)
         {
-            GenerateQuizTables();
-            return;
+            if (Request.QueryString.Get("play") != null)
+            {
+                int quizID = int.Parse(Request.QueryString.Get("play"));
+                Playbutton(quizID);
+            }
+            else if (Request.QueryString.Get("edit") != null)
+            {
+                int quizID = int.Parse(Request.QueryString.Get("edit"));
+                Editbutton(quizID);
+                Response.Redirect("/Tables.aspx?quiz=1");
+            }
+            else if (Request.QueryString.Get("delete") != null)
+            {
+                int quizID = int.Parse(Request.QueryString.Get("delete"));
+                Deletebutton(quizID);
+                Response.Redirect("/Tables.aspx?quiz=1");
+            }
             if (Request.QueryString.Get("quiz") != null)
             {
                 GenerateQuizTables();
@@ -88,20 +103,11 @@ namespace Quizkey
             var sessions = Repo.GetMultipleQuizSession(AuthorID);
             foreach (Quiz item in quizes)
             {
-                var playbutton = new LinkButton { ID = "playbutton" };
-                playbutton.Text = locale.Resource("Play", cookie.Enum(Cookies.UserState.language));
-                playbutton.Click += Playbutton_Click;
-                playbutton.Attributes["quizid"] = item.IDQuiz.ToString();
+                var playbutton = $"<a href=\"/Tables.aspx?play={item.IDQuiz}\" class=\"btn btn-success mx-1\" >{locale.Resource("Play", cookie.Enum(Cookies.UserState.language))}";
 
-                var editbutton = new LinkButton { ID = "editbutton" };
-                editbutton.Text = locale.Resource("Edit", cookie.Enum(Cookies.UserState.language));
-                editbutton.Click += Editbutton_Click;
-                editbutton.Attributes["quizid"] = item.IDQuiz.ToString();
+                var editbutton = $"<a href=\"/Tables.aspx?edit={item.IDQuiz}\" class=\"btn btn-info mx-1\" >{locale.Resource("Edit", cookie.Enum(Cookies.UserState.language))}";
 
-                var deletebutton = new LinkButton { ID = "deletebutton" };
-                deletebutton.Text = locale.Resource("Delete", cookie.Enum(Cookies.UserState.language));
-                deletebutton.Click += Deletebutton_Click;
-                deletebutton.Attributes["quizid"] = item.IDQuiz.ToString();
+                var deletebutton = $"<a href=\"/Tables.aspx?delete={item.IDQuiz}\" class=\"btn btn-danger mx-1\" >{locale.Resource("Delete", cookie.Enum(Cookies.UserState.language))}";
 
                 values.Add(new QuizTableRow
                 {
@@ -158,35 +164,22 @@ namespace Quizkey
             LogRepeater.DataBind();
         }
 
-        private void Deletebutton_Click(object sender, EventArgs e)
+        private void Playbutton(int QuizID)
         {
-            if (sender is LinkButton button)
-            {
-                int QuizID = int.Parse(button.Attributes["quizid"]);
-                Repo.DeleteQuizComplete(QuizID);
-            }
+            var SessionID = Repo.CreateQuizSession(new QuizSession { OccurredAt = DateTimeOffset.Now, QuizID = QuizID, SessionCode = Repo.GenerateQuizCode() });
+            Session["SessionID"] = SessionID;
+            Session["qp-quizstate-playing"] = true;
+            Response.Redirect("/WaitingRoom.aspx");
+        }
+        private void Editbutton(int QuizID)
+        {
+            Session["qc-ID-toEdit"] = QuizID;
+            Response.Redirect("/QuizCreation.aspx");
+        }
+        private void Deletebutton(int QuizID)
+        {
+            Repo.DeleteQuizComplete(QuizID);
         }
 
-        private void Editbutton_Click(object sender, EventArgs e)
-        {
-            if (sender is LinkButton button)
-            {
-                int QuizID = int.Parse(button.Attributes["quizid"]);
-                Session["qc-ID-toEdit"] = QuizID;
-                Response.Redirect("/QuizCreation.aspx");
-            }
-        }
-
-        private void Playbutton_Click(object sender, EventArgs e)
-        {
-            if (sender is LinkButton button)
-            {
-                int QuizID = int.Parse(button.Attributes["quizid"]);
-                var SessionID = Repo.CreateQuizSession(new QuizSession { OccurredAt = DateTimeOffset.Now, QuizID = QuizID, SessionCode = Repo.GenerateQuizCode() });
-                Session["SessionID"] = SessionID;
-                Session["qp-quizstate-playing"] = true;
-                Response.Redirect("/WaitingRoom.aspx");
-            }
-        }
     }
 }
