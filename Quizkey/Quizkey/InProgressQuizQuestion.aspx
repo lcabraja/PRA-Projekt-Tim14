@@ -13,6 +13,10 @@
 <head runat="server">
     <title>Quizkey</title>
     <link href="Content/qk-inprogress.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body style="height: 100%; /*overflow: hidden*/">
     <form id="form1" runat="server">
@@ -25,7 +29,7 @@
                 <%--Question--%>
                 <div class="bg-secondary rounded d-flex text-center m-auto" style="height: 100%;">
                     <div class="input-group m-2">
-                        <span class="input-group-text">Pitanje</span>
+                        <span class="input-group-text" id="pitanjetext" runat="server"></span>
                         <asp:Label CssClass="form-control qk-quizcreation-multiline" ID="lbQuestion" runat="server" />
                     </div>
                 </div>
@@ -80,5 +84,7 @@
             </div>
         </div>
     </form>
+    <script src="Scripts/bootstrap.js\"></script>
+    <script src="Scripts/jquery-3.6.0.js\"></script>
 </body>
 </html>

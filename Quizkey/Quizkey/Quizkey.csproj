@@ -339,6 +339,7 @@
     <Compile Include="InProgressQuizQuestionAttendee.aspx.designer.cs">
       <DependentUpon>InProgressQuizQuestionAttendee.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Localizer.cs" />
     <Compile Include="Pages\Author\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

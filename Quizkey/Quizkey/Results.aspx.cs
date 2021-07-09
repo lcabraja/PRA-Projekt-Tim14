@@ -1,4 +1,5 @@
-﻿using Quizkey.Models;
+﻿using Quizkey.Cookies;
+using Quizkey.Models;
 using Quizkey.User_Controls;
 using System;
 using System.Collections.Generic;
@@ -71,6 +72,7 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.PreRender += Results_PreRender;
             QuizCreationModel model = GetCreationState();
             var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == SessionID);
             Console.OpenStandardOutput();
@@ -80,6 +82,17 @@ namespace Quizkey
                 positioncontainer.Controls.Add(new LiteralControl($"<div class=\"bg-{(i < 3 ? "primary" : "light")} rounded\" ><h2 class=\"d-grid\">{i + 1}. {sortedAttendees[i].Username}</h2></div>"));
             }
         }
+
+        private void Results_PreRender(object sender, EventArgs e)
+        {
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+            quiztopic.InnerText = locale.Resource("QuizTopic", cookie.Enum(UserState.language));
+            buttonstarttext.InnerText = locale.Resource("NextQuestion", cookie.Enum(UserState.language));
+            buttonstoptext.InnerText = locale.Resource("StopQuiz", cookie.Enum(UserState.language));
+        }
+
         private int GetScore(Attendee attendee)
         {
             return -Repo.GetMultipleLogItem().Where(x => x.QuizSessionID == SessionID && x.AttendeeID == attendee.IDAttendee).Select(x => x.Points).Sum();

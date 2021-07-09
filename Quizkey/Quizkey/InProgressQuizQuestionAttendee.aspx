@@ -12,6 +12,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%;">
 <head runat="server">
     <title>Quizkey</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="Content/qk-inprogress.css" rel="stylesheet" />
     <style>
         .gridcontainer {
@@ -20,10 +24,12 @@
             grid-template-columns: auto auto;
             grid-gap: 2rem;
         }
+
         .question {
             width: 100%;
             height: 100%;
         }
+
         .fontsize {
             font-size: 10vw;
         }
@@ -73,5 +79,7 @@
             }, 1000);
         </script>
     </form>
+    <script src="Scripts/bootstrap.js\"></script>
+    <script src="Scripts/jquery-3.6.0.js\"></script>
 </body>
 </html>

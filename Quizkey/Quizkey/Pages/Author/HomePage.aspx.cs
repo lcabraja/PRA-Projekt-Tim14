@@ -49,7 +49,7 @@ namespace Quizkey
             cardtitle.Attributes["class"] = "card-title";
             cardtitle.InnerText = x.QuizName;
             var cardtext = new HtmlGenericControl("p");
-            cardtext.InnerText = $"{QuestionNumber} questions";
+            cardtext.InnerText = $"{QuestionNumber} {questions}";
             var play = new LinkButton();
             play.Text = "Play";
             play.CssClass = "btn btn-outline-success mx-1";

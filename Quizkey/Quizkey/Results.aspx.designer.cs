@@ -33,6 +33,15 @@ namespace Quizkey
         protected global::Quizkey.Navbar _Navbar;
 
         /// <summary>
+        /// quiztopic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl quiztopic;
+
+        /// <summary>
         /// tbQuizName control.
         /// </summary>
         /// <remarks>
@@ -49,5 +58,23 @@ namespace Quizkey
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl positioncontainer;
+
+        /// <summary>
+        /// buttonstoptext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl buttonstoptext;
+
+        /// <summary>
+        /// buttonstarttext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl buttonstarttext;
     }
 }

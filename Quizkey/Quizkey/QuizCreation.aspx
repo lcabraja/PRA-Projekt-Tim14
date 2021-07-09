@@ -5,17 +5,18 @@
 <%@ Register Src="~/User_Controls/QuizCreationButton.ascx" TagPrefix="uc1" TagName="QuizCreationButton" %>
 <%@ Register Src="~/User_Controls/QuizCreationTimeButton.ascx" TagPrefix="uc1" TagName="QuizCreationTimeButton" %>
 
-
-
-
-
-
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Quizkey</title>
     <link href="Content/qk-quizcreation.css" rel="stylesheet" />
+    <title>Quizkey</title>
+    <script src="Scripts/bootstrap.js\"></script>
+    <script src="Scripts/jquery-3.6.0.js\"></script>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body class="bg-light">
     <form id="form1" runat="server">

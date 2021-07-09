@@ -1,4 +1,5 @@
-﻿using Quizkey.Models;
+﻿using Quizkey.Cookies;
+using Quizkey.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,16 @@ namespace Quizkey
                 players.Controls.Add(new Label { CssClass = "badge bg-light text-dark p-2 m-2", Text = attendee.Username });
             }
             this.tbQuizName.Text = SessionCode;
+            this.PreRender += WaitingRoom_PreRender;
+        }
+
+        private void WaitingRoom_PreRender(object sender, EventArgs e)
+        {
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+            codeText.InnerText = locale.Resource("Code", cookie.Enum(UserState.language));
+            Button1.Text = locale.Resource("StartQuiz", cookie.Enum(UserState.language));
         }
 
         protected void Start_Click(object sender, EventArgs e)

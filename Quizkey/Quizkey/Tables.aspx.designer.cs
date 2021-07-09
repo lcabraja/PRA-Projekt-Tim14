@@ -24,6 +24,15 @@ namespace Quizkey
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// _Navbar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Quizkey.Navbar _Navbar;
+
+        /// <summary>
         /// QuizRepeater control.
         /// </summary>
         /// <remarks>
@@ -31,5 +40,23 @@ namespace Quizkey
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater QuizRepeater;
+
+        /// <summary>
+        /// LogsRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater LogsRepeater;
+
+        /// <summary>
+        /// LogRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater LogRepeater;
     }
 }

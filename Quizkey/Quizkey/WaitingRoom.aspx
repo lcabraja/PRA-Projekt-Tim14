@@ -9,6 +9,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Quizkey</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="Content/qk-quizcreation.css" rel="stylesheet" />
 </head>
 <body>
@@ -19,7 +23,7 @@
         <div class="container-fluid qk-quizcreation-grid-container-main">
             <div class="navbar navbar-light bg-secondary mt-3 p-2 rounded">
                 <div class="input-group m-1">
-                    <span class="input-group-text">Kod:</span>
+                    <span class="input-group-text" id="codeText" runat="server"></span>
                     <asp:TextBox ID="tbQuizName" TextMode="SingleLine" ReadOnly="true" CssClass="form-control" runat="server" />
                     <button onclick="location.reload(true)" class="btn btn-light border border-white">
                         <i class="bi bi-arrow-repeat"></i>
@@ -46,7 +50,7 @@
         <nav class="navbar navbar-light bg-secondary" style="position: fixed; bottom: 0; width: 100%;">
             <div class="container-fluid d-flex justify-content-between flex-sm-nowrap">
                 <div class="d-flex m-1 m-auto" style="align-self: center;">
-                    <asp:Button ID="Button1" Text="Zapocni Kviz" CssClass="btn btn-light mx-1" OnClientClick="return confirm('Jeste li sigurni?');" OnClick="Start_Click" runat="server" />
+                    <asp:Button ID="Button1" CssClass="btn btn-light mx-1" OnClientClick="return confirm('Jeste li sigurni?');" OnClick="Start_Click" runat="server" />
                 </div>
                 <div class="d-flex m-1">
                     <asp:Button ID="Odustani" Text="Odustani" CssClass="btn btn-danger mx-1" OnClientClick="return confirm('Jeste li sigurni?');" OnClick="Odustani_Click" runat="server" />
@@ -54,5 +58,7 @@
             </div>
         </nav>
     </form>
+    <script src="Scripts/bootstrap.js\"></script>
+    <script src="Scripts/jquery-3.6.0.js\"></script>
 </body>
 </html>

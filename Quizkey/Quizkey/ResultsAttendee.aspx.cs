@@ -76,6 +76,7 @@ namespace Quizkey
             var sortedAttendees = attendees.OrderBy(GetScore).Take(5).ToList();
             for (int i = 0; i < sortedAttendees.Count; i++)
             {
+                this.PreRender += ResultsAttendee_PreRender;
                 var x = sortedAttendees[i];
                 positioncontainer.Controls.Add(
                     new LiteralControl(
@@ -89,6 +90,12 @@ namespace Quizkey
                     ));
             }
         }
+
+        private void ResultsAttendee_PreRender(object sender, EventArgs e)
+        {
+            this.tbQuizName.Text = Repo.GetQuiz(Repo.GetQuizSession(SessionID).QuizID).QuizName;
+        }
+
         private int GetScore(Attendee attendee)
         {
             return -Repo.GetMultipleLogItem().Where(x => x.QuizSessionID == SessionID && x.AttendeeID == attendee.IDAttendee).Select(x => x.Points).Sum();

@@ -13,6 +13,10 @@
 <head runat="server">
     <title>Quizkey</title>
     <link href="Content/qk-results.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body class="bg-light">
     <form id="form1" runat="server">
@@ -22,7 +26,7 @@
         <nav class="navbar navbar-light bg-secondary">
             <div class="container-fluid d-flex justify-content-between flex-sm-nowrap">
                 <div class="input-group m-1">
-                    <span class="input-group-text">Naziv Kviza</span>
+                    <span class="input-group-text" id="quiztopic" runat="server"></span>
                     <asp:TextBox ID="tbQuizName" CssClass="form-control" runat="server" />
                 </div>
             </div>
@@ -38,10 +42,16 @@
             </div>
             <%--Bottom Container--%>
             <div class="qk-quizcreation-grid-container-bottom">
-                <button class="btn btn-primary d-flex" onserverclick="Stop_Click" runat="server"><h2 style="margin: auto;">Prekini Kviz</h2></button>
-                <button class="btn btn-primary d-flex" onserverclick="Next_Click" runat="server"><h2 style="margin: auto;">Pokreni Slijedece Pitanje</h2></button>
+                <button class="btn btn-primary d-flex" onserverclick="Stop_Click" runat="server">
+                    <h2 style="margin: auto;" id="buttonstoptext" runat="server"></h2>
+                </button>
+                <button class="btn btn-primary d-flex" onserverclick="Next_Click" runat="server">
+                    <h2 style="margin: auto;" id="buttonstarttext" runat="server"></h2>
+                </button>
             </div>
         </div>
     </form>
+    <script src="Scripts/bootstrap.js\"></script>
+    <script src="Scripts/jquery-3.6.0.js\"></script>
 </body>
 </html>

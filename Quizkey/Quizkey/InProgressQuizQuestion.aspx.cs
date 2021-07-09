@@ -1,4 +1,5 @@
-﻿using Quizkey.Models;
+﻿using Quizkey.Cookies;
+using Quizkey.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +89,11 @@ namespace Quizkey
         private void Page_PreRender(object sender, EventArgs e)
         {
             QuizCreationPage page;
+
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+            pitanjetext.InnerText = locale.Resource("Go", cookie.Enum(UserState.language));
 
             var data = GetCreationState();
             page = GetCreationState().Pages[PageNumber];
