@@ -27,6 +27,8 @@ namespace Quizkey
             public string QuizName { get; set; }
             public int NumberOfPlayers { get; set; }
             public string TimePlayed { get; set; }
+            public string InspectButton { get; set; }
+
         }
         private class LogTableRow
         {
@@ -97,8 +99,17 @@ namespace Quizkey
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
 
+            TemplateBuilder builder = new TemplateBuilder();
+            builder.AppendLiteralString("<table border=\"1\" class=\"table mt-4\">");
+            builder.AppendLiteralString("<tr>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("QuizTopic", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("nquestions", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("nplayed", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("Actions", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString("</tr>");
+            QuizRepeater.HeaderTemplate = builder;
+
             var values = new ArrayList();
-            var logItems = Repo.GetMultipleLogItem(AuthorID);
             var quizes = Repo.GetMultipleQuiz(AuthorID);
             var sessions = Repo.GetMultipleQuizSession(AuthorID);
             foreach (Quiz item in quizes)
@@ -128,15 +139,28 @@ namespace Quizkey
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
 
+
+            TemplateBuilder builder = new TemplateBuilder();
+            builder.AppendLiteralString("<table border=\"1\" class=\"table mt-4\">");
+            builder.AppendLiteralString("<tr>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("QuizTitle", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("nplayers", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("TimePlayed", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("Actions", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString("</tr>");
+            LogsRepeater.HeaderTemplate = builder;
+
             var values = new ArrayList();
             var sessions = Repo.GetMultipleQuizSession(AuthorID);
             foreach (QuizSession item in sessions)
             {
+                var inspectbutton = $"<a href=\"/Tables.aspx?log={item.IDQuizSession}\" class=\"btn btn-info mx-1\" >{locale.Resource("Inspect", cookie.Enum(Cookies.UserState.language))}";
                 values.Add(new LogsTableRow
                 {
                     QuizName = Repo.GetQuiz(item.QuizID).QuizName,
                     NumberOfPlayers = Repo.GetMultipleAttendee().Where(x => x.SessionID == item.IDQuizSession).Count(),
-                    TimePlayed = item.OccurredAt.ToString("g")
+                    TimePlayed = item.OccurredAt.ToString("g"),
+                    InspectButton = inspectbutton
                 });
             }
             LogsRepeater.DataSource = values;
@@ -147,6 +171,16 @@ namespace Quizkey
             HttpCookie userState = Request.Cookies["UserState"];
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
+
+            TemplateBuilder builder = new TemplateBuilder();
+            builder.AppendLiteralString("<table border=\"1\" class=\"table mt-4\">");
+            builder.AppendLiteralString("<tr>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("Player", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("Question", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("Answer", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("Points", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString("</tr>");
+            LogRepeater.HeaderTemplate = builder;
 
             var values = new ArrayList();
             var logItems = Repo.GetMultipleLogItem(AuthorID).Where(x => x.QuizSessionID == sessionid);

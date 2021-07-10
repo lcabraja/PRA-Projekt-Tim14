@@ -33,6 +33,15 @@ namespace Quizkey
         protected global::Quizkey.Navbar _Navbar;
 
         /// <summary>
+        /// quiztitletext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl quiztitletext;
+
+        /// <summary>
         /// tbQuizName control.
         /// </summary>
         /// <remarks>

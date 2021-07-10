@@ -14,6 +14,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Quizkey</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         html {
             height: 100%;
@@ -208,8 +212,8 @@
         <nav class="navbar navbar-light bg-secondary">
             <div class="container-fluid d-flex justify-content-between flex-sm-nowrap">
                 <div class="input-group m-1">
-                    <span class="input-group-text">Naziv Kviza</span>
-                    <asp:TextBox ID="tbQuizName" CssClass="form-control" runat="server" />
+                    <span class="input-group-text" id="quiztitle" runat="server"></span>
+                    <asp:TextBox ID="tbQuizName" ReadOnly="true" CssClass="form-control" runat="server" />
                 </div>
             </div>
         </nav>
@@ -248,9 +252,11 @@
             </div>
             <%--Bottom Container--%>
             <div class="btn btn-primary mb-3 d-flex" id="zapisnik" onserverclick="zapisnik_ServerClick" runat="server">
-                <h2 class="text-center" style="margin: auto;" id="aposition" runat="server">Preuzmi zapisnik</h2>
+                <h2 class="text-center" style="margin: auto;" id="aposition" runat="server"></h2>
             </div>
         </div>
     </form>
+    <script src="Scripts/bootstrap.js\"></script>
+    <script src="Scripts/jquery-3.6.0.js\"></script>
 </body>
 </html>

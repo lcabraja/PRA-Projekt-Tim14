@@ -1,4 +1,5 @@
-﻿using Quizkey.Models;
+﻿using Quizkey.Cookies;
+using Quizkey.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,6 +84,16 @@ namespace Quizkey
             var page = GetCreationState().Pages[PageNumber];
             var timespent = (int)Session["timespent"];
             countdowntime.Attributes["seconds"] = (page.SelectedTime - timespent).ToString();
+            this.PreRender += WaitingForResults_PreRender;
+        }
+
+        private void WaitingForResults_PreRender(object sender, EventArgs e)
+        {
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+            
+            waitingtext.InnerText = locale.Resource("WaitingFor", cookie.Enum(UserState.language));
         }
     }
 }

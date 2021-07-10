@@ -87,8 +87,6 @@ namespace Quizkey
                 PageNumber++;
                 Response.Redirect("InProgressQuizQuestionAttendee.aspx");
             }
-            if (!StatePlaying)
-                Response.Write("notplaying ");
             this.PreRender += InProgressQuizQuestionAttendee_PreRender;
 
             var page = GetCreationState().Pages[PageNumber];

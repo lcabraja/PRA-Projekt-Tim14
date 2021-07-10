@@ -1,4 +1,5 @@
-﻿using Quizkey.Extensions;
+﻿using Quizkey.Cookies;
+using Quizkey.Extensions;
 using Quizkey.Models;
 using System;
 using System.Collections.Generic;
@@ -71,9 +72,17 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.PreRender += EndOfQuizAttendee_PreRender;
+        }
+
+        private void EndOfQuizAttendee_PreRender(object sender, EventArgs e)
+        {
             QuizCreationModel model = GetCreationState();
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+
             var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == SessionID);
-            Console.OpenStandardOutput();
             var sortedAttendees = attendees.OrderBy(GetScore);
             var top3 = sortedAttendees.Take(3).ToList();
             if (top3.Count > 0)
@@ -104,8 +113,10 @@ namespace Quizkey
                                         "</div>" +
                                     "</h2>"
                             )));
-            aposition.InnerText = (sortedAttendees.ToList().IndexOf(new Attendee { IDAttendee = (int)Session["attendeeid"] }) + 1).ToString();
+            aposition.InnerText = $"{locale.Resource("yourposition", cookie.Enum(UserState.language))}: {(sortedAttendees.ToList().IndexOf(new Attendee { IDAttendee = (int)Session["attendeeid"] }) + 1)}";
+            tbQuizName.Text = model.QuizName;
         }
+
         private int GetScore(Attendee attendee)
         {
             return -Repo.GetMultipleLogItem().Where(x => x.QuizSessionID == SessionID && x.AttendeeID == attendee.IDAttendee).Select(x => x.Points).Sum();

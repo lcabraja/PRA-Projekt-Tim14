@@ -32,6 +32,7 @@ namespace Quizkey.Models
             locales.Add("Logout", new Dictionary<string, string> { { "hr", "Odjava" }, { "en", "Logout" } });          // Navbar LoggedIn
             locales.Add("CreateNewQuiz", new Dictionary<string, string> { { "hr", "Kreiraj novi kviz" }, { "en", "Create new quiz" } }); // Home Page
             locales.Add("Question", new Dictionary<string, string> { { "hr", "Pitanje" }, { "en", "Question" } });       
+            locales.Add("Answer", new Dictionary<string, string> { { "hr", "Odgovor" }, { "en", "Answer" } });       
             locales.Add("questions", new Dictionary<string, string> { { "hr", "pitanja" }, { "en", "questions" } });       
             locales.Add("CorrectAnswer", new Dictionary<string, string> { { "hr", "Odaberite točan odgovor" }, { "en", "Set the correct answer" } });       
             locales.Add("TimeLimit", new Dictionary<string, string> { { "hr", "Odaberite vremensko ograničenje " }, { "en", "Set a time limit" } });       
@@ -40,12 +41,21 @@ namespace Quizkey.Models
             locales.Add("QuizTopic", new Dictionary<string, string> { { "hr", "Tema kviza" }, { "en", "Quiz topic" } });       
             locales.Add("StartQuiz", new Dictionary<string, string> { { "hr", "Započni kviz" }, { "en", "Start quiz" } });       
             locales.Add("StopQuiz", new Dictionary<string, string> { { "hr", "Zaustavi kviz" }, { "en", "Stop quiz" } });       
-            locales.Add("NextQuestion", new Dictionary<string, string> { { "hr", "Slijede'e pitanje" }, { "en", "Next question" } });       
+            locales.Add("NextQuestion", new Dictionary<string, string> { { "hr", "Slijedeće pitanje" }, { "en", "Next question" } });       
             locales.Add("DownloadLog", new Dictionary<string, string> { { "hr", "Preuzmi zapisnik" }, { "en", "Download log" } });       
             locales.Add("EndQuiz", new Dictionary<string, string> { { "hr", "Završi kviz" }, { "en", "End quiz" } });       
             locales.Add("Code", new Dictionary<string, string> { { "hr", "Kod" }, { "en", "Code" } });       
             locales.Add("Edit", new Dictionary<string, string> { { "hr", "Izmjeni" }, { "en", "Edit" } });       
             locales.Add("Delete", new Dictionary<string, string> { { "hr", "Izbriši" }, { "en", "Delete" } });       
+            locales.Add("Actions", new Dictionary<string, string> { { "hr", "Akcije" }, { "en", "Actions" } });       
+            locales.Add("nplayed", new Dictionary<string, string> { { "hr", "Broj igranja" }, { "en", "# of times played" } });       
+            locales.Add("nplayers", new Dictionary<string, string> { { "hr", "Broj igrača" }, { "en", "# of players" } });       
+            locales.Add("nquestions", new Dictionary<string, string> { { "hr", "Broj pitanja" }, { "en", "# of question" } });       
+            locales.Add("TimePlayed", new Dictionary<string, string> { { "hr", "Odigrano" }, { "en", "Time played" } });       
+            locales.Add("Cancel", new Dictionary<string, string> { { "hr", "Odustani" }, { "en", "Cancel" } });       
+            locales.Add("Inspect", new Dictionary<string, string> { { "hr", "Pregledaj" }, { "en", "Inspect" } });       
+            locales.Add("Player", new Dictionary<string, string> { { "hr", "Igrač" }, { "en", "Player" } });
+            locales.Add("yourposition", new Dictionary<string, string> { { "hr", "Vaša pozicija" }, { "en", "Your position" } });
             locales.Add("SAMPLETEXT", new Dictionary<string, string> { { "hr", "SAMPLETEXT" }, { "en", "SAMPLETEXT" } });       
         }
         public string Resource(string request, string locale)

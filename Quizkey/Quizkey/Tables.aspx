@@ -21,10 +21,10 @@
                 <HeaderTemplate>
                     <table border="1" class="table">
                         <tr>
-                            <td><b>Quiz name</b></td>
-                            <td><b># of questions</b></td>
-                            <td><b># of times played</b></td>
-                            <td><b>Actions</b></td>
+                            <td><b id="quiznametext" runat="server">Quiz name</b></td>
+                            <td><b id="quizquestionstext" runat="server"># of questions</b></td>
+                            <td><b id="quizplayedtext" runat="server"># of times played</b></td>
+                            <td><b id="quizactionstext" runat="server">Actions</b></td>
                         </tr>
                 </HeaderTemplate>
 
@@ -47,20 +47,21 @@
 
             </asp:Repeater>
             <asp:Repeater ID="LogsRepeater" runat="server">
-                <HeaderTemplate>
+              <%--  <HeaderTemplate>
                     <table border="1" class="table">
                         <tr>
-                            <td><b>Quiz topic</b></td>
-                            <td><b># players</b></td>
-                            <td><b>Time played</b></td>
+                            <td><b id="logstopictext" runat="server">Quiz topic</b></td>
+                            <td><b id="logsplayers" runat="server"># players</b></td>
+                            <td><b id="logstime" runat="server">Time played</b></td>
                         </tr>
-                </HeaderTemplate>
+                </HeaderTemplate>--%>
 
                 <ItemTemplate>
                     <tr>
                         <td><%# DataBinder.Eval(Container.DataItem, "QuizName") %> </td>
                         <td><%# DataBinder.Eval(Container.DataItem, "NumberOfPlayers") %> </td>
                         <td><%# DataBinder.Eval(Container.DataItem, "TimePlayed") %> </td>
+                        <td><%# DataBinder.Eval(Container.DataItem, "InspectButton") %> </td>
                     </tr>
                 </ItemTemplate>
 
@@ -70,16 +71,16 @@
 
             </asp:Repeater>
             <asp:Repeater ID="LogRepeater" runat="server">
-                <HeaderTemplate>
+                <%--<HeaderTemplate>
                     <table border="1" class="table">
                         <h2 id="logheader"></h2>
                         <tr>
-                            <td><b>Player</b></td>
-                            <td><b>Question</b></td>
-                            <td><b>Selected Answer</b></td>
-                            <td><b>Points awarded</b></td>
+                            <td><b id="logplayertext" runat="server">Player</b></td>
+                            <td><b id="logquestiontext" runat="server">Question</b></td>
+                            <td><b id="loganswertext" runat="server">Selected Answer</b></td>
+                            <td><b id="logpointstext" runat="server">Points awarded</b></td>
                         </tr>
-                </HeaderTemplate>
+                </HeaderTemplate>--%>
 
                 <ItemTemplate>
                     <tr>

@@ -41,7 +41,7 @@
                 </div>
                 <div id="logout" visible="false" class="qk-nav-input-group px-1" runat="server">
                     <i class="text-light bg-danger border-danger input-group-text bi bi-door-closed qk-nav-left"></i>
-                    <asp:Button ID="btLogOut" OnClick="btLogOut_Click" CssClass="btn btn-danger qk-nav-right" Text="Logout" runat="server" />
+                    <asp:Button ID="btLogOut" OnClick="btLogOut_Click" CssClass="btn btn-danger qk-nav-right" runat="server" />
                 </div>
             </div>
         </div>

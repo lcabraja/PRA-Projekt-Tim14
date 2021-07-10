@@ -70,6 +70,7 @@ namespace Quizkey
             Localizer locale = Quizkey.Models.Localizer.Instance;
             codeText.InnerText = locale.Resource("Code", cookie.Enum(UserState.language));
             Button1.Text = locale.Resource("StartQuiz", cookie.Enum(UserState.language));
+            Odustani.Text = locale.Resource("Cancel", cookie.Enum(UserState.language));
         }
 
         protected void Start_Click(object sender, EventArgs e)

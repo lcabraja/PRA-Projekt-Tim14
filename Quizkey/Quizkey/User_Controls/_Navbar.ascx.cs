@@ -52,23 +52,23 @@ namespace Quizkey
 
         private void SetLanguageButtonText(HttpCookie cookie)
         {
-            if (cookie[UserState.language.ToString()] == UserStateLanguage.en.ToString())
+            if (cookie[UserState.language.ToString()] == UserStateLanguage.hr.ToString())
             {
-                btToggleLanguage.Text = "English";
+                btToggleLanguage.Text = "Hrvatski";
             }
             else
             {
-                btToggleLanguage.Text = "Hrvatski";
+                btToggleLanguage.Text = "English";
             }
         }
 
         protected void btToggleLanguage_Click(object sender, EventArgs e)
         {
-            HttpCookie userState = Request.Cookies["UserState"] ?? new HttpCookie("UserState");
+            HttpCookie userState = Request.Cookies["UserState"];
             userState[UserState.language.ToString()] =
                 userState[UserState.language.ToString()] == UserStateLanguage.en.ToString() ? UserStateLanguage.hr.ToString() : UserStateLanguage.en.ToString();
-            SetLanguageButtonText(userState);
             Response.SetCookie(userState);
+            Response.Redirect(Request.RawUrl);
         }
 
         protected void btLogOut_Click(object sender, EventArgs e)

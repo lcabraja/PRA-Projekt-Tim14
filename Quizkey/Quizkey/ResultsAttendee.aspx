@@ -24,7 +24,7 @@
         <nav class="navbar navbar-light bg-secondary">
             <div class="container-fluid d-flex justify-content-between flex-sm-nowrap">
                 <div class="input-group m-1">
-                    <span class="input-group-text">Naziv Kviza</span>
+                    <span class="input-group-text" id="quiztitletext" runat="server"></span>
                     <asp:TextBox ID="tbQuizName" ReadOnly="true" CssClass="form-control" runat="server" />
                 </div>
             </div>

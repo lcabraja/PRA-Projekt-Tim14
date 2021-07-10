@@ -16,9 +16,9 @@
         <div class="position-relative m-auto">
             <div class="position-absolute top-100 start-50 translate-middle-x m-auto">
                 <div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
-                    <asp:Button Text="Igraj" OnClick="Play_Click" CssClass="btn btn-outline-primary" runat="server" />
-                    <asp:Button Text="Prijava" OnClick="Login_Click" CssClass="btn btn-outline-primary" runat="server" />
-                    <asp:Button Text="Registracija" OnClick="Register_Click" CssClass="btn btn-outline-primary" runat="server" />
+                    <asp:Button ID="Igraj" OnClick="Play_Click" CssClass="btn btn-outline-primary" runat="server" />
+                    <asp:Button ID="Prijava" OnClick="Login_Click" CssClass="btn btn-outline-primary" runat="server" />
+                    <asp:Button ID="Registracija" OnClick="Register_Click" CssClass="btn btn-outline-primary" runat="server" />
                 </div>
             </div>
         </div>

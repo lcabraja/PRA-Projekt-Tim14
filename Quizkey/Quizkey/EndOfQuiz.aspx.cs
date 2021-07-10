@@ -75,6 +75,7 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.PreRender += EndOfQuiz_PreRender;
             QuizCreationModel model = GetCreationState();
             var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == SessionID);
             Console.OpenStandardOutput();
@@ -109,6 +110,12 @@ namespace Quizkey
                                     "</h2>"
                             )));
         }
+
+        private void EndOfQuiz_PreRender(object sender, EventArgs e)
+        {
+            
+        }
+
         private int GetScore(Attendee attendee)
         {
             return -Repo.GetMultipleLogItem().Where(x => x.QuizSessionID == SessionID && x.AttendeeID == attendee.IDAttendee).Select(x => x.Points).Sum();

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Net.WebSockets;
+using Quizkey.Cookies;
 
 namespace Quizkey
 {
@@ -93,7 +94,12 @@ namespace Quizkey
 
         private void ResultsAttendee_PreRender(object sender, EventArgs e)
         {
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+
             this.tbQuizName.Text = Repo.GetQuiz(Repo.GetQuizSession(SessionID).QuizID).QuizName;
+            this.quiztitletext.InnerText = locale.Resource("QuizTopic", cookie.Enum(UserState.language));
         }
 
         private int GetScore(Attendee attendee)

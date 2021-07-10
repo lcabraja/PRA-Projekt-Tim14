@@ -16,7 +16,7 @@
 <body style="height: 100%;">
     <form id="form1" runat="server" style="height: 100%;">
         <uc1:_Navbar runat="server" ID="_Navbar" />
-        <h1 class="text-center" style="margin-top: 45vh">Waiting for everyone else</h1>
+        <h1 class="text-center" style="margin-top: 45vh" id="waitingtext" runat="server"></h1>
         <div id="countdowntime" runat="server"></div>
         <script>
             // Gets the number of seconds the question lasts for from the server
