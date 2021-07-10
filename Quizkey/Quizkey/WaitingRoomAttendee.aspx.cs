@@ -53,6 +53,7 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            WebSockets.AnnounceClient(SessionID);
             var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == this.SessionID);
             foreach (var attendee in attendees)
             {

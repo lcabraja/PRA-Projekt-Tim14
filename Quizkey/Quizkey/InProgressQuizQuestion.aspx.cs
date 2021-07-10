@@ -83,7 +83,14 @@ namespace Quizkey
             page = GetCreationState().Pages[PageNumber];
 
             countdowntime.Attributes["seconds"] = page.SelectedTime.ToString();
+            WebSockets.MoveSessionClients += WebSockets_MoveSessionClients;
         }
+
+        private void WebSockets_MoveSessionClients()
+        {
+            WebSockets.AnnounceStart(SessionID);
+        }
+
         private void Page_PreRender(object sender, EventArgs e)
         {
             QuizCreationPage page;

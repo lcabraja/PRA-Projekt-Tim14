@@ -94,7 +94,7 @@ namespace Quizkey
                 positioncontainer.Controls.Add(new LiteralControl(
                     $"<div class=\"bg-{(i < 3 ? "primary" : "light")} rounded\">" +
                         $"<h2 class=\"d-flex\">" +
-                            $"<span style=\"font-weight: 100; display: inline-flex; padding-right: 1rem; \">{i + 1}.</span>" +
+                            $"<span style=\"font-weight: 100; display: inline-flex; padding-right: 1rem; margin-left: 1rem;\">{i + 1}.</span>" +
                             $"{sortedAttendees[i].Username}" +
                         $"</h2>" +
                     $"</div>"));
@@ -109,7 +109,9 @@ namespace Quizkey
         {
             Session["SessionID"] = null;
             StatePlaying = false;
-            Response.Redirect("/");
+            WebSockets.AnnounceEnd(SessionID);
+            Response.Redirect("EndOfQuiz.aspx");
+            return;
         }
         protected void Next_Click(object sender, EventArgs e)
         {

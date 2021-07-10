@@ -114,6 +114,7 @@ namespace Quizkey
                                     "</h2>"
                             )));
             aposition.InnerText = $"{locale.Resource("yourposition", cookie.Enum(UserState.language))}: {(sortedAttendees.ToList().IndexOf(new Attendee { IDAttendee = (int)Session["attendeeid"] }) + 1)}";
+            quiztitle.InnerText = locale.Resource("QuizTopic", cookie.Enum(UserState.language));
             tbQuizName.Text = model.QuizName;
             ClearCookie();
         }

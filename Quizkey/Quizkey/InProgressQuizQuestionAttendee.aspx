@@ -43,9 +43,9 @@
         <div class="m-3" style="height: 90vh;">
             <div class="gridcontainer">
                 <button runat="server" onserverclick="btTriangle_ServerClick" id="btTriangle" class="btn btn-primary question"><i class="fontsize bi bi-triangle "></i></button>
-                <button runat="server" onserverclick="btStar_ServerClick" id="btStar" class="btn btn-primary question"><i class="fontsize bi bi-star"></i></button>
-                <button runat="server" visible="false" onserverclick="btPentagon_ServerClick" id="btPentagon" class="btn btn-primary question"><i class="fontsize bi bi-pentagon"></i></button>
-                <button runat="server" visible="false" onserverclick="btCircle_ServerClick" id="btCircle" class="btn btn-primary question"><i class="fontsize bi bi-circle"></i></button>
+                <button runat="server" onserverclick="btStar_ServerClick" id="btStar" class="btn btn-success question"><i class="fontsize bi bi-star"></i></button>
+                <button runat="server" visible="false" onserverclick="btPentagon_ServerClick" id="btPentagon" class="btn btn-warning question"><i class="fontsize bi bi-pentagon"></i></button>
+                <button runat="server" visible="false" onserverclick="btCircle_ServerClick" id="btCircle" class="btn btn-danger question"><i class="fontsize bi bi-circle"></i></button>
             </div>
         </div>
         <div id="countdowntime" runat="server"></div>
@@ -74,9 +74,58 @@
                 if (distance < 0) {
                     clearInterval(x);
                     //document.getElementById("countdowntime").innerHTML = "0s";
-                    window.location.replace("ResultsAttendee.aspx");
                 }
             }, 1000);
+
+            var ws;
+
+            function _$$(id) {
+                return document.getElementById(id);
+            }
+
+            function createSpan(text) {
+                var span = document.createElement('span');
+                span.innerHTML = text + '‹br />';
+                return span;
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            window.onload = function () {
+                //wireEvents();
+                var conversation = _$$('conversation');
+                var url = `ws://${window.location.host}/WebSocketEndpoint.ashx`;
+                ws = new WebSocket(url);
+
+                ws.onerror = function (e) {
+                    conversation.appendChild(createSpan('There is a problem with the connection.'))
+                };
+
+                ws.onmessage = function (e) {
+                    if (e.data.split('-')[1] == getCookie("sessionid")) {
+                        if (e.data.split('-')[0] == "movesession") {
+                            window.location.replace("/InProgressQuizQuestionAttendee.aspx?advance=1");
+                        }
+                        if (e.data.split('-')[0] == "endsession") {
+                            window.location.replace("/EndOfQuizAttendee.aspx");
+                        }
+                    }
+                };
+            };
         </script>
     </form>
     <script src="Scripts/bootstrap.js\"></script>

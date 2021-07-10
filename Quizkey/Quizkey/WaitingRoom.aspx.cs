@@ -54,6 +54,8 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Response.SetCookie(new HttpCookie("sessionid", SessionID.ToString()));
+
             var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == this.SessionID);
             foreach (var attendee in attendees)
             {

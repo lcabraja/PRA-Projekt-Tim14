@@ -120,6 +120,7 @@ namespace Quizkey
 
             this.endquiz.InnerText = locale.Resource("DownloadLog", cookie.Enum(UserState.language));
             this.log.InnerText = locale.Resource("EndQuiz", cookie.Enum(UserState.language));
+            quiztitle.InnerText = locale.Resource("QuizTopic", cookie.Enum(UserState.language));
         }
 
         private int GetScore(Attendee attendee)

@@ -41,10 +41,31 @@
                     <div id="countdowntime" class="btn btn-primary p-2" runat="server"></div>
                     <asp:PlaceHolder ID="placeholder" runat="server" />
                     <script>
+                        var ws;
                         // Gets the number of seconds the question lasts for from the server
                         var seconds = parseInt(document.getElementById("countdowntime").getAttribute("seconds"))
                         // Set the date we're counting down to
                         var countDownDate = new Date().setSeconds(new Date().getSeconds() + seconds)
+
+                        function _$$(id) {
+                            return document.getElementById(id);
+                        }
+
+                        function getCookie(cname) {
+                            let name = cname + "=";
+                            let decodedCookie = decodeURIComponent(document.cookie);
+                            let ca = decodedCookie.split(';');
+                            for (let i = 0; i < ca.length; i++) {
+                                let c = ca[i];
+                                while (c.charAt(0) == ' ') {
+                                    c = c.substring(1);
+                                }
+                                if (c.indexOf(name) == 0) {
+                                    return c.substring(name.length, c.length);
+                                }
+                            }
+                            return "";
+                        }
 
                         // Update the count down every 1 second
                         var x = setInterval(function () {
@@ -65,9 +86,41 @@
                             if (distance < 0) {
                                 clearInterval(x);
                                 document.getElementById("countdowntime").innerHTML = "0s";
+
+                                ws.send(`results-${getCookie("sessionid")}`);
+
                                 window.location.replace("InProgressQuizQuestion.aspx?nextpage=1");
                             }
                         }, 1000);
+
+
+                        function createSpan(text) {
+                            var span = document.createElement('span');
+                            span.innerHTML = text + '‹br />';
+                            return span;
+                        }
+
+                        window.onload = function () {
+                            //wireEvents();
+                            var conversation = _$$('conversation');
+                            var url = `ws://${window.location.host}/WebSocketEndpoint.ashx`;
+                            ws = new WebSocket(url);
+
+                            ws.onerror = function (e) {
+                                conversation.appendChild(createSpan('There is a problem with the connection.'))
+                            };
+
+                            ws.onmessage = function (e) {
+                                if (e.data.split('-')[1] == getCookie("sessionid")) {
+                                    if (e.data.split('-')[0] == "movesession") {
+                                        window.location.replace("/InProgressQuizQuestionAttendee.aspx?advance=1");
+                                    }
+                                    if (e.data.split('-')[0] == "endsession") {
+                                        window.location.replace("/EndOfQuizAttendee.aspx");
+                                    }
+                                }
+                            };
+                        };
                     </script>
                 </div>
                 <%--Answers--%>
