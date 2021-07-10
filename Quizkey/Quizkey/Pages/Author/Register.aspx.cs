@@ -1,4 +1,5 @@
-﻿using Quizkey.Models;
+﻿using Quizkey.Cookies;
+using Quizkey.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,21 @@ namespace Quizkey
 
         private void Register_PreRender(object sender, EventArgs e)
         {
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+
+            label1.Text = locale.Resource("Username", cookie.Enum(Cookies.UserState.language));
+            label4.Text = locale.Resource("Email", cookie.Enum(Cookies.UserState.language));
+            label6.Text = locale.Resource("Password", cookie.Enum(Cookies.UserState.language));
+            label7.Text = locale.Resource("RepeatPassword", cookie.Enum(Cookies.UserState.language));
+            RequiredFieldValidator2.ErrorMessage = locale.Resource("MissingName", cookie.Enum(Cookies.UserState.language));
+            RequiredFieldValidator3.ErrorMessage = locale.Resource("MissingEmail", cookie.Enum(Cookies.UserState.language));
+            RequiredFieldValidator6.ErrorMessage = locale.Resource("MissingPassword", cookie.Enum(Cookies.UserState.language));
+            RequiredFieldValidator5.ErrorMessage = locale.Resource("MissingPasswordRepeat", cookie.Enum(Cookies.UserState.language));
+            regex.ErrorMessage = locale.Resource("WrongEmail", cookie.Enum(Cookies.UserState.language));
+            comparePasswordValidator.ErrorMessage = locale.Resource("PasswordMatch", cookie.Enum(Cookies.UserState.language));
+            btSend.Text = locale.Resource("Register", cookie.Enum(Cookies.UserState.language));
             if (ShowErrorMessage)
                 diverrormessage.Controls.Add(new LiteralControl($"<div class=\"badge bg-danger\">{ErrorMessage}</div>"));
         }

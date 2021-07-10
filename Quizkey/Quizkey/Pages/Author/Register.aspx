@@ -17,128 +17,113 @@
     <form id="form1" runat="server" style="height: 100%;">
         <uc1:_Navbar runat="server" ID="_Navbar" />
         <div class="container m-auto mt-4">
-            <table style="margin: auto; margin-top: 120px;">
-                <tr>
-                    <td>
-                        <asp:Label
-                            ID="label1"
-                            runat="server"
-                            Text="Username" />
-                    </td>
-                    <td>
-                        <asp:TextBox
-                            ID="tbUsername"
-                            runat="server" />
-                        <asp:RequiredFieldValidator
-                            ID="RequiredFieldValidator2"
-                            runat="server"
-                            ControlToValidate="tbUsername"
-                            ForeColor="Red"
-                            ErrorMessage="Name was not entered.">*
-                        </asp:RequiredFieldValidator>
-                        <span id="diverrormessage" runat="server"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label
-                            ID="label4"
-                            runat="server"
-                            Text="Email" />
-                    </td>
-                    <td>
-                        <asp:TextBox
-                            ID="tbEmail"
-                            runat="server" />
-                        <asp:RequiredFieldValidator
-                            ID="RequiredFieldValidator3"
-                            runat="server"
-                            ControlToValidate="tbEmail"
-                            ForeColor="Red"
-                            ErrorMessage="Email was not entered.">*
-                        </asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator
-                            ID="regex"
-                            runat="server"
-                            ControlToValidate="tbEmail"
-                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
-                            EnableClientScript="true"
-                            Display="Static"
-                            ForeColor="Red"
-                            ErrorMessage="Wrong Email format">*
-                        </asp:RegularExpressionValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label
-                            ID="label6"
-                            runat="server"
-                            Text="Password" />
-                    </td>
-                    <td>
-                        <asp:TextBox
-                            ID="tbPassword"
-                            TextMode="Password"
-                            runat="server" />
-                        <asp:RequiredFieldValidator
-                            ID="RequiredFieldValidator6"
-                            runat="server"
-                            ControlToValidate="tbPassword"
-                            ForeColor="Red"
-                            ErrorMessage="Password was not entered.">*
-                        </asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Label
-                            ID="label7"
-                            runat="server"
-                            Text="Repeat password" />
-                    </td>
-                    <td>
-                        <asp:TextBox
-                            ID="tbPasswordRepeat"
-                            TextMode="Password"
-                            runat="server" />
-                        <asp:RequiredFieldValidator
-                            ID="RequiredFieldValidator5"
-                            runat="server"
-                            Display="Dynamic"
-                            ControlToValidate="tbPasswordRepeat"
-                            ForeColor="Red"
-                            ErrorMessage="Password was not repeated.">*
-                        </asp:RequiredFieldValidator>
-                        <asp:CompareValidator
-                            ID="comparePasswordValidator"
-                            ControlToValidate="tbPasswordRepeat"
-                            ControlToCompare="tbPassword"
-                            runat="server"
-                            ForeColor="Red"
-                            ErrorMessage="Passwords do not match">*
-                        </asp:CompareValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <asp:Button
-                            ID="btSend"
-                            runat="server"
-                            Text="Send" />
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <asp:ValidationSummary
-                            ID="summary"
-                            runat="server"
-                            ForeColor="Red" />
-                    </td>
-                </tr>
-            </table>
+            <div class="container mt-5" id="formcontainer">
+                <style>
+                    #formcontainer > .input-group {
+                        margin-right: 0px;
+                    }
+
+                        #formcontainer > .input-group > .form-control {
+                            margin-right: 1px;
+                        }
+                </style>
+                <div class="input-group mb-3">
+                    <asp:Label
+                        ID="label1"
+                        class="input-group-text"
+                        runat="server"/>
+                    <asp:TextBox
+                        CssClass="form-control"
+                        ID="tbUsername"
+                        runat="server" />
+                </div>
+                <asp:RequiredFieldValidator
+                    ID="RequiredFieldValidator2"
+                    runat="server"
+                    CssClass="d-none"
+                    ControlToValidate="tbUsername"
+                    ForeColor="Red" />
+                <span id="diverrormessage" runat="server"></span>
+                <div class="input-group mb-3">
+                    <asp:Label
+                        class="input-group-text"
+                        ID="label4"
+                        runat="server" />
+                    <asp:TextBox
+                        CssClass="form-control"
+                        ID="tbEmail"
+                        runat="server" />
+                </div>
+                <asp:RequiredFieldValidator
+                    ID="RequiredFieldValidator3"
+                    runat="server"
+                    CssClass="d-none"
+                    ControlToValidate="tbEmail"
+                    ForeColor="Red" />
+                <asp:RegularExpressionValidator
+                    ID="regex"
+                    runat="server"
+                    ControlToValidate="tbEmail"
+                    CssClass="d-none"
+                    ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                    EnableClientScript="true"
+                    Display="Static"
+                    ForeColor="Red"/>
+                <div class="input-group mb-3">
+                    <asp:Label
+                        ID="label6"
+                        class="input-group-text"
+                        runat="server"/>
+                    <asp:TextBox
+                        ID="tbPassword"
+                        CssClass="form-control"
+                        TextMode="Password"
+                        runat="server" />
+                </div>
+                <asp:RequiredFieldValidator
+                    ID="RequiredFieldValidator6"
+                    CssClass="d-none"
+                    runat="server"
+                    ControlToValidate="tbPassword"
+                    ForeColor="Red" />
+                <div class="input-group mb-3">
+                    <asp:Label
+                        ID="label7"
+                        class="input-group-text"
+                        runat="server" />
+                    <asp:TextBox
+                        ID="tbPasswordRepeat"
+                        CssClass="form-control"
+                        TextMode="Password"
+                        runat="server" />
+                </div>
+                <asp:RequiredFieldValidator
+                    ID="RequiredFieldValidator5"
+                    runat="server"
+                    Display="Dynamic"
+                    ControlToValidate="tbPasswordRepeat"
+                    CssClass="d-none"
+                    ForeColor="Red" />
+                <asp:CompareValidator
+                    ID="comparePasswordValidator"
+                    ControlToValidate="tbPasswordRepeat"
+                    ControlToCompare="tbPassword"
+                    runat="server"
+                    CssClass="d-none"
+                    ForeColor="Red" />
+                <div>
+                    <asp:Button
+                        CssClass="btn btn-outline-success"
+                        ID="btSend"
+                        runat="server" />
+                </div>
+                <div>
+                    <asp:ValidationSummary
+                        ID="summary"
+                        runat="server"
+                        ForeColor="Red" />
+                </div>
+            </div>
         </div>
     </form>
 </body>

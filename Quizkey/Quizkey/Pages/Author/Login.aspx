@@ -18,74 +18,71 @@
         <uc1:_Navbar runat="server" ID="_Navbar" />
         <div class="container">
             <div class="container m-auto mt-4">
-                <table style="margin: auto; margin-top: 120px;">
-                    <tr>
-                        <td>
-                            <asp:Label
-                                ID="label1"
-                                runat="server"
-                                Text="Username" />
-                        </td>
-                        <td>
-                            <asp:TextBox
-                                ID="tbUsername"
-                                runat="server" />
-                            <asp:RequiredFieldValidator
-                                ID="RequiredFieldValidator2"
-                                runat="server"
-                                ControlToValidate="tbUsername"
-                                ForeColor="Red"
-                                ErrorMessage="Name was not entered.">*
+                <div class="container mt-5" id="formcontainer">
+                    <style>
+                        #formcontainer > .input-group {
+                            margin-right: 0px;
+                        }
+
+                            #formcontainer > .input-group > .form-control {
+                                margin-right: 1px;
+                            }
+                    </style>
+                    <div class="input-group mb-3">
+
+                        <asp:Label
+                            class="input-group-text"
+                            ID="label1"
+                            runat="server" />
+                        <asp:TextBox
+                            CssClass="form-control"
+                            ID="tbUsername"
+                            runat="server" />
+                    </div>
+                    <asp:RequiredFieldValidator
+                        ID="RequiredFieldValidator2"
+                        CssClass="d-none"
+                        runat="server"
+                        ControlToValidate="tbUsername"
+                        ForeColor="Red"
+                        ErrorMessage="Name was not entered.">*
                             </asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label
-                                ID="label6"
-                                runat="server"
-                                Text="Password" />
-                        </td>
-                        <td>
-                            <asp:TextBox
-                                ID="tbPassword"
-                                TextMode="Password"
-                                runat="server" />
-                            <asp:RequiredFieldValidator
-                                ID="RequiredFieldValidator6"
-                                runat="server"
-                                ControlToValidate="tbPassword"
-                                ForeColor="Red"
-                                ErrorMessage="Password was not entered.">*
+                    <div class="input-group mb-3">
+                        <asp:Label
+                            class="input-group-text"
+                            ID="label6"
+                            runat="server" />
+                        <asp:TextBox
+                            CssClass="form-control"
+                            ID="tbPassword"
+                            TextMode="Password"
+                            runat="server" />
+                    </div>
+                    <asp:RequiredFieldValidator
+                        ID="RequiredFieldValidator6"
+                        runat="server"
+                        CssClass="d-none"
+                        ControlToValidate="tbPassword"
+                        ForeColor="Red"
+                        ErrorMessage="Password was not entered.">*
                             </asp:RequiredFieldValidator>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <asp:Button
-                                ID="btSend"
-                                runat="server"
-                                Text="Send" />
-                            <span id="diverrormessage" runat="server"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <asp:ValidationSummary
-                                ID="summary"
-                                runat="server"
-                                ForeColor="Red" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <asp:Label CssClass="badge badge-danger" ID="errormessage" runat="server" />
-                        </td>
-                    </tr>
-                </table>
+                    <div>
+                        <asp:Button
+                            CssClass="btn btn-outline-success"
+                            ID="btSend"
+                            runat="server" />
+                        <span id="diverrormessage" runat="server"></span>
+                    </div>
+                    <div>
+                        <asp:ValidationSummary
+                            ID="summary"
+                            runat="server"
+                            ForeColor="Red" />
+                    </div>
+                    <div>
+                        <asp:Label CssClass="badge badge-danger" ID="errormessage" runat="server" />
+                    </div>
+                </div>
             </div>
         </div>
     </form>
