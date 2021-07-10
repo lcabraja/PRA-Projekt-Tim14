@@ -12,7 +12,7 @@ namespace Quizkey.Models
         public int QuizID { get; set; }
         public int QuestionNumber { get; set; }
         public string QuestionText { get; set; }
-        public string CorrectAnswer { get; set; }
+        public int CorrectAnswer { get; set; }
         public int AnswerTimeSeconds { get; set; }
         public override string ToString() =>
                 $"IDQuizQuestion: {IDQuizQuestion}, QuizID: {QuizID}, QuestionNumber: {QuestionNumber}, QuestionText: {QuestionText}, CorrectAnswer: {CorrectAnswer}, AnswerTimeSeconds: {AnswerTimeSeconds}";

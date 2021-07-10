@@ -1,6 +1,9 @@
+USE master
+GO
 IF OBJECT_ID('Quizkey') IS NOT NULL
 BEGIN
     USE master
+    GO
     DROP DATABASE Quizkey
 END
 GO
@@ -9,6 +12,34 @@ GO
 -- Creating tables
 USE Quizkey
 GO
+IF OBJECT_ID('LogItem') IS NOT NULL
+BEGIN
+	DROP TABLE LogItem
+END
+IF OBJECT_ID('QuizAnswer') IS NOT NULL
+BEGIN
+	DROP TABLE QuizAnswer
+END
+IF OBJECT_ID('QuizQuestion') IS NOT NULL
+BEGIN
+	DROP TABLE QuizQuestion
+END
+IF OBJECT_ID('Attendee') IS NOT NULL
+BEGIN
+	DROP TABLE Attendee
+END
+IF OBJECT_ID('QuizSession') IS NOT NULL
+BEGIN
+	DROP TABLE QuizSession
+END
+IF OBJECT_ID('RecentQuiz') IS NOT NULL
+BEGIN
+	DROP TABLE RecentQuiz
+END
+IF OBJECT_ID('Quiz') IS NOT NULL
+BEGIN
+	DROP TABLE Quiz
+END
 IF OBJECT_ID('Author') IS NOT NULL
 BEGIN
 	DROP TABLE Author
@@ -21,10 +52,6 @@ CREATE TABLE Author (
 	constraint pk_Author primary key clustered (IDAuthor)
 )
 GO
-IF OBJECT_ID('Quiz') IS NOT NULL
-BEGIN
-	DROP TABLE Quiz
-END
 CREATE TABLE Quiz (
 	IDQuiz int identity(1,1),
 	AuthorID int not null,
@@ -32,10 +59,6 @@ CREATE TABLE Quiz (
 	constraint pk_IDQuiz primary key clustered (IDQuiz)
 )
 GO
-IF OBJECT_ID('QuizQuestion') IS NOT NULL
-BEGIN
-	DROP TABLE QuizQuestion
-END
 CREATE TABLE QuizQuestion (
 	IDQuizQuestion int identity(1,1),
 	QuizID int not null,
@@ -47,10 +70,6 @@ CREATE TABLE QuizQuestion (
 	constraint pk_IDQuizQuestion primary key clustered (IDQuizQuestion)
 )
 GO
-IF OBJECT_ID('QuizAnswer') IS NOT NULL
-BEGIN
-	DROP TABLE QuizAnswer
-END
 CREATE TABLE QuizAnswer (
 	IDQuizAnswer int identity(1,1),
 	QuizQuestionID int not null,
@@ -60,10 +79,6 @@ CREATE TABLE QuizAnswer (
 	constraint pk_IDQuizAnswer primary key clustered (IDQuizAnswer)
 )
 GO
-IF OBJECT_ID('QuizSession') IS NOT NULL
-BEGIN
-	DROP TABLE QuizSession
-END
 CREATE TABLE QuizSession (
 	IDQuizSession int identity(1,1),
 	QuizID int not null,
@@ -73,10 +88,6 @@ CREATE TABLE QuizSession (
 	constraint pk_QuizSession primary key clustered (IDQuizSession)	,
 )
 GO
-IF OBJECT_ID('Attendee') IS NOT NULL
-BEGIN
-	DROP TABLE Attendee
-END
 CREATE TABLE Attendee (
 	IDAttendee int identity(1,1),
 	Username varchar(64) not null,
@@ -85,10 +96,6 @@ CREATE TABLE Attendee (
 	constraint pk_Attendee primary key clustered (IDAttendee)
 )
 GO
-IF OBJECT_ID('LogItem') IS NOT NULL
-BEGIN
-	DROP TABLE LogItem
-END
 CREATE TABLE LogItem (
 	IDLogItem int identity(1,1),
 	QuizSessionID int not null,
@@ -103,10 +110,6 @@ CREATE TABLE LogItem (
 	constraint pk_IDLogItem primary key clustered (IDLogItem)
 )
 GO
-IF OBJECT_ID('RecentQuiz') IS NOT NULL
-BEGIN
-	DROP TABLE RecentQuiz
-END
 CREATE TABLE RecentQuiz (
 	IDRecentQuiz int identity(1,1),
 	QuizID int not null,

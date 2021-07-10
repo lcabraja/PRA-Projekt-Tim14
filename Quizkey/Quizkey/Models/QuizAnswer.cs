@@ -11,7 +11,7 @@ namespace Quizkey.Models
         public int IDQuizAnswer { get; set; }
         public int QuizQuestionID { get; set; }
         public string AnswerText { get; set; }
-        public string QuestionOrder { get; set; }
+        public int QuestionOrder { get; set; }
         public override string ToString() =>
                 $"IDQuizAnswer: {IDQuizAnswer}, QuizQuestionID: {QuizQuestionID}, AnswerText: {AnswerText}, QuestionOrder: {QuestionOrder}";
 

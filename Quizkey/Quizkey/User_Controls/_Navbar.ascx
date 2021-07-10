@@ -37,11 +37,11 @@
                 </div>
                 <div class="qk-nav-input-group px-1">
                     <i class="text-light bg-primary border-primary input-group-text bi bi-translate qk-nav-left"></i>
-                    <asp:Button ID="btToggleLanguage" OnClick="btToggleLanguage_Click" CssClass="btn btn-primary qk-nav-right" runat="server" />
+                    <asp:Button ID="btToggleLanguage" UseSubmitBehavior="false" OnClick="btToggleLanguage_Click" CssClass="btn btn-primary qk-nav-right" runat="server" />
                 </div>
                 <div id="logout" visible="false" class="qk-nav-input-group px-1" runat="server">
                     <i class="text-light bg-danger border-danger input-group-text bi bi-door-closed qk-nav-left"></i>
-                    <asp:Button ID="btLogOut" OnClick="btLogOut_Click" CssClass="btn btn-danger qk-nav-right" Text="Logout" runat="server" />
+                    <asp:Button ID="btLogOut" OnClick="btLogOut_Click" CssClass="btn btn-danger qk-nav-right" runat="server" />
                 </div>
             </div>
         </div>

@@ -25,10 +25,10 @@ namespace Quizkey.Models
         //---------------------------------------------------------Author---------------------------------------------------------
         public static int CreateAuthor(Author author)
         {
-            int IDAuthor = (int)SqlHelper.ExecuteScalar(cs, "proc_create_Author", author.Username, author.PasswordHash, author.Email);
+            int IDAuthor = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_Author", author.Username, author.PasswordHash, author.Email).ToString());
             if (IDAuthor > 0)
             {
-                authorCache.Add(author);
+                Add(author);
                 return IDAuthor;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -36,11 +36,13 @@ namespace Quizkey.Models
 
         public static Author GetAuthor(int IDAuthor)
         {
-            if (authorCache.Contains(new Author { IDAuthor = IDAuthor }))
-                return authorCache.Find(x => x.IDAuthor == IDAuthor);
+            if (authorCache != null)
+                if (authorCache.Contains(new Author { IDAuthor = IDAuthor }))
+                    return authorCache.Find(x => x.IDAuthor == IDAuthor);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_Author", IDAuthor);
-            return GetAuthorFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetAuthorFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
+
 
         public static List<Author> GetMultipleAuthor()
         {
@@ -64,6 +66,13 @@ namespace Quizkey.Models
             SqlHelper.ExecuteDataset(cs, "proc_delete_Author", IDAuthor);
         }
 
+        internal static void DeleteAuthorComplete(int IDAuthor)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "proc_delete_author_complete", IDAuthor);
+            if (authorCache != null && authorCache.Contains(new Author { IDAuthor = IDAuthor }))
+                authorCache.Remove(new Author { IDAuthor = IDAuthor });
+        }
+
         private static Author GetAuthorFromDataRow(DataRow row)
         {
             return new Author
@@ -74,13 +83,23 @@ namespace Quizkey.Models
                 Email = row["Email"].ToString()
             };
         }
+
+        internal static int CalculateScore(int questionID, int chosenAnswer, int timetaken)
+        {
+            var b = Repo.GetQuizQuestion(questionID).CorrectAnswer == chosenAnswer ? 1 : 0;
+            var time = 1.0 / Math.Pow(timetaken / 6.0, 0.25);
+            var pie = 100 * Math.Pow(Math.PI, Math.E);
+
+            return timetaken == 0 ? b * 4500 : (int)(b * time * pie);
+        }
+
         //----------------------------------------------------------Quiz----------------------------------------------------------
         public static int CreateQuiz(Quiz quiz)
         {
-            int IDQuiz = (int)SqlHelper.ExecuteScalar(cs, "proc_create_Quiz", quiz.AuthorID, quiz.QuizName);
+            int IDQuiz = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_Quiz", quiz.AuthorID, quiz.QuizName).ToString());
             if (IDQuiz > 0)
             {
-                quizCache.Add(quiz);
+                Add(quiz);
                 return IDQuiz;
             }
             throw new SQLInsertException("Could not insert values into table \"Quiz\"");
@@ -88,16 +107,28 @@ namespace Quizkey.Models
 
         public static Quiz GetQuiz(int IDQuiz)
         {
-            if (quizCache.Contains(new Quiz { IDQuiz = IDQuiz }))
-                return quizCache.Find(x => x.IDQuiz == IDQuiz);
+            if (quizCache != null)
+                if (quizCache.Contains(new Quiz { IDQuiz = IDQuiz }))
+                    return quizCache.Find(x => x.IDQuiz == IDQuiz);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_Quiz", IDQuiz);
-            return GetQuizFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetQuizFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<Quiz> GetMultipleQuiz()
         {
             List<Quiz> collection = new List<Quiz>();
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_Quiz");
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                collection.Add(GetQuizFromDataRow(row));
+            }
+            quizCache = collection;
+            return collection;
+        }
+        public static List<Quiz> GetMultipleQuiz(int authorID)
+        {
+            List<Quiz> collection = new List<Quiz>();
+            DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_Quiz_targeted", authorID);
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 collection.Add(GetQuizFromDataRow(row));
@@ -115,6 +146,12 @@ namespace Quizkey.Models
         {
             SqlHelper.ExecuteDataset(cs, "proc_delete_Quiz", IDQuiz);
         }
+
+        public static void DeleteQuizComplete(int quizID)
+        {
+            SqlHelper.ExecuteDataset(cs, "proc_delete_Quiz_complete", quizID);
+        }
+
         private static Quiz GetQuizFromDataRow(DataRow row)
         {
             return new Quiz
@@ -127,7 +164,7 @@ namespace Quizkey.Models
         //------------------------------------------------------QuizQuestion------------------------------------------------------
         public static int CreateQuizQuestion(QuizQuestion quizquestion)
         {
-            int IDQuizQuestion = (int)SqlHelper.ExecuteScalar(
+            int IDQuizQuestion = int.Parse(SqlHelper.ExecuteScalar(
                 cs,
                 "proc_create_QuizQuestion",
                 quizquestion.QuizID,
@@ -135,10 +172,10 @@ namespace Quizkey.Models
                 quizquestion.QuestionText,
                 quizquestion.CorrectAnswer,
                 quizquestion.AnswerTimeSeconds
-            );
+            ).ToString());
             if (IDQuizQuestion > 0)
             {
-                quizquestionCache.Add(quizquestion);
+                Add(quizquestion);
                 return IDQuizQuestion;
             }
             throw new SQLInsertException("Could not insert values into table \"QuizQuestion\"");
@@ -146,16 +183,30 @@ namespace Quizkey.Models
 
         public static QuizQuestion GetQuizQuestion(int IDQuizQuestion)
         {
-            if (quizquestionCache.Contains(new QuizQuestion { IDQuizQuestion = IDQuizQuestion }))
-                return quizquestionCache.Find(x => x.IDQuizQuestion == IDQuizQuestion);
+            if (quizquestionCache != null)
+                if (quizquestionCache.Contains(new QuizQuestion { IDQuizQuestion = IDQuizQuestion }))
+                    return quizquestionCache.Find(x => x.IDQuizQuestion == IDQuizQuestion);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_QuizQuestion", IDQuizQuestion);
-            return GetQuizQuestionFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetQuizQuestionFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
+        // TODO multiple with quiz ID
         public static List<QuizQuestion> GetMultipleQuizQuestion()
         {
             List<QuizQuestion> collection = new List<QuizQuestion>();
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_QuizQuestion");
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                collection.Add(GetQuizQuestionFromDataRow(row));
+            }
+            quizquestionCache = collection;
+            return collection;
+        }
+
+        public static List<QuizQuestion> GetMultipleQuizQuestion(int quizID)
+        {
+            List<QuizQuestion> collection = new List<QuizQuestion>();
+            DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_QuizQuestion_targeted", quizID);
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 collection.Add(GetQuizQuestionFromDataRow(row));
@@ -181,17 +232,17 @@ namespace Quizkey.Models
                 QuizID = (int)row["QuizID"],
                 QuestionNumber = (int)row["QuestionNumber"],
                 QuestionText = row["QuestionText"].ToString(),
-                CorrectAnswer = row["CorrectAnswer"].ToString(),
+                CorrectAnswer = (short)row["CorrectAnswer"],
                 AnswerTimeSeconds = (int)row["AnswerTimeSeconds"]
             };
         }
         //-------------------------------------------------------QuizAnswer-------------------------------------------------------
         public static int CreateQuizAnswer(QuizAnswer quizanswer)
         {
-            int IDQuizAnswer = (int)SqlHelper.ExecuteScalar(cs, "proc_create_QuizAnswer", quizanswer.QuizQuestionID, quizanswer.AnswerText, quizanswer.QuestionOrder);
+            int IDQuizAnswer = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_QuizAnswer", quizanswer.QuizQuestionID, quizanswer.AnswerText, quizanswer.QuestionOrder).ToString());
             if (IDQuizAnswer > 0)
             {
-                quizanswerCache.Add(quizanswer);
+                Add(quizanswer);
                 return IDQuizAnswer;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -199,10 +250,11 @@ namespace Quizkey.Models
 
         public static QuizAnswer GetQuizAnswer(int IDQuizAnswer)
         {
-            if (quizanswerCache.Contains(new QuizAnswer { IDQuizAnswer = IDQuizAnswer }))
-                return quizanswerCache.Find(x => x.IDQuizAnswer == IDQuizAnswer);
+            if (quizanswerCache != null)
+                if (quizanswerCache.Contains(new QuizAnswer { IDQuizAnswer = IDQuizAnswer }))
+                    return quizanswerCache.Find(x => x.IDQuizAnswer == IDQuizAnswer);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_QuizAnswer", IDQuizAnswer);
-            return GetQuizAnswerFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetQuizAnswerFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<QuizAnswer> GetMultipleQuizAnswer()
@@ -228,23 +280,35 @@ namespace Quizkey.Models
         }
 
         private static QuizAnswer GetQuizAnswerFromDataRow(DataRow row)
-
         {
             return new QuizAnswer
             {
                 IDQuizAnswer = (int)row["IDQuizAnswer"],
                 QuizQuestionID = (int)row["QuizQuestionID"],
                 AnswerText = row["AnswerText"].ToString(),
-                QuestionOrder = row["QuestionOrder"].ToString()
+                QuestionOrder = (short)row["QuestionOrder"]
             };
         }
         //------------------------------------------------------QuizSession-------------------------------------------------------
+        internal static string GenerateQuizCode()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string randomString;
+            do
+            {
+
+                var random = new Random();
+                randomString = new string(Enumerable.Repeat(chars, 6)
+                                      .Select(s => s[random.Next(s.Length)]).ToArray());
+            } while (GetMultipleQuizSession().Where(x => x.SessionCode == randomString).Count() > 0);
+            return randomString;
+        }
         public static int CreateQuizSession(QuizSession quizsession)
         {
-            int IDQuizSession = (int)SqlHelper.ExecuteScalar(cs, "proc_create_QuizSession", quizsession.QuizID, quizsession.OccurredAt, quizsession.SessionCode);
+            int IDQuizSession = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_QuizSession", quizsession.QuizID, quizsession.OccurredAt, quizsession.SessionCode).ToString());
             if (IDQuizSession > 0)
             {
-                quizsessionCache.Add(quizsession);
+                Add(quizsession);
                 return IDQuizSession;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -252,16 +316,28 @@ namespace Quizkey.Models
 
         public static QuizSession GetQuizSession(int IDQuizSession)
         {
-            if (quizsessionCache.Contains(new QuizSession { IDQuizSession = IDQuizSession }))
-                return quizsessionCache.Find(x => x.IDQuizSession == IDQuizSession);
+            if (quizsessionCache != null)
+                if (quizsessionCache.Contains(new QuizSession { IDQuizSession = IDQuizSession }))
+                    return quizsessionCache.Find(x => x.IDQuizSession == IDQuizSession);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_QuizSession", IDQuizSession);
-            return GetQuizSessionFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetQuizSessionFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<QuizSession> GetMultipleQuizSession()
         {
             List<QuizSession> collection = new List<QuizSession>();
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_QuizSession");
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                collection.Add(GetQuizSessionFromDataRow(row));
+            }
+            quizsessionCache = collection;
+            return collection;
+        }
+        public static List<QuizSession> GetMultipleQuizSession(int authorID)
+        {
+            List<QuizSession> collection = new List<QuizSession>();
+            DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_QuizSession_targeted", authorID);
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 collection.Add(GetQuizSessionFromDataRow(row));
@@ -292,10 +368,10 @@ namespace Quizkey.Models
         //--------------------------------------------------------Attendee--------------------------------------------------------
         public static int CreateAttendee(Attendee attendee)
         {
-            int IDAttendee = (int)SqlHelper.ExecuteScalar(cs, "proc_create_Attendee", attendee.Username, attendee.SessionID);
+            int IDAttendee = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_Attendee", attendee.Username, attendee.SessionID).ToString());
             if (IDAttendee > 0)
             {
-                attendeeCache.Add(attendee);
+                Add(attendee);
                 return IDAttendee;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -303,10 +379,11 @@ namespace Quizkey.Models
 
         public static Attendee GetAttendee(int IDAttendee)
         {
-            if (attendeeCache.Contains(new Attendee { IDAttendee = IDAttendee }))
-                return attendeeCache.Find(x => x.IDAttendee == IDAttendee);
+            if (attendeeCache != null)
+                if (attendeeCache.Contains(new Attendee { IDAttendee = IDAttendee }))
+                    return attendeeCache.Find(x => x.IDAttendee == IDAttendee);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_Attendee", IDAttendee);
-            return GetAttendeeFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetAttendeeFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<Attendee> GetMultipleAttendee()
@@ -342,10 +419,10 @@ namespace Quizkey.Models
         //--------------------------------------------------------LogItem---------------------------------------------------------
         public static int CreateLogItem(LogItem logitem)
         {
-            int IDAuthor = (int)SqlHelper.ExecuteScalar(cs, "proc_create_LogItem", logitem.QuizSessionID, logitem.QuizQuestionID, logitem.QuizAnswerID, logitem.AttendeeID, logitem.Points);
+            int IDAuthor = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_LogItem", logitem.QuizSessionID, logitem.QuizQuestionID, logitem.QuizAnswerID, logitem.AttendeeID, logitem.Points).ToString());
             if (IDAuthor > 0)
             {
-                logitemCache.Add(logitem);
+                Add(logitem);
                 return IDAuthor;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -353,16 +430,28 @@ namespace Quizkey.Models
 
         public static LogItem GetLogItem(int IDLogItem)
         {
-            if (logitemCache.Contains(new LogItem { IDLogItem = IDLogItem }))
-                return logitemCache.Find(x => x.IDLogItem == IDLogItem);
+            if (logitemCache != null)
+                if (logitemCache.Contains(new LogItem { IDLogItem = IDLogItem }))
+                    return logitemCache.Find(x => x.IDLogItem == IDLogItem);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_LogItem", IDLogItem);
-            return GetLogItemFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetLogItemFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<LogItem> GetMultipleLogItem()
         {
             List<LogItem> collection = new List<LogItem>();
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_LogItem");
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                collection.Add(GetLogItemFromDataRow(row));
+            }
+            logitemCache = collection;
+            return collection;
+        }
+        public static List<LogItem> GetMultipleLogItem(int idauthor)
+        {
+            List<LogItem> collection = new List<LogItem>();
+            DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_multiple_LogItem_targeted", idauthor);
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 collection.Add(GetLogItemFromDataRow(row));
@@ -395,10 +484,10 @@ namespace Quizkey.Models
         //-------------------------------------------------------RecentQuiz-------------------------------------------------------
         public static int CreateRecentQuiz(RecentQuiz recentquiz)
         {
-            int IDRecentQuiz = (int)SqlHelper.ExecuteScalar(cs, "proc_create_RecentQuiz", recentquiz.QuizID, recentquiz.LastEvent);
+            int IDRecentQuiz = int.Parse(SqlHelper.ExecuteScalar(cs, "proc_create_RecentQuiz", recentquiz.QuizID, recentquiz.LastEvent).ToString());
             if (IDRecentQuiz > 0)
             {
-                recentquizCache.Add(recentquiz);
+                Add(recentquiz);
                 return IDRecentQuiz;
             }
             throw new SQLInsertException("Could not insert values into table \"Author\"");
@@ -406,10 +495,11 @@ namespace Quizkey.Models
 
         public static RecentQuiz GetRecentQuiz(int IDRecentQuiz)
         {
-            if (recentquizCache.Contains(new RecentQuiz { IDRecentQuiz = IDRecentQuiz }))
-                return recentquizCache.Find(x => x.IDRecentQuiz == IDRecentQuiz);
+            if (recentquizCache != null)
+                if (recentquizCache.Contains(new RecentQuiz { IDRecentQuiz = IDRecentQuiz }))
+                    return recentquizCache.Find(x => x.IDRecentQuiz == IDRecentQuiz);
             DataSet ds = SqlHelper.ExecuteDataset(cs, "proc_select_RecentQuiz", IDRecentQuiz);
-            return GetRecentQuizFromDataRow(ds.Tables[0].Rows[0]);
+            return ds.Tables[0].Rows.Count > 0 ? GetRecentQuizFromDataRow(ds.Tables[0].Rows[0]) : null;
         }
 
         public static List<RecentQuiz> GetMultipleRecentQuiz()
@@ -441,6 +531,98 @@ namespace Quizkey.Models
                 QuizID = (int)row["QuizID"],
                 LastEvent = DateTimeOffset.Parse(row["LastEvent"].ToString())
             };
+        }
+        //---------------------------------------------------------Cache----------------------------------------------------------
+        private static void Add(object item)
+        {
+            if (item.GetType().Equals(typeof(Attendee)))
+            {
+                if (attendeeCache != null)
+                {
+                    attendeeCache.Add(item as Attendee);
+                }
+                else
+                {
+                    attendeeCache = new List<Attendee> { item as Attendee };
+                }
+            }
+            else if (item.GetType().Equals(typeof(Author)))
+            {
+                if (authorCache != null)
+                {
+                    authorCache.Add(item as Author);
+                }
+                else
+                {
+                    authorCache = new List<Author> { item as Author };
+                }
+            }
+            else if (item.GetType().Equals(typeof(LogItem)))
+            {
+                if (logitemCache != null)
+                {
+                    logitemCache.Add(item as LogItem);
+                }
+                else
+                {
+                    logitemCache = new List<LogItem> { item as LogItem };
+                }
+            }
+            else if (item.GetType().Equals(typeof(Quiz)))
+            {
+                if (quizCache != null)
+                {
+                    quizCache.Add(item as Quiz);
+                }
+                else
+                {
+                    quizCache = new List<Quiz> { item as Quiz };
+                }
+            }
+            else if (item.GetType().Equals(typeof(QuizAnswer)))
+            {
+                if (quizanswerCache != null)
+                {
+                    quizanswerCache.Add(item as QuizAnswer);
+                }
+                else
+                {
+                    quizanswerCache = new List<QuizAnswer> { item as QuizAnswer };
+                }
+            }
+            else if (item.GetType().Equals(typeof(QuizQuestion)))
+            {
+                if (quizquestionCache != null)
+                {
+                    quizquestionCache.Add(item as QuizQuestion);
+                }
+                else
+                {
+                    quizquestionCache = new List<QuizQuestion> { item as QuizQuestion };
+                }
+            }
+            else if (item.GetType().Equals(typeof(QuizSession)))
+            {
+                if (quizsessionCache != null)
+                {
+                    quizsessionCache.Add(item as QuizSession);
+                }
+                else
+                {
+                    quizsessionCache = new List<QuizSession> { item as QuizSession };
+                }
+            }
+            else if (item.GetType().Equals(typeof(RecentQuiz)))
+            {
+                if (recentquizCache != null)
+                {
+                    recentquizCache.Add(item as RecentQuiz);
+                }
+                else
+                {
+                    recentquizCache = new List<RecentQuiz> { item as RecentQuiz };
+                }
+            }
         }
     }
 }
