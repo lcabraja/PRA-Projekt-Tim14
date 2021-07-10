@@ -17,11 +17,12 @@
     <form id="form1" runat="server">
         <uc1:_Navbar runat="server" ID="_Navbar" />
         <div class="container">
+            <h2 id="placeholder" runat="server"></h2>
             <div class="input-group mb-3">
-                <asp:TextBox CssClass="form-control" ToolTip="Enter a quiz code" ID="tbQuizCode" runat="server" />
+                <asp:TextBox CssClass="form-control" ID="tbQuizCode" runat="server" />
                 <asp:Button ID="button1" CssClass="btn btn-outline-secondary" runat="server" />
-                <span id="diverrormessage" runat="server"></span>
             </div>
+            <span id="diverrormessage" runat="server"></span>
         </div>
     </form>
     <script src="Scripts/bootstrap.js\"></script>

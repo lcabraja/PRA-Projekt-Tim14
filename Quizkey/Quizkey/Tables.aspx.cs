@@ -143,7 +143,7 @@ namespace Quizkey
             TemplateBuilder builder = new TemplateBuilder();
             builder.AppendLiteralString("<table border=\"1\" class=\"table mt-4\">");
             builder.AppendLiteralString("<tr>");
-            builder.AppendLiteralString($"<td><b>{locale.Resource("QuizTitle", cookie.Enum(Cookies.UserState.language))}</b></td>");
+            builder.AppendLiteralString($"<td><b>{locale.Resource("QuizTopic", cookie.Enum(Cookies.UserState.language))}</b></td>");
             builder.AppendLiteralString($"<td><b>{locale.Resource("nplayers", cookie.Enum(Cookies.UserState.language))}</b></td>");
             builder.AppendLiteralString($"<td><b>{locale.Resource("TimePlayed", cookie.Enum(Cookies.UserState.language))}</b></td>");
             builder.AppendLiteralString($"<td><b>{locale.Resource("Actions", cookie.Enum(Cookies.UserState.language))}</b></td>");

@@ -1,4 +1,5 @@
-﻿using Quizkey.Models;
+﻿using Quizkey.Cookies;
+using Quizkey.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,9 +54,20 @@ namespace Quizkey
 
         private void ProfilePage_PreRender(object sender, EventArgs e)
         {
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+
             var author = Repo.GetAuthor((int)Session["userid"]);
             tbUsername.Text = author.Username;
             tbEmail.Text = author.Email;
+
+            btDelete.Text = locale.Resource("DeleteAcc", cookie.Enum(Cookies.UserState.language));
+            btSend.Text = locale.Resource("UpdateAcc", cookie.Enum(Cookies.UserState.language));
+            lbEmail.InnerText = locale.Resource("Email", cookie.Enum(Cookies.UserState.language));
+            lbUsername.InnerText = locale.Resource("Username", cookie.Enum(Cookies.UserState.language));
+            lbPassword.InnerText = locale.Resource("Password", cookie.Enum(Cookies.UserState.language));
+            lbRepeatPassword.InnerText = locale.Resource("RepeatPassword", cookie.Enum(Cookies.UserState.language));
         }
 
         protected void btDelete_Click(object sender, EventArgs e)

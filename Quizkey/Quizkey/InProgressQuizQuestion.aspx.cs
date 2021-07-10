@@ -70,8 +70,6 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!StatePlaying)
-                Response.Write("notplaying ");
             this.PreRender += Page_PreRender;
 
             if (Request.QueryString["nextpage"] != null)
@@ -93,7 +91,7 @@ namespace Quizkey
             HttpCookie userState = Request.Cookies["UserState"];
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
-            pitanjetext.InnerText = locale.Resource("Go", cookie.Enum(UserState.language));
+            pitanjetext.InnerText = locale.Resource("QuizTopic", cookie.Enum(UserState.language));
 
             var data = GetCreationState();
             page = GetCreationState().Pages[PageNumber];
@@ -106,7 +104,7 @@ namespace Quizkey
                 return;
             }
 
-            lbQuestion.Text = page.Question;
+            tbQuestion.Text = page.Question;
 
             Answer1.AnswerText = page.Answer1;
             Answer2.AnswerText = page.Answer2;

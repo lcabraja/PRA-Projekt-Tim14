@@ -71,25 +71,7 @@ namespace Quizkey
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            QuizCreationModel model = GetCreationState();
-            var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == SessionID);
-            Console.OpenStandardOutput();
-            var sortedAttendees = attendees.OrderBy(GetScore).Take(5).ToList();
-            for (int i = 0; i < sortedAttendees.Count; i++)
-            {
-                this.PreRender += ResultsAttendee_PreRender;
-                var x = sortedAttendees[i];
-                positioncontainer.Controls.Add(
-                    new LiteralControl(
-                                    $"<h2 class=\"d-grid m-2 p-1 {(i < 3 ? "bg-primary" : "bg-light")} rounded\">" +
-                                        "<div style=\"display: flex;\">" +
-                                            $"<span style=\"font-weight: 100; display: inline-flex; padding-right: 1rem;\">{i + 1}.</span>" +
-                                            x.Username +
-                                            $"<span style=\"font-weight: 100; display: inline-flex; padding-left: 1rem;\">{-GetScore(x)} Points</span>" +
-                                        "</div>" +
-                                    "</h2>"
-                    ));
-            }
+            this.PreRender += ResultsAttendee_PreRender;
         }
 
         private void ResultsAttendee_PreRender(object sender, EventArgs e)
@@ -100,6 +82,25 @@ namespace Quizkey
 
             this.tbQuizName.Text = Repo.GetQuiz(Repo.GetQuizSession(SessionID).QuizID).QuizName;
             this.quiztitletext.InnerText = locale.Resource("QuizTopic", cookie.Enum(UserState.language));
+            var pointslocal = locale.Resource("Points", cookie.Enum(UserState.language));
+
+            QuizCreationModel model = GetCreationState();
+            var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == SessionID);
+            var sortedAttendees = attendees.OrderBy(GetScore).Take(5).ToList();
+            for (int i = 0; i < sortedAttendees.Count; i++)
+            {
+                var x = sortedAttendees[i];
+                positioncontainer.Controls.Add(
+                    new LiteralControl(
+                                    $"<h2 class=\"d-grid m-2 p-1 {(i < 3 ? "bg-primary" : "bg-light")} rounded\">" +
+                                        "<div style=\"display: flex;\">" +
+                                            $"<span style=\"font-weight: 100; display: inline-flex; padding-right: 1rem;\">{i + 1}.</span>" +
+                                            x.Username +
+                                            $"<span style=\"font-weight: 100; display: inline-flex; padding-left: 1rem;\">{-GetScore(x)} {pointslocal}</span>" +
+                                        "</div>" +
+                                    "</h2>"
+                    ));
+            }
         }
 
         private int GetScore(Attendee attendee)

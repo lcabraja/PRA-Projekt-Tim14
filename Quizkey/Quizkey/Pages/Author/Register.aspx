@@ -7,8 +7,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%;">
 <head runat="server">
-    <title>Registriraj se</title>
+    <title>Quizkey</title>
     <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body style="height: 100%;">
     <form id="form1" runat="server" style="height: 100%;">

@@ -28,7 +28,7 @@
             <span id="conversation"></span>
             <div class="qk-quizcreation-grid-container-top d-flex">
                 <%--Players--%>
-                <div class="bg-secondary rounded text-center box" style="width: 100%; /*height: 79vh; */" id="players" runat="server">
+                <div class="bg-secondary rounded text-center box mt-3" style="width: 100%; /*height: 79vh; */" id="players" runat="server">
                 </div>
                 <script>
                     var ws;

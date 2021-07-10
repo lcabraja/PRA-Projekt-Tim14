@@ -73,14 +73,6 @@ namespace Quizkey
         protected void Page_Load(object sender, EventArgs e)
         {
             this.PreRender += Results_PreRender;
-            QuizCreationModel model = GetCreationState();
-            var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == SessionID);
-            Console.OpenStandardOutput();
-            var sortedAttendees = attendees.OrderBy(GetScore).Take(5).ToList();
-            for (int i = 0; i < sortedAttendees.Count; i++)
-            {
-                positioncontainer.Controls.Add(new LiteralControl($"<div class=\"bg-{(i < 3 ? "primary" : "light")} rounded\" ><h2 class=\"d-grid\">{i + 1}. {sortedAttendees[i].Username}</h2></div>"));
-            }
         }
 
         private void Results_PreRender(object sender, EventArgs e)
@@ -91,6 +83,22 @@ namespace Quizkey
             quiztopic.InnerText = locale.Resource("QuizTopic", cookie.Enum(UserState.language));
             buttonstarttext.InnerText = locale.Resource("NextQuestion", cookie.Enum(UserState.language));
             buttonstoptext.InnerText = locale.Resource("StopQuiz", cookie.Enum(UserState.language));
+
+            QuizCreationModel model = GetCreationState();
+            tbQuizName.Text = model.QuizName;
+
+            var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == SessionID);
+            var sortedAttendees = attendees.OrderBy(GetScore).Take(5).ToList();
+            for (int i = 0; i < sortedAttendees.Count; i++)
+            {
+                positioncontainer.Controls.Add(new LiteralControl(
+                    $"<div class=\"bg-{(i < 3 ? "primary" : "light")} rounded\">" +
+                        $"<h2 class=\"d-flex\">" +
+                            $"<span style=\"font-weight: 100; display: inline-flex; padding-right: 1rem; \">{i + 1}.</span>" +
+                            $"{sortedAttendees[i].Username}" +
+                        $"</h2>" +
+                    $"</div>"));
+            }
         }
 
         private int GetScore(Attendee attendee)

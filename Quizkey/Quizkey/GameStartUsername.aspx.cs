@@ -54,6 +54,7 @@ namespace Quizkey
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
             button1.Text = locale.Resource("Go", cookie.Enum(UserState.language));
+            placeholder.InnerText = locale.Resource("PleaseName", cookie.Enum(UserState.language));
             if (ShowErrorMessage)
                 diverrormessage.Controls.Add(new LiteralControl($"<div class=\"badge bg-danger\">{ErrorMessage}</div>"));
         }

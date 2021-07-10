@@ -115,6 +115,14 @@ namespace Quizkey
                             )));
             aposition.InnerText = $"{locale.Resource("yourposition", cookie.Enum(UserState.language))}: {(sortedAttendees.ToList().IndexOf(new Attendee { IDAttendee = (int)Session["attendeeid"] }) + 1)}";
             tbQuizName.Text = model.QuizName;
+            ClearCookie();
+        }
+
+        private void ClearCookie()
+        {
+            HttpCookie userstate = new HttpCookie("UserState");
+            userstate["language"] = "en";
+            HttpContext.Current.Response.SetCookie(userstate);
         }
 
         private int GetScore(Attendee attendee)

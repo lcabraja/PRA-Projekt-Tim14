@@ -7,13 +7,16 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Pocetna Stranica</title>
+    <title>Quizkey</title>
     <link href="../../Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
     <form id="form1" runat="server">
         <uc1:_Navbar runat="server" ID="_Navbar" />
-        <div class="flex container mt-3" id="quizplace" runat="server" style="flex-wrap: wrap; flex-direction: row;" >
+        <div class="flex container mt-3" id="quizplace" runat="server" style="flex-wrap: wrap; flex-direction: row;">
             <div class="card m-1" style="width: 18rem;">
                 <img src="Pictures/Quiz-7.png" class="card-img-top" />
                 <div class="card-body">
@@ -25,5 +28,7 @@
 
         </div>
     </form>
+    <script src="../../Scripts/bootstrap.js\"></script>
+    <script src="../../Scripts/jquery-3.6.0.js\"></script>
 </body>
 </html>

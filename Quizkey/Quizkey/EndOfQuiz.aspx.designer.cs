@@ -159,6 +159,15 @@ namespace Quizkey
         protected global::System.Web.UI.HtmlControls.HtmlButton zapisnik;
 
         /// <summary>
+        /// log control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl log;
+
+        /// <summary>
         /// end control.
         /// </summary>
         /// <remarks>
@@ -166,5 +175,14 @@ namespace Quizkey
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton end;
+
+        /// <summary>
+        /// endquiz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl endquiz;
     }
 }

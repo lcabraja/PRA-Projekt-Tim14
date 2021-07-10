@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Quizkey.Cookies;
 using Quizkey.Extensions;
 using Quizkey.Models;
 
@@ -113,7 +114,12 @@ namespace Quizkey
 
         private void EndOfQuiz_PreRender(object sender, EventArgs e)
         {
-            
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+
+            this.endquiz.InnerText = locale.Resource("DownloadLog", cookie.Enum(UserState.language));
+            this.log.InnerText = locale.Resource("EndQuiz", cookie.Enum(UserState.language));
         }
 
         private int GetScore(Attendee attendee)

@@ -9,12 +9,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <link href="Content/qk-quizcreation.css" rel="stylesheet" />
     <title>Quizkey</title>
-    <script src="Scripts/bootstrap.js\"></script>
-    <script src="Scripts/jquery-3.6.0.js\"></script>
+    <link href="Content/qk-quizcreation.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="Content/bootstrap-icons-1.5.0/bootstrap-icons.css" rel="stylesheet" />
+    <%--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />--%>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
@@ -26,12 +25,12 @@
         <nav class="navbar navbar-light bg-secondary">
             <div class="container-fluid d-flex justify-content-between flex-sm-nowrap">
                 <div class="input-group m-1">
-                    <span class="input-group-text">Naziv Kviza</span>
+                    <span class="input-group-text" id="quiztopic" runat="server"></span>
                     <asp:TextBox ID="tbQuizName" CssClass="form-control" runat="server" />
                 </div>
                 <div class="d-flex m-1">
-                    <asp:Button ID="Save" Text="Save" CssClass="btn btn-warning me-1" OnClick="Save_Click" runat="server" />
-                    <asp:Button ID="Discard" Text="Discard" CssClass="btn btn-danger mx-1" OnClientClick="return confirm('All progress will be lost?');" OnClick="Discard_Click" runat="server" />
+                    <asp:Button ID="btSave" CssClass="btn btn-warning me-1" OnClick="Save_Click" runat="server" />
+                    <asp:Button ID="btDiscard" CssClass="btn btn-danger mx-1" OnClick="Discard_Click" runat="server" />
                 </div>
             </div>
         </nav>
@@ -40,38 +39,32 @@
             <%--Top Container--%>
             <div class="qk-quizcreation-grid-container-top">
                 <div class="bg-secondary rounded p-2 d-flex flex-column justify-content-between">
-                    <p class="text-center">
-                        Odaberite tocan odgovor
-                    </p>
+                    <p class="text-center" id="localCorrectAnswer" runat="server"></p>
                     <script src="Scripts/CustomScripts/QuizCreationButtonScript.js"></script>
                     <div class="d-grid gap-2 text-center">
-                        <uc1:QuizCreationButton Shape="Triangle" runat="server" ID="QuizCreationButton1" />
-                        <uc1:QuizCreationButton Shape="Star" runat="server" ID="QuizCreationButton2" />
-                        <uc1:QuizCreationButton Visible="false" Shape="Pentagon" runat="server" ID="QuizCreationButton3" />
-                        <uc1:QuizCreationButton Visible="false" Shape="Circle" runat="server" ID="QuizCreationButton4" />
+                        <uc1:QuizCreationButton Shape="triangle" runat="server" ID="QuizCreationButton1" />
+                        <uc1:QuizCreationButton Shape="star" runat="server" ID="QuizCreationButton2" />
+                        <uc1:QuizCreationButton Visible="false" Shape="pentagon" runat="server" ID="QuizCreationButton3" />
+                        <uc1:QuizCreationButton Visible="false" Shape="circle" runat="server" ID="QuizCreationButton4" />
                     </div>
                 </div>
                 <%--Question--%>
                 <div class="bg-secondary rounded d-flex text-center">
                     <div class="input-group m-2">
-                        <span class="input-group-text">Pitanje</span>
+                        <span class="input-group-text" id="localquestion" runat="server"></span>
                         <asp:TextBox TextMode="MultiLine" CssClass="form-control qk-quizcreation-multiline" ID="tbQuestion" runat="server" />
                     </div>
                 </div>
                 <%--Time--%>
                 <div class="bg-secondary rounded">
                     <div class="p-2">
-                        <p class="text-center">
-                            Odaberite vremensko ogranicenje
-                        </p>
+                        <p class="text-center" id="localTimeLimit" runat="server"></p>
                         <div class="d-flex flex-column gap-2 text-center">
                             <uc1:QuizCreationTimeButton Seconds="120" runat="server" ID="QuizCreationTimeButton1" />
                             <uc1:QuizCreationTimeButton Seconds="60" runat="server" ID="QuizCreationTimeButton2" />
                             <uc1:QuizCreationTimeButton Seconds="30" runat="server" ID="QuizCreationTimeButton3" />
                             <uc1:QuizCreationTimeButton Seconds="15" runat="server" ID="QuizCreationTimeButton4" />
-                            <button id="ButtonCustomTime" onserverclick="ButtonCustomTime_ServerClick" class="btn btn-primary" runat="server">
-                                proizvoljno
-                            </button>
+                            <button id="ButtonCustomTime" onserverclick="ButtonCustomTime_ServerClick" class="btn btn-primary" runat="server"></button>
                             <asp:TextBox Enabled="true" AutoCompleteType="None" TextMode="Number" CssClass="form-control" ID="TextboxCustomTime" runat="server" />
                         </div>
                     </div>
@@ -95,12 +88,12 @@
                         }
                     </style>
                     <div class="qk-quizcreation-answers-half pt-0">
-                        <uc1:QuizCreationAnswer Shape="Triangle" runat="server" ID="QuizCreationAnswer1" />
-                        <uc1:QuizCreationAnswer Shape="Star" runat="server" ID="QuizCreationAnswer2" />
+                        <uc1:QuizCreationAnswer Shape="triangle" runat="server" ID="QuizCreationAnswer1" />
+                        <uc1:QuizCreationAnswer Shape="star" runat="server" ID="QuizCreationAnswer2" />
                     </div>
                     <div class="qk-quizcreation-answers-half">
-                        <uc1:QuizCreationAnswer Enabled="true" Shape="Pentagon" runat="server" ID="QuizCreationAnswer3" />
-                        <uc1:QuizCreationAnswer Enabled="true" Visible="false" Shape="Circle" runat="server" ID="QuizCreationAnswer4" />
+                        <uc1:QuizCreationAnswer Enabled="true" Shape="pentagon" runat="server" ID="QuizCreationAnswer3" />
+                        <uc1:QuizCreationAnswer Enabled="true" Visible="false" Shape="circle" runat="server" ID="QuizCreationAnswer4" />
                     </div>
                 </div>
                 <%--Right Arrow--%>
@@ -110,5 +103,7 @@
             </div>
         </div>
     </form>
+    <script src="Scripts/bootstrap.js\"></script>
+    <script src="Scripts/jquery-3.6.0.js\"></script>
 </body>
 </html>

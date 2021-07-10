@@ -33,6 +33,15 @@ namespace Quizkey
         protected global::Quizkey.Navbar _Navbar;
 
         /// <summary>
+        /// quiztopic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl quiztopic;
+
+        /// <summary>
         /// tbQuizName control.
         /// </summary>
         /// <remarks>
@@ -42,22 +51,31 @@ namespace Quizkey
         protected global::System.Web.UI.WebControls.TextBox tbQuizName;
 
         /// <summary>
-        /// Save control.
+        /// btSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Save;
+        protected global::System.Web.UI.WebControls.Button btSave;
 
         /// <summary>
-        /// Discard control.
+        /// btDiscard control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Discard;
+        protected global::System.Web.UI.WebControls.Button btDiscard;
+
+        /// <summary>
+        /// localCorrectAnswer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl localCorrectAnswer;
 
         /// <summary>
         /// QuizCreationButton1 control.
@@ -96,6 +114,15 @@ namespace Quizkey
         protected global::Quizkey.User_Controls.QuizCreationButton QuizCreationButton4;
 
         /// <summary>
+        /// localquestion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl localquestion;
+
+        /// <summary>
         /// tbQuestion control.
         /// </summary>
         /// <remarks>
@@ -103,6 +130,15 @@ namespace Quizkey
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbQuestion;
+
+        /// <summary>
+        /// localTimeLimit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl localTimeLimit;
 
         /// <summary>
         /// QuizCreationTimeButton1 control.

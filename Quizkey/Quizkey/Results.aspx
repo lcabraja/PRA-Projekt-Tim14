@@ -27,7 +27,7 @@
             <div class="container-fluid d-flex justify-content-between flex-sm-nowrap">
                 <div class="input-group m-1">
                     <span class="input-group-text" id="quiztopic" runat="server"></span>
-                    <asp:TextBox ID="tbQuizName" CssClass="form-control" runat="server" />
+                    <asp:TextBox ID="tbQuizName" ReadOnly="true" CssClass="form-control" runat="server" />
                 </div>
             </div>
         </nav>

@@ -253,10 +253,10 @@
             <%--Bottom Container--%>
             <div class="qk-quizcreation-grid-container-bottom">
                 <button class="btn btn-primary d-flex" id="zapisnik" onserverclick="zapisnik_ServerClick" runat="server">
-                    <h2 style="margin: auto;">Preuzmi zapisnik</h2>
+                    <h2 style="margin: auto;" id="log" runat="server"></h2>
                 </button>
                 <button class="btn btn-primary d-flex" id="end" onserverclick="end_ServerClick" runat="server">
-                    <h2 style="margin: auto;">Zavrsi kviz</h2>
+                    <h2 style="margin: auto;" id="endquiz" runat="server"></h2>
                 </button>
             </div>
         </div>

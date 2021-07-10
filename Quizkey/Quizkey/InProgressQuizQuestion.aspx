@@ -30,7 +30,7 @@
                 <div class="bg-secondary rounded d-flex text-center m-auto" style="height: 100%;">
                     <div class="input-group m-2">
                         <span class="input-group-text" id="pitanjetext" runat="server"></span>
-                        <asp:Label CssClass="form-control qk-quizcreation-multiline" ID="lbQuestion" runat="server" />
+                        <asp:Textbox CssClass="form-control qk-quizcreation-multiline" ReadOnly="true" ID="tbQuestion" runat="server" />
                     </div>
                 </div>
             </div>

@@ -50,7 +50,7 @@
         <nav class="navbar navbar-light bg-secondary" style="position: fixed; bottom: 0; width: 100%;">
             <div class="container-fluid d-flex justify-content-between flex-sm-nowrap">
                 <div class="d-flex m-1 m-auto" style="align-self: center;">
-                    <asp:Button ID="Button1" CssClass="btn btn-light mx-1" OnClientClick="return confirm('Jeste li sigurni?');" OnClick="Start_Click" runat="server" />
+                    <asp:Button ID="Button1" CssClass="btn btn-light mx-1" OnClick="Start_Click" runat="server" />
                 </div>
                 <div class="d-flex m-1">
                     <asp:Button ID="Odustani" CssClass="btn btn-danger mx-1" OnClientClick="return confirm('Jeste li sigurni?');" OnClick="Odustani_Click" runat="server" />

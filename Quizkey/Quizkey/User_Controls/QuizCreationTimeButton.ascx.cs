@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Quizkey.Cookies;
+using Quizkey.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,24 +22,12 @@ namespace Quizkey.User_Controls
 
         private void QuizCreationButton_PreRender(object sender, EventArgs e)
         {
-            Button.InnerText = $"{Seconds} sekund{GetLastLetter()}";
-            Button.Attributes["class"] = $"btn {(Filled ? "btn-light" : "btn-primary")}";
-        }
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
 
-        private string GetLastLetter()
-        {
-            var lastDigit = Seconds % 10;
-            switch (lastDigit)
-            {
-                case 1:
-                    return "a";
-                case 2:
-                case 3:
-                case 4:
-                    return "e";
-                default:
-                    return "i";
-            }
+            Button.InnerText = $"{Seconds} {locale.Resource("seconds", cookie.Enum(Cookies.UserState.language))}";
+            Button.Attributes["class"] = $"btn {(Filled ? "btn-light" : "btn-primary")}";
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Quizkey.Cookies;
 using Quizkey.Models;
 
 namespace Quizkey
@@ -198,6 +199,19 @@ namespace Quizkey
             SetSelectedAnswer();
             // Time limit selection
             SetSelectedTime();
+
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
+
+            localquestion.InnerText = locale.Resource("Question", cookie.Enum(Cookies.UserState.language));
+            localTimeLimit.InnerText = locale.Resource("TimeLimit", cookie.Enum(Cookies.UserState.language));
+            localCorrectAnswer.InnerText = locale.Resource("CorrectAnswer", cookie.Enum(Cookies.UserState.language));
+            quiztopic.InnerText = locale.Resource("QuizTopic", cookie.Enum(Cookies.UserState.language));
+
+            btDiscard.Text = locale.Resource("Discard", cookie.Enum(Cookies.UserState.language));
+            btSave.Text = locale.Resource("Save", cookie.Enum(Cookies.UserState.language));
+            ButtonCustomTime.InnerText = locale.Resource("custom", cookie.Enum(Cookies.UserState.language));
         }
         private void SetSelectedTime()
         {
