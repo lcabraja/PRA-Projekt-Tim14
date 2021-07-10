@@ -165,7 +165,7 @@ namespace Quizkey
             foreach (QuizSession item in sessions)
             {
                 var inspectbutton = $"<a href=\"/Tables.aspx?log={item.IDQuizSession}\" class=\"btn btn-info mx-1\" >{locale.Resource("Inspect", cookie.Enum(Cookies.UserState.language))}";
-                var downloadbutton = $"<a href=\"/Tables.aspx?download={item.IDQuizSession}\" class=\"btn btn-info mx-1\" >{locale.Resource("DownloadLog", cookie.Enum(Cookies.UserState.language))}";
+                var downloadbutton = $"<a href=\"/Tables.aspx?download={item.IDQuizSession}\" class=\"btn btn-success mx-1\" >{locale.Resource("DownloadLog", cookie.Enum(Cookies.UserState.language))}";
 
                 values.Add(new LogsTableRow
                 {
