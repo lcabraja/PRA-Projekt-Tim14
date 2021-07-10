@@ -3,7 +3,9 @@ using Quizkey.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,7 +30,7 @@ namespace Quizkey
             public int NumberOfPlayers { get; set; }
             public string TimePlayed { get; set; }
             public string InspectButton { get; set; }
-
+            public string DownloadButton { get; set; }
         }
         private class LogTableRow
         {
@@ -48,6 +50,9 @@ namespace Quizkey
                 Response.SetCookie(value);
             }
         }
+
+        public bool TransmittingFile { get; private set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //if (UserState == null || UserState["loggedin"] != "author" || Session["userid"] == null)
@@ -62,6 +67,11 @@ namespace Quizkey
 
         private void Tables_PreRender(object sender, EventArgs e)
         {
+            if (Request.QueryString.Get("download") != null)
+            {
+                int idSession = int.Parse(Request.QueryString.Get("download"));
+                DownloadLog(idSession);
+            }
             if (Request.QueryString.Get("play") != null)
             {
                 int quizID = int.Parse(Request.QueryString.Get("play"));
@@ -155,12 +165,15 @@ namespace Quizkey
             foreach (QuizSession item in sessions)
             {
                 var inspectbutton = $"<a href=\"/Tables.aspx?log={item.IDQuizSession}\" class=\"btn btn-info mx-1\" >{locale.Resource("Inspect", cookie.Enum(Cookies.UserState.language))}";
+                var downloadbutton = $"<a href=\"/Tables.aspx?download={item.IDQuizSession}\" class=\"btn btn-info mx-1\" >{locale.Resource("DownloadLog", cookie.Enum(Cookies.UserState.language))}";
+
                 values.Add(new LogsTableRow
                 {
                     QuizName = Repo.GetQuiz(item.QuizID).QuizName,
                     NumberOfPlayers = Repo.GetMultipleAttendee().Where(x => x.SessionID == item.IDQuizSession).Count(),
                     TimePlayed = item.OccurredAt.ToString("g"),
-                    InspectButton = inspectbutton
+                    InspectButton = inspectbutton,
+                    DownloadButton = downloadbutton
                 });
             }
             LogsRepeater.DataSource = values;
@@ -186,13 +199,14 @@ namespace Quizkey
             var logItems = Repo.GetMultipleLogItem(AuthorID).Where(x => x.QuizSessionID == sessionid);
             foreach (LogItem item in logItems)
             {
+
                 values.Add(new LogTableRow
                 {
                     Player = Repo.GetAttendee(item.AttendeeID).Username,
                     Question = Repo.GetQuizQuestion(item.QuizQuestionID).QuestionText,
                     Answer = Repo.GetQuizAnswer(item.QuizAnswerID).AnswerText,
                     Points = item.Points
-                });
+                }); ;
             }
             LogRepeater.DataSource = values;
             LogRepeater.DataBind();
@@ -214,6 +228,41 @@ namespace Quizkey
         {
             Repo.DeleteQuizComplete(QuizID);
         }
+        protected void DownloadLog(int SessionID)
+        {
+            var csvstring = Repo.GetMultipleLogItem().Where(x => x.QuizSessionID == SessionID);
+            if (csvstring.Count() == 0)
+            {
+                Response.Redirect("/Tables.aspx?logs=1");
+                return;
+            }
+            var csvdata = csvstring.Select(ConvertToCSVLine)
+                                   .Aggregate((x, y) => $"{x}\n{y}");
 
+            var filepath = Path.GetTempFileName();
+            File.WriteAllText(filepath, csvdata);
+            Response.ContentType = "text/csv";
+            Response.AppendHeader("Content-Disposition", $"attachment; filename=Quizkey-Log-{Repo.GetQuizSession(SessionID).OccurredAt}.csv");
+            TransmittingFile = true;
+            Response.TransmitFile(filepath);
+            Response.End();
+        }
+
+        private string ConvertToCSVLine(LogItem arg)
+        {
+            List<string> values = new List<string>
+            {
+                arg.IDLogItem.ToString(),
+                Repo.GetQuizSession(arg.QuizSessionID).SessionCode,
+                Regex.Replace(Repo.GetQuizQuestion(arg.QuizQuestionID).QuestionText.Trim(), @"[^0-9a-zA-Z]+", "-"),
+                Regex.Replace(Repo.GetQuizAnswer(arg.QuizAnswerID).AnswerText.Trim(), @"[^0-9a-zA-Z]+", "-"),
+                arg.AttendeeID.ToString(),
+                Regex.Replace(Repo.GetAttendee(arg.AttendeeID).Username.Trim(), @"[^0-9a-zA-Z]+", "-"),
+                arg.Points.ToString()
+            };
+
+            var hold = string.Join(",", values);
+            return hold;
+        }
     }
 }

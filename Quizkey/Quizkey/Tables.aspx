@@ -18,7 +18,7 @@
         <uc1:_Navbar runat="server" ID="_Navbar" />
         <div class="container">
             <asp:Repeater ID="QuizRepeater" runat="server">
-               <%-- <HeaderTemplate>
+                <%-- <HeaderTemplate>
                     <table border="1" class="table">
                         <tr>
                             <td><b id="quiznametext" runat="server">Quiz name</b></td>
@@ -47,7 +47,7 @@
 
             </asp:Repeater>
             <asp:Repeater ID="LogsRepeater" runat="server">
-              <%--  <HeaderTemplate>
+                <%--  <HeaderTemplate>
                     <table border="1" class="table">
                         <tr>
                             <td><b id="logstopictext" runat="server">Quiz topic</b></td>
@@ -61,7 +61,10 @@
                         <td><%# DataBinder.Eval(Container.DataItem, "QuizName") %> </td>
                         <td><%# DataBinder.Eval(Container.DataItem, "NumberOfPlayers") %> </td>
                         <td><%# DataBinder.Eval(Container.DataItem, "TimePlayed") %> </td>
-                        <td><%# DataBinder.Eval(Container.DataItem, "InspectButton") %> </td>
+                        <td>
+                            <%# DataBinder.Eval(Container.DataItem, "InspectButton") %>
+                            <%# DataBinder.Eval(Container.DataItem, "DownloadButton") %> 
+                        </td>
                     </tr>
                 </ItemTemplate>
 
