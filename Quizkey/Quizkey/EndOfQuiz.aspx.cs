@@ -118,8 +118,8 @@ namespace Quizkey
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
 
-            this.endquiz.InnerText = locale.Resource("DownloadLog", cookie.Enum(UserState.language));
-            this.log.InnerText = locale.Resource("EndQuiz", cookie.Enum(UserState.language));
+            this.endquiz.InnerText = locale.Resource("EndQuiz", cookie.Enum(UserState.language));
+            this.log.InnerText = locale.Resource("DownloadLog", cookie.Enum(UserState.language));
             quiztitle.InnerText = locale.Resource("QuizTopic", cookie.Enum(UserState.language));
         }
 

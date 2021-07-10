@@ -9,8 +9,6 @@
 <head runat="server">
     <title>Quizkey</title>
     <link href="Content/qk-results.css" rel="stylesheet" />
-    <script src="Scripts/jquery-3.6.0.js"></script>
-    <script src="Scripts/jquery.signalR-2.4.2.min.js"></script>
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <meta charset="utf-8" />
@@ -92,6 +90,7 @@
             <%--Bottom Container--%>
         </div>
     </form>
-    <script src="Scripts/bootstrap.js\"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
 </body>
 </html>

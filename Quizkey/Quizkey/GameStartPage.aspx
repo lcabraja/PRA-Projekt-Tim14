@@ -24,8 +24,8 @@
             </div>
             <span id="diverrormessage" runat="server"></span>
         </div>
+        <script src="Scripts/bootstrap.min.js"></script>
+        <script src="Scripts/jquery-3.6.0.min.js"></script>
     </form>
-    <script src="Scripts/bootstrap.js\"></script>
-    <script src="Scripts/jquery-3.6.0.js\"></script>
 </body>
 </html>

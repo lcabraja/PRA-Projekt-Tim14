@@ -84,8 +84,14 @@ namespace Quizkey
         {
             if (Request.QueryString.Get("advance") != null)
             {
+                if (PageNumber + 1 == CreationState.Pages.Count)
+                {
+                    StatePlaying = false;
+                    Response.Redirect("EndOfQuizAttendee.aspx");
+                    return;
+                }
                 PageNumber++;
-                Response.Redirect("InProgressQuizQuestionAttendee.aspx");
+                Response.Redirect("InProgressQuizQuestion.aspx");
             }
             this.PreRender += InProgressQuizQuestionAttendee_PreRender;
 
@@ -140,7 +146,14 @@ namespace Quizkey
 
             Repo.CreateLogItem(logitem);
             Session["timespent"] = GetTimeTaken();
-            Response.Redirect("WaitingForResults.aspx");
+            if (time > page.SelectedTime)
+            {
+                Response.Redirect("ResultsAttendee.aspx");
+            }
+            else
+            {
+                Response.Redirect("WaitingForResults.aspx");
+            }
         }
         protected void btTriangle_ServerClick(object sender, EventArgs e)
         {

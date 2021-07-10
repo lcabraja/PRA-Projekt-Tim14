@@ -30,7 +30,7 @@
                 <div class="bg-secondary rounded d-flex text-center m-auto" style="height: 100%;">
                     <div class="input-group m-2">
                         <span class="input-group-text" id="pitanjetext" runat="server"></span>
-                        <asp:Textbox CssClass="form-control qk-quizcreation-multiline" ReadOnly="true" ID="tbQuestion" runat="server" />
+                        <asp:TextBox CssClass="form-control qk-quizcreation-multiline" ReadOnly="true" ID="tbQuestion" runat="server" />
                     </div>
                 </div>
             </div>
@@ -87,8 +87,6 @@
                                 clearInterval(x);
                                 document.getElementById("countdowntime").innerHTML = "0s";
 
-                                ws.send(`results-${getCookie("sessionid")}`);
-
                                 window.location.replace("InProgressQuizQuestion.aspx?nextpage=1");
                             }
                         }, 1000);
@@ -137,7 +135,7 @@
             </div>
         </div>
     </form>
-    <script src="Scripts/bootstrap.js\"></script>
-    <script src="Scripts/jquery-3.6.0.js\"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
 </body>
 </html>

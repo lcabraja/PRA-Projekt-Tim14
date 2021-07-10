@@ -31,7 +31,7 @@
                     <asp:Label
                         ID="label1"
                         class="input-group-text"
-                        runat="server"/>
+                        runat="server" />
                     <asp:TextBox
                         CssClass="form-control"
                         ID="tbUsername"
@@ -68,12 +68,12 @@
                     ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
                     EnableClientScript="true"
                     Display="Static"
-                    ForeColor="Red"/>
+                    ForeColor="Red" />
                 <div class="input-group mb-3">
                     <asp:Label
                         ID="label6"
                         class="input-group-text"
-                        runat="server"/>
+                        runat="server" />
                     <asp:TextBox
                         ID="tbPassword"
                         CssClass="form-control"
@@ -125,6 +125,8 @@
                 </div>
             </div>
         </div>
+        <script src="../../Scripts/bootstrap.min.js"></script>
+        <script src="../../Scripts/jquery-3.6.0.min.js"></script>
     </form>
 </body>
 </html>
