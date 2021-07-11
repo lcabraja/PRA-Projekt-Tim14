@@ -43,7 +43,7 @@ namespace Quizkey
                     else
                     {
                         ShowErrorMessage = true;
-                        ErrorMessage = "Incorrect username or password.";
+                        ErrorMessage = "IncorrectLogin";
                     }
                 }
         }
@@ -54,6 +54,11 @@ namespace Quizkey
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
             
+            if (ErrorMessage == "IncorrectLogin")
+            {
+                ErrorMessage = locale.Resource("IncorrectLogin", cookie.Enum(Cookies.UserState.language));
+            }
+
             label1.Text = locale.Resource("Username", cookie.Enum(Cookies.UserState.language));
             label6.Text = locale.Resource("Password", cookie.Enum(Cookies.UserState.language));
             RequiredFieldValidator2.ErrorMessage = locale.Resource("MissingName", cookie.Enum(Cookies.UserState.language));

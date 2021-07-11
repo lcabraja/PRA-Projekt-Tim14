@@ -272,7 +272,7 @@
                     <h2 class="text-center" style="margin: auto;" id="aposition" runat="server"></h2>
                 </div>
                 <button class="btn btn-primary mb-3 d-flex">
-                    <h2 class="text-center" style="margin: auto;">aa</h2>
+                    <h2 class="text-center" style="margin: auto;" id="gohome" runat="server"></h2>
                 </button>
             </div>
             <%--Bottom Container--%>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ForgotPassword.aspx.cs" Inherits="Quizkey.Pages.Author.Pictures.ForgotPassword" UnobtrusiveValidationMode="None" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ForgotPasswordResetTrue.aspx.cs" Inherits="Quizkey.Pages.Author.Pictures.ForgotPasswordResetTrue" UnobtrusiveValidationMode="None"  %>
 
 <%@ Register Src="~/User_Controls/_Navbar.ascx" TagPrefix="uc1" TagName="_Navbar" %>
 
@@ -14,8 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
+
     <form id="form1" runat="server" style="height: 100%;">
-        <uc1:_Navbar runat="server" ID="_Navbar" />
+        <uc1:_navbar runat="server" id="_Navbar" />
         <div class="container m-auto mt-4">
             <div class="container mt-5" id="formcontainer">
                 <style>
@@ -29,45 +30,45 @@
                 </style>
                 <div class="input-group mb-3">
                     <asp:Label
-                        ID="label1"
+                        ID="label6"
                         class="input-group-text"
                         runat="server" />
                     <asp:TextBox
+                        ID="tbPassword"
                         CssClass="form-control"
-                        ID="tbUsername"
+                        TextMode="Password"
                         runat="server" />
                 </div>
                 <asp:RequiredFieldValidator
-                    ID="RequiredFieldValidator2"
-                    runat="server"
+                    ID="RequiredFieldValidator6"
                     CssClass="d-none"
-                    ControlToValidate="tbUsername"
+                    runat="server"
+                    ControlToValidate="tbPassword"
                     ForeColor="Red" />
-                <span id="diverrormessage" runat="server"></span>
                 <div class="input-group mb-3">
                     <asp:Label
+                        ID="label7"
                         class="input-group-text"
-                        ID="label4"
                         runat="server" />
                     <asp:TextBox
+                        ID="tbPasswordRepeat"
                         CssClass="form-control"
-                        ID="tbEmail"
+                        TextMode="Password"
                         runat="server" />
                 </div>
                 <asp:RequiredFieldValidator
-                    ID="RequiredFieldValidator3"
+                    ID="RequiredFieldValidator5"
                     runat="server"
+                    Display="Dynamic"
+                    ControlToValidate="tbPasswordRepeat"
                     CssClass="d-none"
-                    ControlToValidate="tbEmail"
                     ForeColor="Red" />
-                <asp:RegularExpressionValidator
-                    ID="regex"
+                <asp:CompareValidator
+                    ID="comparePasswordValidator"
+                    ControlToValidate="tbPasswordRepeat"
+                    ControlToCompare="tbPassword"
                     runat="server"
-                    ControlToValidate="tbEmail"
                     CssClass="d-none"
-                    ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
-                    EnableClientScript="true"
-                    Display="Static"
                     ForeColor="Red" />
                 <div>
                     <asp:Button
@@ -82,8 +83,6 @@
                         ForeColor="Red" />
                 </div>
             </div>
-            <script src="../../Scripts/bootstrap.min.js"></script>
-            <script src="../../Scripts/jquery-3.6.0.min.js"></script>
+        </div>
     </form>
 </body>
-</html>
