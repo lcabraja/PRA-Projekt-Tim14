@@ -16,7 +16,16 @@
 <body>
     <form id="form1" runat="server">
         <uc1:_Navbar runat="server" ID="_Navbar" />
-        <div class="container">
+        <div class="container scrolling-wrapper">
+            <style>
+                @media (max-width: 767.98px) {
+                    .scrolling-wrapper {
+                        overflow-x: scroll;
+                        overflow-y: hidden;
+                        white-space: nowrap;
+                    }
+                }
+            </style>
             <asp:Repeater ID="QuizRepeater" runat="server">
                 <%-- <HeaderTemplate>
                     <table border="1" class="table">
@@ -43,6 +52,7 @@
 
                 <FooterTemplate>
                     </table>
+               
                 </FooterTemplate>
 
             </asp:Repeater>
@@ -70,6 +80,7 @@
 
                 <FooterTemplate>
                     </table>
+               
                 </FooterTemplate>
 
             </asp:Repeater>
@@ -96,12 +107,13 @@
 
                 <FooterTemplate>
                     </table>
+               
                 </FooterTemplate>
 
             </asp:Repeater>
         </div>
     </form>
-        <script src="Scripts/bootstrap.min.js"></script>
-        <script src="Scripts/jquery-3.6.0.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
 </body>
 </html>
