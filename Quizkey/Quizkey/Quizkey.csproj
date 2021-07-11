@@ -1558,6 +1558,7 @@
     <Content Include="InProgressQuizQuestionAttendee.aspx" />
     <Content Include="Pages\Author\HomePage.aspx" />
     <Content Include="Pages\Author\Login.aspx" />
+    <Content Include="Pages\Author\ForgotPassword.aspx" />
     <Content Include="Pages\Author\Pictures\Quiz-1.png" />
     <Content Include="Pages\Author\Pictures\Quiz-2.png" />
     <Content Include="Pages\Author\Pictures\Quiz-3.png" />
@@ -1729,6 +1730,13 @@
     </Compile>
     <Compile Include="Pages\Author\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Author\ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Author\ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Author\ProfilePage.aspx.cs">
       <DependentUpon>ProfilePage.aspx</DependentUpon>

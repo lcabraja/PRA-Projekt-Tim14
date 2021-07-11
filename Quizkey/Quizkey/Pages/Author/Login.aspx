@@ -66,10 +66,16 @@
                         ForeColor="Red"
                         ErrorMessage="Password was not entered.">*
                             </asp:RequiredFieldValidator>
-                    <div>
+                    <div class="d-flex flex-row-reverse">
                         <asp:Button
-                            CssClass="btn btn-outline-success"
+                            CssClass="btn btn-outline-success ms-1"
                             ID="btSend"
+                            runat="server" />
+                        <asp:HyperLink
+                            CssClass="btn btn-outline-danger mx-1"
+                            ID="hpforgot"
+                            OnClick="btforgot_Click"
+                            NavigateUrl="~/Pages/Author/ForgotPassword.aspx"
                             runat="server" />
                         <span id="diverrormessage" runat="server"></span>
                     </div>

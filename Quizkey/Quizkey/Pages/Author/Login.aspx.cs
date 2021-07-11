@@ -59,8 +59,14 @@ namespace Quizkey
             RequiredFieldValidator2.ErrorMessage = locale.Resource("MissingName", cookie.Enum(Cookies.UserState.language));
             RequiredFieldValidator6.ErrorMessage = locale.Resource("MissingPassword", cookie.Enum(Cookies.UserState.language));
             btSend.Text = locale.Resource("Login", cookie.Enum(Cookies.UserState.language));
+            hpforgot.Text = locale.Resource("ForgotPassword", cookie.Enum(Cookies.UserState.language));
             if (ShowErrorMessage)
                 diverrormessage.Controls.Add(new LiteralControl($"<div class=\"badge bg-danger\">{ErrorMessage}</div>"));
+        }
+
+        protected void btforgot_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Pages/Author/ForgotPassword.aspx");
         }
     }
 }
