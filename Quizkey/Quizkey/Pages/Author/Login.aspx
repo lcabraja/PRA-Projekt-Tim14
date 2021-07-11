@@ -74,6 +74,13 @@
                         <span id="diverrormessage" runat="server"></span>
                     </div>
                     <div>
+                        <asp:LinkButton
+                            CssClass="a"
+                            ID="btforgot"
+                            OnClick="btforgot_Click"
+                            runat="server" />
+                    </div>
+                    <div>
                         <asp:ValidationSummary
                             ID="summary"
                             runat="server"
