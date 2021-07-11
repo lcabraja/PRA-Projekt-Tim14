@@ -33,6 +33,15 @@ namespace Quizkey.Pages.Author.Pictures
         protected global::Quizkey.Navbar _Navbar;
 
         /// <summary>
+        /// NewPasswordHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NewPasswordHeader;
+
+        /// <summary>
         /// label6 control.
         /// </summary>
         /// <remarks>

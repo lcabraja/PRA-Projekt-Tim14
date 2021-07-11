@@ -79,6 +79,7 @@ namespace Quizkey.Models
             locales.Add("IncorrectLogin", new Dictionary<string, string> { { "hr", "Netočno korisničko ime ili zaporka." }, { "en", "Incorrect username or password." } });       
             locales.Add("MissingAccount", new Dictionary<string, string> { { "hr", "Nije pronađen korisnički račun." }, { "en", "Account not found." } });       
             locales.Add("GoHome", new Dictionary<string, string> { { "hr", "Vrati se na početnu stranicu" }, { "en", "Go to home page" } });       
+            locales.Add("NewPasswordHeader", new Dictionary<string, string> { { "hr", "Molimo postavite novu zaporku" }, { "en", "Please set a new password" } });       
             locales.Add("SAMPLETEXT", new Dictionary<string, string> { { "hr", "SAMPLETEXT" }, { "en", "SAMPLETEXT" } });       
         }
         public string Resource(string request, string locale)

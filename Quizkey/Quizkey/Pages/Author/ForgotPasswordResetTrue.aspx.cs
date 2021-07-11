@@ -1,4 +1,5 @@
-﻿using Quizkey.Models;
+﻿using Quizkey.Cookies;
+using Quizkey.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,25 +39,27 @@ namespace Quizkey.Pages.Author.Pictures
                                 cookie["language"] = "en";
                                 cookie["username"] = (string)Session["reset-email"];
                                 cookie["userid"] = account.First().IDAuthor.ToString();
-                                Session["userid"] = account.First().IDAuthor.ToString();
+                                Session["userid"] = account.First().IDAuthor;
                                 Response.SetCookie(cookie);
                                 Response.Redirect("/Pages/Author/HomePage.aspx");
                             }
-
                         }
                         catch
                         {
 
                         }
-
-
-
                     }
         }
 
         private void ForgotPasswordResetTrue_PreRender(object sender, EventArgs e)
         {
+            HttpCookie userState = Request.Cookies["UserState"];
+            CookieParseWrapper cookie = new CookieParseWrapper(userState);
+            Localizer locale = Quizkey.Models.Localizer.Instance;
 
+            this.NewPasswordHeader.InnerText = locale.Resource("NewPasswordHeader", cookie.Enum(Cookies.UserState.language));
+            this.label6.Text = locale.Resource("Password", cookie.Enum(Cookies.UserState.language));
+            this.label7.Text = locale.Resource("RepeatPassword", cookie.Enum(Cookies.UserState.language));
         }
     }
 }
