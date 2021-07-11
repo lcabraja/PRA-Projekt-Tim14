@@ -71,6 +71,11 @@
                             CssClass="btn btn-outline-success"
                             ID="btSend"
                             runat="server" />
+                        <asp:HyperLink
+                            CssClass="btn btn-outline-danger mx-1"
+                            ID="hpforgot"
+                            NavigateUrl="~/Pages/Author/ForgotPassword.aspx"
+                            runat="server" />
                         <span id="diverrormessage" runat="server"></span>
                     </div>
                     <div>
