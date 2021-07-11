@@ -222,7 +222,26 @@
             <%--Top Container--%>
             <div class="qk-quizcreation-grid-container-top">
                 <%--Question--%>
-                <div class="bg-secondary rounded text-center order" id="positioncontainer" runat="server">
+                <style>
+                    @media (max-width: 767.98px) {
+                        .fold {
+                            display: flex;
+                            flex-wrap: wrap;
+                            flex-direction: row;
+                        }
+
+                        .position-columns {
+                            display: flex;
+                            margin: auto;
+                        }
+
+                        .rowrowrowyourboat {
+                            margin: auto;
+                            overflow-y: hidden;
+                        }
+                    }
+                </style>
+                <div class="bg-secondary rounded text-center order fold" id="positioncontainer" runat="server">
                     <div class="position-columns">
                         <div class="qk-column" id="place2" runat="server">
                             <div class="qk-column-2 rounded">
@@ -249,11 +268,14 @@
                     </div>
                 </div>
                 <%--Time--%>
+                <div class="badge bg-primary mb-3 d-flex" id="zapisnik" onserverclick="zapisnik_ServerClick" runat="server">
+                    <h2 class="text-center" style="margin: auto;" id="aposition" runat="server"></h2>
+                </div>
+                <button class="btn btn-primary mb-3 d-flex">
+                    <h2 class="text-center" style="margin: auto;">aa</h2>
+                </button>
             </div>
             <%--Bottom Container--%>
-            <div class="btn btn-primary mb-3 d-flex" id="zapisnik" onserverclick="zapisnik_ServerClick" runat="server">
-                <h2 class="text-center" style="margin: auto;" id="aposition" runat="server"></h2>
-            </div>
         </div>
     </form>
     <script src="Scripts/bootstrap.min.js"></script>

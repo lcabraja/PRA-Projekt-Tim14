@@ -222,7 +222,26 @@
             <%--Top Container--%>
             <div class="qk-quizcreation-grid-container-top">
                 <%--Question--%>
-                <div class="bg-secondary rounded text-center order" id="positioncontainer" runat="server">
+                                <style>
+                    @media (max-width: 767.98px) {
+                        .fold {
+                            display: flex;
+                            flex-wrap: wrap;
+                            flex-direction: row;
+                        }
+
+                        .position-columns {
+                            display: flex;
+                            margin: auto;
+                        }
+
+                        .rowrowrowyourboat {
+                            margin: auto;
+                            overflow-y: hidden;
+                        }
+                    }
+                </style>
+                <div class="bg-secondary rounded text-center order fold" id="positioncontainer" runat="server">
                     <div class="position-columns">
                         <div class="qk-column" id="place2" runat="server">
                             <div class="qk-column-2 rounded">
