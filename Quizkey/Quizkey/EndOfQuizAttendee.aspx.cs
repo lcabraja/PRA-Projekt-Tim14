@@ -82,8 +82,6 @@ namespace Quizkey
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
 
-            gohome.InnerText = locale.Resource("GoHome", cookie.Enum(Cookies.UserState.language));
-
             var attendees = Repo.GetMultipleAttendee().Where(x => x.SessionID == SessionID);
             var sortedAttendees = attendees.OrderBy(GetScore);
             var top3 = sortedAttendees.Take(3).ToList();

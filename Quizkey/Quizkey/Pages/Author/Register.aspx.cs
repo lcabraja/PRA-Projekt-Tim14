@@ -23,13 +23,7 @@ namespace Quizkey
                         if (Repo.GetMultipleAuthor().Where(x => x.Username == tbUsername.Text).Count() > 0)
                         {
                             ShowErrorMessage = true;
-                            ErrorMessage = "UsernameTaken";
-                            return;
-                        }
-                        if (Repo.GetMultipleAuthor().Where(x => x.Email == tbEmail.Text).Count() > 0)
-                        {
-                            ShowErrorMessage = true;
-                            ErrorMessage = "EmailTaken";
+                            ErrorMessage = "Username is already taken.";
                             return;
                         }
                         var userid = Repo.CreateAuthor(new Author
@@ -56,11 +50,6 @@ namespace Quizkey
             HttpCookie userState = Request.Cookies["UserState"];
             CookieParseWrapper cookie = new CookieParseWrapper(userState);
             Localizer locale = Quizkey.Models.Localizer.Instance;
-
-            if (ErrorMessage == "UsernameTaken")
-                ErrorMessage = locale.Resource("UsernameTaken", cookie.Enum(Cookies.UserState.language));
-            if (ErrorMessage == "EmailTaken")
-                ErrorMessage = locale.Resource("EmailTaken", cookie.Enum(Cookies.UserState.language));
 
             label1.Text = locale.Resource("Username", cookie.Enum(Cookies.UserState.language));
             label4.Text = locale.Resource("Email", cookie.Enum(Cookies.UserState.language));
