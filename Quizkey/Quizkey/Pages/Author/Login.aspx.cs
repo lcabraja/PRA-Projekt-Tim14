@@ -68,10 +68,5 @@ namespace Quizkey
             if (ShowErrorMessage)
                 diverrormessage.Controls.Add(new LiteralControl($"<div class=\"badge bg-danger\">{ErrorMessage}</div>"));
         }
-
-        protected void btforgot_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("/Pages/Author/ForgotPassword.aspx");
-        }
     }
 }
