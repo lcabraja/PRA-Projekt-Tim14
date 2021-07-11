@@ -1556,7 +1556,6 @@
     <Content Include="EndOfQuizAttendee.aspx" />
     <Content Include="GameStartUsername.aspx" />
     <Content Include="InProgressQuizQuestionAttendee.aspx" />
-    <Content Include="Pages\Author\ForgotPassword.aspx" />
     <Content Include="Pages\Author\HomePage.aspx" />
     <Content Include="Pages\Author\Login.aspx" />
     <Content Include="Pages\Author\Pictures\Quiz-1.png" />
@@ -1717,13 +1716,6 @@
       <DependentUpon>InProgressQuizQuestionAttendee.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Localizer.cs" />
-    <Compile Include="Pages\Author\ForgotPassword.aspx.cs">
-      <DependentUpon>ForgotPassword.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Author\ForgotPassword.aspx.designer.cs">
-      <DependentUpon>ForgotPassword.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Author\HomePage.aspx.cs">
       <DependentUpon>HomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
